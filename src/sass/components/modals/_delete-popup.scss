@@ -1,0 +1,35 @@
+.ant-modal.delete-popup {
+  width: 404px !important;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.ant-modal.delete-popup .ant-modal-body {
+  padding: 24px;
+}
+.ant-modal.delete-popup svg {
+  color: #FF2F22;
+  font-size: 90px;
+  margin-bottom: 10px;
+}
+.ant-modal.delete-popup h3 {
+  font-weight: 600;
+  font-size: 20px;
+  margin-bottom: 16px;
+  color: #223E5C;
+}
+
+.ant-modal.delete-popup button,
+.ant-modal.delete-popup button:hover {
+  background: #FF2F22;
+  border-radius: 6px;
+  width: 100%;
+  padding: 13px 0;
+  border: 1px solid #FF2F22;
+  border-radius: 7.34375px;
+  font-weight: 600;
+  font-size: 16px;
+  color: #fff;
+  cursor: pointer;
+}

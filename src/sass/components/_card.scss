@@ -1,0 +1,32 @@
+.ant-card {
+  border-radius: 5px;
+}
+.ant-card-head-wrapper {
+  padding-top: 18px;
+  padding-bottom: 18px;
+  align-items: center;
+}
+.ant-card-head {
+  border-bottom: 0;
+}
+.ant-card-head-title {
+  font-size: 20px;
+  font-weight: 500;
+  color: #223E5C;
+  padding-top: 0 !important;
+}
+.ant-card-body {
+  padding: 0;
+}
+.ant-card-extra {
+  padding-top: 0;
+  display: flex;
+  align-items: center;
+}
+
+// FORM CARD
+.form-card {
+  padding: 30px 24px;
+  border-radius: 8px;
+  margin-top: 40px;
+}

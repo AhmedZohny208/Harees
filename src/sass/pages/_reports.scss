@@ -1,0 +1,45 @@
+.report-card .select-search {
+  margin-right: 0;
+}
+
+// Main Info
+.report-card .main-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  color: #223E5C;
+}
+.report-card .main-info h4 span {
+  color: #216DA4;
+  font-weight: 400;
+}
+
+.report-card .item {
+  background-color: #FAFAFB;
+  color: #216DA4;
+  padding: 24px 16px;
+  border-radius: 8px;
+  overflow: hidden;
+  text-align: center;
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 145px;
+}
+.report-card .item .desc {
+  margin-bottom: 12px;
+  font-size: 16px;
+  font-weight: 500;
+}
+.report-card .item .number {
+  color: #216DA4;
+  font-size: 26px;
+  font-weight: 600;
+}
+
+.report-card .ant-card-body {
+  padding: 20px 20px;
+}

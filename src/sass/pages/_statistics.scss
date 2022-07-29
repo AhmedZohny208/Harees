@@ -1,0 +1,63 @@
+.statistics .card-lg {
+  background: #FFFFFF;
+  border-radius: 6px;
+  padding: 16px;
+}
+.statistics .card-lg .header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 16px;
+}
+.statistics .card-lg .header svg {
+  margin-right: 8px;
+  width: 40px;
+  height: 35px;
+}
+.statistics .card-lg .header h4 {
+  color: #223E5C;
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 0;
+}
+
+.statistics .item {
+  color: #216DA4;
+  padding: 8px;
+  text-align: center;
+}
+.statistics .item .desc {
+  margin-bottom: 12px;
+  font-size: 14px;
+}
+.statistics .item .number {
+  color: #216DA4;
+  font-size: 22px;
+  font-weight: 600;
+}
+.statistics .item.danger,
+.statistics .item.danger .number {
+  color: #EB001B;
+}
+
+.statistics .ant-card-bordered {
+  border: none;
+}
+.statistics .ant-card-body {
+  padding: 16px 24px;
+}
+.statistics .ant-card-body h4 {
+  color: #223E5C;
+  font-size: 24px;
+  font-weight: 600 !important;
+  margin-bottom: 0;
+}
+
+.statistics .graph-info {
+  color: #718EBF;
+  font-size: 28px;
+  padding-left: 18px;
+}
+.statistics .graph-info span:first-child {
+  margin-right: 20px;
+}

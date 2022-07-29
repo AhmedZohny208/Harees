@@ -1,0 +1,49 @@
+.home .welcome {
+  color: #223E5C;
+  font-weight: 600;
+  font-size: 36px;
+  margin-bottom: 28px;
+}
+.home .welcome span {
+  color: #28A5DD;
+}
+
+// CARD LG
+.home .card-lg {
+  padding: 24px !important;
+  min-height: 170px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.home .card-lg .header {
+  justify-content: flex-start !important;
+  margin-bottom: 8px;
+}
+.home .card-lg h5 {
+  font-size: 18px;
+  font-weight: 400;
+  text-align: left;
+}
+.home .card-lg h6 {
+  font-size: 22px;
+  font-weight: 700;
+  
+}
+.home .card-lg .info {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+.home .card-lg .info svg {
+  font-size: 55px;
+  color: #28A5DD;
+}
+
+// Number of subscriptions
+.home .card-lg.subscriptions .header {
+  justify-content: center !important;
+}
+.home .card-lg.subscriptions .header svg {
+  color: #28A5DD;
+}

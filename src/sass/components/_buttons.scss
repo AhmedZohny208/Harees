@@ -1,0 +1,54 @@
+// Create Button
+.create-btn {
+  padding: 10px 16px;
+  color: #223E5C;
+  font-weight: 600;
+  border: 1px solid #223E5C;
+  border-radius: 8px;
+  background-color: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: 0.2s ease-out;
+}
+.create-btn svg {
+  font-size: 28px;
+  margin-right: 13px;
+}
+.create-btn:hover {
+  background: #223E5C;
+  color: #fff;
+}
+
+// Actions Buttons
+.display-btn svg,
+.edit-btn svg,
+.delete-btn svg {
+  font-size: 22px;
+  cursor: pointer;
+  transition: 0.3s ease-out;
+}
+.edit-btn {
+  margin: 0 10px;
+}
+.delete-btn:hover svg {
+  color: #D0342C;
+}
+.display-btn:hover svg {
+  color: #2A9F20;
+}
+
+// Submit Button
+.submit-btn {
+  width: 100%;
+  font-weight: 500;
+  background: #28A5DD;
+  border-color: #28A5DD;
+  color: #fff;
+  border-radius: 5px;
+  margin-top: 16px;
+  /* padding: 13px 0; */
+}
+.submit-btn:hover {
+  background: #0f94d1;
+}

@@ -1,0 +1,79 @@
+.table .ant-spin-container {
+  padding: 0;
+}
+
+.ant-table-content thead tr th {
+  background-color: #223E5C;
+  color: #fff;
+}
+.ant-table-content thead tr th::before {
+  background: unset !important;
+}
+.ant-table-container table > thead > tr:first-child th:first-child {
+  border-top-left-radius: unset !important;
+}
+.ant-table-container table > thead > tr:first-child th:last-child {
+  border-top-right-radius: unset !important;
+}
+
+.ant-table-content td {
+  color: #223E5C;
+}
+
+.home-table-action {
+  position: relative;
+}
+
+.home-table-btn,
+.home-table-btn:hover {
+  height: 28px;
+  background: #f1e9d5;
+  color: #ba902e;
+  border-radius: 5px;
+  font-size: 12px;
+  line-height: 1px;
+}
+
+.home-table-btn-review {
+  position: absolute;
+  top: 0%;
+  width: 10px;
+  height: 10px;
+  background-color: #d0342c;
+  border-radius: 50%;
+}
+
+.action-icons svg {
+  visibility: hidden;
+}
+.action-icons svg.red {
+  visibility: visible;
+}
+
+.ant-table-tbody tr:hover .action-icons svg {
+  visibility: visible;
+}
+
+// Setting small fontsize for large tables
+.large-table .ant-table-content tr {
+  font-size: 12px;
+}
+.large-table .ant-table-tbody tr .action-icons svg {
+  width: 20px;
+  height: 20px;
+}
+
+@media (min-width: 1400px) {
+  .large-table .ant-table-content tr {
+    font-size: 14px;
+  }
+  .large-table .ant-table-tbody tr:hover .action-icons svg {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+// Changing font size for large tables
+.small-table .ant-table-content tr {
+  font-size: 16px;
+}
