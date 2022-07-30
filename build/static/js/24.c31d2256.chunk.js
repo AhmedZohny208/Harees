@@ -1,2 +1,0 @@
-(this.webpackJsonpharees=this.webpackJsonpharees||[]).push([[24],{424:function(e,s,c){"use strict";c.r(s);c(0);var a=c(420),t=c(4);s.default=function(){return Object(t.jsxs)("div",{className:"home",children:[Object(t.jsx)("div",{className:"welcome",children:Object(t.jsxs)("h2",{children:["Welcome",Object(t.jsx)("span",{children:", Sarah!"})]})}),Object(t.jsx)(a.default,{})]})}}}]);
-//# sourceMappingURL=24.c31d2256.chunk.js.map
