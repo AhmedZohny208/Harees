@@ -26,7 +26,8 @@ export const AppViews = () => {
         <Route path={`${APP_PREFIX_PATH}/packages/update/:id`} component={lazy(() => import(`./packages/update`))} /> */}
         {/* INVOICES */}
         <Route exact path={`${APP_PREFIX_PATH}/invoices`} component={lazy(() => import(`./invoices`))} />
-        {/* <Route path={`${APP_PREFIX_PATH}/invoices/create`} component={lazy(() => import(`./invoices/create`))} />
+        <Route path={`${APP_PREFIX_PATH}/invoices/create`} component={lazy(() => import(`./invoices/create`))} />
+        {/* 
         <Route path={`${APP_PREFIX_PATH}/invoices/update/:id`} component={lazy(() => import(`./invoices/update`))} /> */}
         {/* REPORTS */}
         <Route exact path={`${APP_PREFIX_PATH}/reports`} component={lazy(() => import(`./reports`))} />
@@ -34,7 +35,8 @@ export const AppViews = () => {
         <Route path={`${APP_PREFIX_PATH}/reports/update/:id`} component={lazy(() => import(`./reports/update`))} /> */}
         {/* OPERATOR */}
         <Route exact path={`${APP_PREFIX_PATH}/operator`} component={lazy(() => import(`./operator`))} />
-        {/* <Route path={`${APP_PREFIX_PATH}/operator/create`} component={lazy(() => import(`./operator/create`))} />
+        <Route path={`${APP_PREFIX_PATH}/operator/create`} component={lazy(() => import(`./operator/create`))} />
+        {/* 
         <Route path={`${APP_PREFIX_PATH}/operator/update/:id`} component={lazy(() => import(`./operator/update`))} /> */}
         
         <Route exact path={`${APP_PREFIX_PATH}/home/supervisors`} component={lazy(() => import(`./supervisors`))} />
@@ -44,7 +46,7 @@ export const AppViews = () => {
         <Route path={`${APP_PREFIX_PATH}/home/compound-admins/create`} component={lazy(() => import(`./compoundAdmins/create`))} />
         <Route path={`${APP_PREFIX_PATH}/home/compound-admins/update/:id`} component={lazy(() => import(`./compoundAdmins/update`))} />
         <Route path={`${APP_PREFIX_PATH}/home/statistics`} component={lazy(() => import(`./statistics`))} />
-        {/* <Redirect from={`${APP_PREFIX_PATH}`} to={`${APP_PREFIX_PATH}/home`} /> */}
+        <Redirect from={`${APP_PREFIX_PATH}`} to={`${APP_PREFIX_PATH}/home`} />
       </Switch>
     </Suspense>
   )

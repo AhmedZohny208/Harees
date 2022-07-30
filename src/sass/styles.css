@@ -181,7 +181,7 @@ h1, h2, h3, h4, h5, h6, p {
 
 .report-card .main-info h4 span {
   color: #216DA4;
-  font-weight: 400;
+  font-weight: 600;
 }
 
 .report-card .item {
@@ -584,6 +584,27 @@ input.ant-input:hover {
           box-shadow: none !important;
 }
 
+.ant-input-number {
+  display: block;
+  width: 100%;
+  border: 1px solid #B4B5B8;
+  color: black;
+  font-weight: 600;
+  padding: 2px 0;
+  border-radius: 6px;
+}
+
+.ant-input-number input {
+  font-weight: 600;
+}
+
+.ant-input-number-focused,
+.ant-input-number:hover {
+  border: 1px solid #000 !important;
+  -webkit-box-shadow: unset;
+          box-shadow: unset;
+}
+
 .ant-input-password {
   border: 1px solid #B4B5B8;
   padding: 11px 16px !important;
@@ -693,6 +714,29 @@ label.file svg {
 
 .create-form .input.is-active label {
   margin-right: 25px;
+}
+
+.create-form .ant-input-wrapper {
+  border: 1px solid #B4B5B8;
+  border-radius: 8px;
+}
+
+.create-form .ant-input-group-wrapper .ant-select {
+  border: unset;
+  padding: 0;
+}
+
+.create-form .ant-input-group-wrapper .ant-select-focused .ant-select-selector {
+  border: unset !important;
+}
+
+.create-form .ant-input-group-addon,
+.create-form .ant-input-wrapper .ant-input {
+  border: unset;
+}
+
+.create-form .ant-input-wrapper .ant-input {
+  border-left: 1px solid #B4B5B8;
 }
 
 .select-search {

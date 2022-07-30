@@ -1,11 +1,22 @@
 import React from 'react'
-import { Col, Row, Input, Button, DatePicker, Select, Switch } from 'antd'
+import { Col, Row, Input, InputNumber, Button, DatePicker, Select, Switch } from 'antd'
 import { 
   CloudUploadOutlined
 } from '@ant-design/icons';
 
 const { Option } = Select
 const dateFormat = 'YYYY/MM/DD'
+
+const prefixSelector = (
+  <Select
+    style={{
+      width: 70,
+    }}
+  >
+    <Option value="86">+86</Option>
+    <Option value="87">+87</Option>
+  </Select>
+);
 
 export default function Form() {
   return (
@@ -33,7 +44,7 @@ export default function Form() {
         <Col span={8}>
           <div className="input">
             <label htmlFor="">Phone Number</label>
-            <Input/>
+            <Input addonBefore={prefixSelector} />
           </div>
         </Col>
         <Col span={8}>
@@ -45,7 +56,7 @@ export default function Form() {
         <Col span={8}>
           <div className="input">
             <label htmlFor="">PO Number</label>
-            <Input/>
+            <InputNumber/>
           </div>
         </Col>
         <Col span={12}>

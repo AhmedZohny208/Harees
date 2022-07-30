@@ -1,5 +1,5 @@
 import React from 'react'
-import { Col, Row, Input, Button } from 'antd'
+import { Col, Row, Input, InputNumber, Button } from 'antd'
 
 export default function Form() {
   return (
@@ -15,37 +15,37 @@ export default function Form() {
         <Col span={8}>
           <div className="input">
             <label htmlFor="">Maximum Number of Tickets</label>
-            <Input/>
+            <InputNumber/>
           </div>
         </Col>
         <Col span={8}>
           <div className="input">
             <label htmlFor="">Maximum Number of Compounds</label>
-            <Input/>
+            <InputNumber/>
           </div>
         </Col>
         <Col span={8}>
           <div className="input">
             <label htmlFor="">Maximum Number of Supervisors</label>
-            <Input/>
+            <InputNumber/>
           </div>
         </Col>
         <Col span={8}>
           <div className="input">
             <label htmlFor="">Maximum Number of Tenants</label>
-            <Input/>
+            <InputNumber/>
           </div>
         </Col>
         <Col span={8}>
           <div className="input">
             <label htmlFor="">Maximum Number of Labors</label>
-            <Input/>
+            <InputNumber/>
           </div>
         </Col>
         <Col span={8}>
           <div className="input">
             <label htmlFor="">Price</label>
-            <Input/>
+            <InputNumber/>
           </div>
         </Col>
 

@@ -88,6 +88,25 @@ input.ant-input:hover {
   box-shadow: none !important;
 }
 
+// Input Number
+.ant-input-number {
+  display: block;
+  width: 100%;
+  border: 1px solid #B4B5B8;
+  color: rgba(0, 0, 0, 1);
+  font-weight: 600;
+  padding: 2px 0;
+  border-radius: 6px;
+}
+.ant-input-number input {
+  font-weight: 600;
+}
+.ant-input-number-focused,
+.ant-input-number:hover {
+  border: 1px solid #000 !important;
+  box-shadow: unset;
+}
+
 // Password Input
 .ant-input-password {
   border: 1px solid #B4B5B8;
@@ -185,4 +204,24 @@ label.file svg {
 // Is Active
 .create-form .input.is-active label {
   margin-right: 25px;
+}
+
+// Prefix Selector
+.create-form .ant-input-wrapper {
+  border: 1px solid #B4B5B8;
+  border-radius: 8px;
+}
+.create-form .ant-input-group-wrapper .ant-select {
+  border: unset;
+  padding: 0;
+}
+.create-form .ant-input-group-wrapper .ant-select-focused .ant-select-selector {
+  border: unset !important;
+}
+.create-form .ant-input-group-addon,
+.create-form .ant-input-wrapper .ant-input {
+  border: unset;
+}
+.create-form .ant-input-wrapper .ant-input {
+  border-left: 1px solid #B4B5B8;
 }

@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import { Table, Card, Space, Avatar, Tag } from 'antd'
+import { Table, Card, Space, Avatar } from 'antd'
 import {
   EditOutlined,
   DeleteOutlined,
   EyeOutlined,
-  CheckSquareOutlined,
-  CloseSquareOutlined
 } from '@ant-design/icons'
 import data from 'configs/operatorsData'
 import CreateBtn from 'components/shared-components/buttons/Create'
@@ -85,7 +83,7 @@ export default function TableC() {
         title='Operators'
         bordered={false}
         style={{ marginBottom: '480px' }}
-        extra={<CreateBtn text='Create New Operator' onclick={() => history.push(`${APP_PREFIX_PATH}/organization/create`)} />}
+        extra={<CreateBtn text='Create New Operator' onclick={() => history.push(`${APP_PREFIX_PATH}/operator/create`)} />}
       >
         <Table
           columns={columns}

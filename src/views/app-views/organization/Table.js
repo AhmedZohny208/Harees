@@ -4,8 +4,6 @@ import {
   EditOutlined,
   DeleteOutlined,
   EyeOutlined,
-  CheckSquareOutlined,
-  CloseSquareOutlined
 } from '@ant-design/icons'
 import data from 'configs/organizationData'
 import CreateBtn from 'components/shared-components/buttons/Create'

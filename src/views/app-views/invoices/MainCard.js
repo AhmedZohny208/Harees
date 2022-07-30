@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { Table, Card, Space } from 'antd'
+import { Table, Card, Space, Tag } from 'antd'
 import {
   EditOutlined,
   DeleteOutlined,
-  EyeOutlined
+  EyeOutlined,
+  CheckCircleOutlined,
+  ExclamationCircleOutlined
 } from '@ant-design/icons'
 import data from 'configs/invoiceData'
 import CreateBtn from 'components/shared-components/buttons/Create'
@@ -18,7 +20,7 @@ function ExtraCard() {
     <>
       <SelectSearch />
       
-      <CreateBtn text='Create a new invoice' onclick={() => history.push(`${APP_PREFIX_PATH}/home/compounds/create`)} />
+      <CreateBtn text='Create a new invoice' onclick={() => history.push(`${APP_PREFIX_PATH}/invoices/create`)} />
     </>
   )
 }
@@ -63,7 +65,20 @@ export default function MainCard() {
     },
     {
       title: 'Status',
-      dataIndex: 'status'
+      dataIndex: 'status',
+      render: text => (
+        <>
+          {text === 'Paid' ? (
+            <Tag icon={<CheckCircleOutlined />} color="success">
+              Paid
+            </Tag>
+          ) : (
+            <Tag icon={<ExclamationCircleOutlined />} color="warning">
+              Pending
+            </Tag>
+          )}
+        </>
+      )
     },
     {
       title: 'payment Method',

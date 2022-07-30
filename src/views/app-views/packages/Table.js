@@ -1,16 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import { Table, Card, Space, Avatar } from 'antd'
+import { Table, Card, Space } from 'antd'
 import {
   EditOutlined,
   DeleteOutlined,
   EyeOutlined,
-  CheckSquareOutlined,
-  CloseSquareOutlined
 } from '@ant-design/icons'
 import data from 'configs/packagesData'
 import CreateBtn from 'components/shared-components/buttons/Create'
-import Utils from 'utils'
-import { COLORS } from 'constants/ChartConstant'
 import { useHistory } from 'react-router-dom'
 import { APP_PREFIX_PATH } from 'configs/AppConfig'
 import DeletePopup from 'components/shared-components/modals/DeletePopup'

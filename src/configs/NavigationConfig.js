@@ -1,5 +1,5 @@
 import { 
-  HomeOutlined,
+  // HomeOutlined,
   GoldOutlined,
   CrownOutlined,
   FileOutlined,
@@ -7,7 +7,7 @@ import {
   DotChartOutlined,
   DashboardOutlined,
   UserOutlined,
-  TeamOutlined
+  // TeamOutlined
 } from '@ant-design/icons';
 import { APP_PREFIX_PATH } from 'configs/AppConfig'
 
