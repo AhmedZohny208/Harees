@@ -1,0 +1,41 @@
+.ant-modal.display-modal h3 {
+  font-weight: 600;
+  font-size: 20px;
+  margin-bottom: 16px;
+  color: #223E5C;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.ant-modal.display-modal {
+  position: relative;
+}
+.ant-modal.display-modal .close-btn {
+  color: #000;
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+// Compound
+.ant-modal.display-modal.compound {
+  min-width: 70%;
+}
+
+.ant-modal.display-modal.compound .image {
+  width: 100%;
+  height: 350px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  border-radius: 5px;
+}
+
+.ant-modal.display-modal.compound .compound-info h4 {
+  color: #223E5C;
+  font-weight: 600;
+  font-size: 22px;
+  margin-bottom: 24px;
+}

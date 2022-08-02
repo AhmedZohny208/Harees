@@ -3,7 +3,6 @@ import { Table, Card, Space } from 'antd'
 import {
   EditOutlined,
   DeleteOutlined,
-  EyeOutlined,
 } from '@ant-design/icons'
 import data from 'configs/packagesData'
 import CreateBtn from 'components/shared-components/buttons/Create'
@@ -72,8 +71,7 @@ export default function TableC() {
       key: 'action',
       render: (text, record) => (
         <Space>
-          <EyeOutlined className='display-btn' />
-          <EditOutlined className='edit-btn' onClick={() => history.push(`${APP_PREFIX_PATH}/home/supervisors/update/${record.id}`)} />
+          <EditOutlined className='edit-btn ml-0' onClick={() => history.push(`${APP_PREFIX_PATH}/packages/update/${record.id}`)} />
           <DeleteOutlined className='delete-btn' onClick={() => showDeleteModal(record._id)} />
         </Space>
       )

@@ -38,6 +38,20 @@
   color: #2A9F20;
 }
 
+// Update Password
+.update-password {
+  font-size: 12px;
+  font-weight: 600;
+  margin-left: 10px;
+  padding: 0;
+  border: none;
+  box-shadow: none;
+}
+.update-password:hover {
+  background-color: #fff !important;
+  color: #0f94d1 !important;
+}
+
 // Submit Button
 .submit-btn {
   width: 100%;

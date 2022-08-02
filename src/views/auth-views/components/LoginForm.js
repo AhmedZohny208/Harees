@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from "react-redux";
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, message } from "antd";
 import PropTypes from 'prop-types';
 import {  
 	showLoading, 
@@ -8,44 +8,18 @@ import {
 	hideAuthMessage,
 	authenticated
 } from 'redux/actions/Auth';
-import JwtAuthService from 'services/JwtAuthService'
 import { useHistory } from "react-router-dom";
+import { APP_PREFIX_PATH } from 'configs/AppConfig';
 
-export const LoginForm = (props) => {
+export const LoginForm = () => {
 	let history = useHistory();
 
-	const { 
-		hideAuthMessage,
-		showLoading,
-		loading,
-		showMessage,
-		authenticated,
-		showAuthMessage,
-		token,
-		redirect,
-		allowRedirect
-	} = props
-
 	const onLogin = values => {
-		showLoading()
-		const fakeToken = 'fakeToken'
-		JwtAuthService.login(values).then(resp => {
-			authenticated(fakeToken)
-		}).then(e => {
-			showAuthMessage(e)
-		})
+		message.success('Logged in successfully')
+		localStorage.setItem('role', values.email)
+		history.push(`${APP_PREFIX_PATH}`)
+		console.log(values);
 	};
-
-	useEffect(() => {
-		if (token !== null && allowRedirect) {
-			history.push(redirect)
-		}
-		if(showMessage) {
-			setTimeout(() => {
-			hideAuthMessage();
-		}, 3000);
-		}
-	});
 
 	return (
 		<>
@@ -67,7 +41,11 @@ export const LoginForm = (props) => {
 					<Input.Password />
 				</Form.Item>
 				<Form.Item>
-					<Button className='submit-btn' type="primary" htmlType="submit" block loading={loading}>
+					<Button 
+						className='submit-btn' 
+						type="primary" 
+						htmlType="submit" 
+					>
 						Sign In
 					</Button>
 				</Form.Item>

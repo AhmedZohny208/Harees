@@ -4,7 +4,7 @@ import {
   DeleteOutlined
 } from '@ant-design/icons'
 
-export default function DeletePopup({ visible, onCancel }) {
+export default function DeletePopup({ onConfirm, visible, onCancel }) {
 
   return (
     <>
@@ -22,11 +22,21 @@ export default function DeletePopup({ visible, onCancel }) {
             <DeleteOutlined />
           </div>
           <h3>Sure want to delete?</h3>
-          <button
-            className='btn'
-          >
-            Confirm Deletion
-          </button>
+
+          <div className="action-btns">
+            <button
+              className='btn cancel'
+              onClick={onCancel}
+            >
+              Cancel
+            </button>
+            <button
+              className='btn confirm'
+              onClick={onConfirm}
+            >
+              Confirm Deletion
+            </button>
+          </div>
         </div>
       </Modal>
     </>

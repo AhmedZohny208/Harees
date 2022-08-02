@@ -53,9 +53,11 @@
   margin-bottom: 4px;
   display: inline-block;
 }
-input.ant-input,
+.ant-input,
+.ant-input-disabled, .ant-input[disabled],
 .ant-input-password {
   border: 1px solid #B4B5B8;
+  background-color: #fff;
   color: rgba(0, 0, 0, 1);
   font-weight: 600;
   padding: 11px 16px;
@@ -88,11 +90,15 @@ input.ant-input:hover {
   box-shadow: none !important;
 }
 
+// Text input
+
 // Input Number
+.ant-input-number-disabled,
 .ant-input-number {
   display: block;
   width: 100%;
   border: 1px solid #B4B5B8;
+  background-color: #fff;
   color: rgba(0, 0, 0, 1);
   font-weight: 600;
   padding: 2px 0;
@@ -123,18 +129,20 @@ input.ant-input:hover {
 }
 
 // Date Picker
+.ant-picker-disabled,
 .ant-picker {
   padding: 11px 16px;
   padding-left: 8px !important;
-  background: #ffffff;
-  border: 1px solid #b4b5b8;
+  background: #ffffff !important;
+  border: 1px solid #b4b5b8 !important;
   border-radius: 5px;
   margin: 0 8px;
 }
-
+.ant-picker-disabled .ant-picker-input input,
 .ant-picker-input input {
   padding: 0 5px;
   font-weight: 600;
+  color: #000;
 }
 
 .ant-picker-focused {
@@ -197,6 +205,25 @@ label.file {
 }
 label.file svg {
   margin-left: 22px;
+  color: #28A5DD;
+  font-size: 30px;
+}
+
+// Image Upload
+.ant-btn.image-upload:hover,
+.ant-btn.image-upload {
+  width: 100%;
+  border: 2px dashed #28A5DD !important;
+  border-radius: 5px;
+  padding: 11px 30px;
+  color: #223E5C;
+  background: #fff !important;
+  font-weight: 500;
+  height: auto;
+  display: flex;
+  align-items: center;
+}
+.ant-btn.image-upload svg {
   color: #28A5DD;
   font-size: 30px;
 }

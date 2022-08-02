@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react'
-import { Table, Card, Space, Tag } from 'antd'
+import { Table, Card, Space, Tag, Avatar } from 'antd'
 import {
   EditOutlined,
   DeleteOutlined,
-  EyeOutlined,
   CheckCircleOutlined,
   ExclamationCircleOutlined
 } from '@ant-design/icons'
 import data from 'configs/invoiceData'
 import CreateBtn from 'components/shared-components/buttons/Create'
+import Utils from 'utils'
+import { COLORS } from 'constants/ChartConstant'
 import { useHistory } from 'react-router-dom'
 import { APP_PREFIX_PATH } from 'configs/AppConfig'
 import DeletePopup from 'components/shared-components/modals/DeletePopup'
@@ -49,7 +50,8 @@ export default function MainCard() {
   const columns = [
     {
       title: 'ID',
-      dataIndex: 'id'
+      dataIndex: 'id',
+      hidden: true
     },
     {
       title: 'Invoice Number',
@@ -61,7 +63,19 @@ export default function MainCard() {
     },
     {
       title: 'Issued By',
-      dataIndex: 'issuedBy'
+      dataIndex: 'issuedBy',
+      render: (text, record, index) => (
+        <div className='d-flex align-items-center'>
+          <Avatar
+            size={30}
+            className='font-size-sm'
+            style={{ backgroundColor: COLORS[index % 10] }}
+          >
+            {Utils.getNameInitial(text)}
+          </Avatar>
+          <span className='ml-2 fw-600'>{text}</span>
+        </div>
+      ),
     },
     {
       title: 'Status',
@@ -93,8 +107,7 @@ export default function MainCard() {
       key: 'action',
       render: (text, record) => (
         <Space>
-          <EyeOutlined className='display-btn' />
-          <EditOutlined className='edit-btn' onClick={() => history.push(`${APP_PREFIX_PATH}/home/compounds/update/${record.id}`)} />
+          <EditOutlined className='edit-btn ml-0' onClick={() => history.push(`${APP_PREFIX_PATH}/invoices/update/${record.id}`)} />
           <DeleteOutlined className='delete-btn' onClick={() => showDeleteModal(record._id)} />
         </Space>
       )

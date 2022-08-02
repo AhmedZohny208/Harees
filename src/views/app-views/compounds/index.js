@@ -1,6 +1,7 @@
 import React from 'react'
 import Breadcrumb from './Breadcrumb'
-import Table from './Table'
+import CompoundsTable from './CompoundsTable'
+import UnitsTable from './UnitsTable'
 
 export default function Compounds() {
   return (
@@ -8,7 +9,8 @@ export default function Compounds() {
       <Breadcrumb />
 
       <div className='mt-4'>
-        <Table />
+        <CompoundsTable />
+        <UnitsTable />
       </div>
     </div>
   )

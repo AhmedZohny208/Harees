@@ -5,23 +5,33 @@ import {
   DeleteOutlined,
   EyeOutlined
 } from '@ant-design/icons'
-import data from 'configs/userData'
+import data from 'configs/supervisorsData'
 import CreateBtn from 'components/shared-components/buttons/Create'
 import Utils from 'utils'
 import { COLORS } from 'constants/ChartConstant'
 import { useHistory } from 'react-router-dom'
 import { APP_PREFIX_PATH } from 'configs/AppConfig'
+import DisplayModal from 'components/shared-components/modals/DisplaySupervisor'
 import DeletePopup from 'components/shared-components/modals/DeletePopup'
 
 export default function TableC() {
   const history = useHistory()
 
   const [currentId, setCurrentId] = useState('')
+  const [displayVisible, isDisplayVisible] = useState(false)
   const [deleteVisible, isDeleteVisible] = useState(false)
 
   useEffect(() => {
     console.log(currentId);
   }, [currentId])
+
+  const showDisplayModal = (id) => {
+    setCurrentId(id)
+    isDisplayVisible(true)
+  }
+  const handleCancelDisplayModal = () => {
+    isDisplayVisible(false)
+  }
 
   const showDeleteModal = (id) => {
     setCurrentId(id)
@@ -37,11 +47,12 @@ export default function TableC() {
   const columns = [
     {
       title: 'ID',
-      dataIndex: 'id'
+      dataIndex: 'id',
+      hidden: true
     },
     {
       title: 'Supervisor Name',
-      dataIndex: 'name',
+      dataIndex: 'supervisorName',
       render: (text, record, index) => (
         <div className='d-flex align-items-center'>
           <Avatar
@@ -56,16 +67,18 @@ export default function TableC() {
       ),
     },
     {
-      title: 'Email',
-      dataIndex: 'email',
+      title: 'Phone Number',
+      dataIndex: 'phoneNumber',
+      render: text => <span className='fw-600'>{text}</span>
     },
     {
       title: 'Action',
       key: 'action',
+      width: '15%',
       render: (text, record) => (
         <Space>
-          <EyeOutlined className='display-btn' />
-          <EditOutlined className='edit-btn' onClick={() => history.push(`${APP_PREFIX_PATH}/home/supervisors/update/${record.id}`)} />
+          <EyeOutlined className='display-btn' onClick={() => showDisplayModal(record._id)} />
+          <EditOutlined className='edit-btn' onClick={() => history.push(`${APP_PREFIX_PATH}/supervisors/update/${record.id}`)} />
           <DeleteOutlined className='delete-btn' onClick={() => showDeleteModal(record._id)} />
         </Space>
       )
@@ -78,7 +91,7 @@ export default function TableC() {
       title='Supervisors'
       bordered={false}
       style={{ marginBottom: '480px' }}
-      extra={<CreateBtn text='Create a new supervisor' onclick={() => history.push(`${APP_PREFIX_PATH}/home/supervisors/create`)} />}
+      extra={<CreateBtn text='Create a new supervisor' onclick={() => history.push(`${APP_PREFIX_PATH}/supervisors/create`)} />}
     >
       <Table
         columns={columns}
@@ -88,6 +101,7 @@ export default function TableC() {
     </Card>
     
     <DeletePopup visible={deleteVisible} onCancel={handleCancelDeleteModal} />
+    <DisplayModal visible={displayVisible} onCancel={handleCancelDisplayModal} />
     </>
   )
 }

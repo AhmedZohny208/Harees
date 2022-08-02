@@ -19,15 +19,30 @@
   margin-bottom: 16px;
   color: #223E5C;
 }
-
-.ant-modal.delete-popup button,
-.ant-modal.delete-popup button:hover {
+.ant-modal.delete-popup .action-btns {
+  display: flex;
+  align-items: center;
+  margin-top: 26px;
+}
+.ant-modal.delete-popup .btn.cancel {
+  color: #555;
+  background-color: transparent;
+  border: 1px solid #FF2F22;
+  border-radius: 8px;
+  padding: 13px 20px;
+  font-weight: 600;
+  font-size: 16px;
+  margin-right: 16px;
+  cursor: pointer;
+}
+.ant-modal.delete-popup .btn.confirm,
+.ant-modal.delete-popup .btn.confirm:hover {
   background: #FF2F22;
   border-radius: 6px;
   width: 100%;
   padding: 13px 0;
   border: 1px solid #FF2F22;
-  border-radius: 7.34375px;
+  border-radius: 8px;
   font-weight: 600;
   font-size: 16px;
   color: #fff;

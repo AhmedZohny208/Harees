@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Table, Card, Space, Avatar, Tag } from 'antd'
+import { Table, Card, Space, Avatar, Tag, message } from 'antd'
 import {
   EditOutlined,
   DeleteOutlined,
@@ -11,25 +11,36 @@ import Utils from 'utils'
 import { COLORS } from 'constants/ChartConstant'
 import { useHistory } from 'react-router-dom'
 import { APP_PREFIX_PATH } from 'configs/AppConfig'
+import DisplayModal from 'components/shared-components/modals/DisplayOrganization'
 import DeletePopup from 'components/shared-components/modals/DeletePopup'
 
 export default function TableC() {
   const history = useHistory()
 
   const [currentId, setCurrentId] = useState('')
+  const [displayVisible, isDisplayVisible] = useState(false)
   const [deleteVisible, isDeleteVisible] = useState(false)
 
   useEffect(() => {
     console.log(currentId);
   }, [currentId])
 
+  const showDisplayModal = (id) => {
+    setCurrentId(id)
+    isDisplayVisible(true)
+  }
+  const handleCancelDisplayModal = () => {
+    isDisplayVisible(false)
+  }
+
   const showDeleteModal = (id) => {
     setCurrentId(id)
     isDeleteVisible(true)
   }
-  // const handleOkDeleteModal = () => {
-  //   isDeleteVisible(false)
-  // }
+  const handleOkDeleteModal = () => {
+    isDeleteVisible(false)
+    message.success('Record has been deleted successfully')
+  }
   const handleCancelDeleteModal = () => {
     isDeleteVisible(false)
   }
@@ -96,8 +107,8 @@ export default function TableC() {
       key: 'action',
       render: (text, record) => (
         <Space>
-          <EyeOutlined className='display-btn' />
-          <EditOutlined className='edit-btn' onClick={() => history.push(`${APP_PREFIX_PATH}/home/supervisors/update/${record.id}`)} />
+          <EyeOutlined className='display-btn' onClick={() => showDisplayModal(record._id)} />
+          <EditOutlined className='edit-btn' onClick={() => history.push(`${APP_PREFIX_PATH}/organization/update/${record.id}`)} />
           <DeleteOutlined className='delete-btn' onClick={() => showDeleteModal(record._id)} />
         </Space>
       )
@@ -119,7 +130,9 @@ export default function TableC() {
         />
       </Card>
       
-      <DeletePopup visible={deleteVisible} onCancel={handleCancelDeleteModal} />
+      <DeletePopup onConfirm={handleOkDeleteModal} visible={deleteVisible} onCancel={handleCancelDeleteModal} />
+
+      <DisplayModal visible={displayVisible} onCancel={handleCancelDisplayModal} />
     </>
   )
 }

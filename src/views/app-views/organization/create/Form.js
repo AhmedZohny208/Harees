@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Col, Row, Input, InputNumber, Button, DatePicker, Select, Switch } from 'antd'
 import { 
   CloudUploadOutlined
@@ -7,63 +7,142 @@ import {
 const { Option } = Select
 const dateFormat = 'YYYY/MM/DD'
 
-const prefixSelector = (
-  <Select
-    style={{
-      width: 70,
-    }}
-  >
-    <Option value="86">+86</Option>
-    <Option value="87">+87</Option>
-  </Select>
-);
-
 export default function Form() {
+  const [packageType, setPackageType] = useState('')
+  const [phonePrefix, setPhonePrefix] = useState('')
+  const [mobNumber, setMobNumber] = useState('')
+  const [contractStartDate, setContractStartDate] = useState('')
+  const [inputValues, setInputValues] = useState({
+    organizationName: '',
+    represetitiveName: '',
+    represetitivePosition: '',
+    email: '',
+    PONumber: '',
+    username: '',
+    password: ''
+  })
+
+  const handlePackageChange = (value) => {
+    setPackageType(value)
+  }
+  const handlePhonePrefixChange = (value) => {
+    setPhonePrefix(value);
+  }
+  const handleMobNumberChange = (e) => {
+    setMobNumber(e.target.value);
+    console.log(mobNumber);
+  }
+  const onDateChange = (date, dateString) => {
+    console.log(dateString);
+  };
+  const handleChange = (e) => {
+    const name = e.target.name
+    const value = e.target.value
+    setInputValues({ ...inputValues, [name]: value })
+  }
+// ssh key
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    const formValues = {
+      ...inputValues,
+      packageType,
+      contractStartDate
+    }
+    console.log(formValues);
+  }
+
+  const prefixSelector = (
+    <Select
+      onChange={handlePhonePrefixChange}
+      style={{
+        width: 70,
+      }}
+    >
+      <Option value="86">+86</Option>
+      <Option value="87">+87</Option>
+    </Select>
+  );
+
   return (
     <div className='create-form'>
 
       <Row gutter={16}>
         <Col span={8}>
           <div className="input">
-            <label htmlFor="">Organization Name</label>
-            <Input/>
+            <label htmlFor="organizationName">Organization Name</label>
+            <Input
+              id='organizationName'
+              name='organizationName'
+              value={inputValues.organizationName}
+              onChange={handleChange}
+            />
           </div>
         </Col>
         <Col span={8}>
           <div className="input">
-            <label htmlFor="">Represetitive Name</label>
-            <Input/>
+            <label htmlFor="represetitiveName">Represetitive Name</label>
+            <Input
+              id='represetitiveName'
+              name='represetitiveName'
+              value={inputValues.represetitiveName}
+              onChange={handleChange}
+            />
           </div>
         </Col>
         <Col span={8}>
           <div className="input">
-            <label htmlFor="">Represetitive Position</label>
-            <Input/>
+            <label htmlFor="represetitivePosition">Represetitive Position</label>
+            <Input
+              id='represetitivePosition'
+              name='represetitivePosition'
+              value={inputValues.represetitivePosition}
+              onChange={handleChange}
+            />
           </div>
         </Col>
         <Col span={8}>
           <div className="input">
             <label htmlFor="">Phone Number</label>
-            <Input addonBefore={prefixSelector} />
+            <Input
+              id='phoneNumber'
+              name='phoneNumber'
+              value={mobNumber}
+              onChange={handleMobNumberChange}
+              addonBefore={prefixSelector} 
+            />
           </div>
         </Col>
         <Col span={8}>
           <div className="input">
-            <label htmlFor="">Email Address</label>
-            <Input/>
+            <label htmlFor="email">Email Address</label>
+            <Input
+              id='email'
+              name='email'
+              value={inputValues.email}
+              onChange={handleChange}
+            />
           </div>
         </Col>
         <Col span={8}>
           <div className="input">
-            <label htmlFor="">PO Number</label>
-            <InputNumber/>
+            <label htmlFor="PONumber">PO Number</label>
+            <InputNumber
+              id='PONumber'
+              name='PONumber'
+              value={inputValues.PONumber}
+              onChange={handleChange}
+            />
           </div>
         </Col>
         <Col span={12}>
           <div className="input">
-            <label htmlFor="">Package Type</label>
+            <label htmlFor="packageType">Package Type</label>
             <Select
               dropdownAlign={{ offset: [0, 8] }}
+              id='packageType'
+              // name='packageType'
+              // value={inputValues.packageType}
+              onChange={handlePackageChange}
             >
               <Option value='Platinum'>Platinum</Option>
               <Option value='Golden'>Golden</Option>
@@ -74,24 +153,37 @@ export default function Form() {
         </Col>
         <Col span={12}>
           <div className="input">
-            <label htmlFor="">Contract Start Date</label>
+            <label htmlFor="contractStartDate">Contract Start Date</label>
             <DatePicker
               format={dateFormat}
               className='small w-100 mx-0'
-              placeholder=''
+              id='contractStartDate'
+              // name='contractStartDate'
+              // value={inputValues.contractStartDate}
+              onChange={onDateChange}
             />
           </div>
         </Col>
         <Col span={12}>
           <div className="input">
-            <label htmlFor="">Username</label>
-            <Input/>
+            <label htmlFor="username">Username</label>
+            <Input
+              id='username'
+              name='username'
+              value={inputValues.username}
+              onChange={handleChange}
+            />
           </div>
         </Col>
         <Col span={12}>
           <div className="input">
-            <label htmlFor="">Password</label>
-            <Input.Password />
+            <label htmlFor="password">Password</label>
+            <Input.Password
+              id='password' 
+              name='password'
+              value={inputValues.password}
+              onChange={handleChange}
+            />
           </div>
         </Col>
 
@@ -123,16 +215,13 @@ export default function Form() {
                 className='submit-btn' 
                 type="primary" 
                 htmlType="submit"
+                onClick={handleSubmit}
               >
                 Create new organization
               </Button>
             </Col>
           </Row>
         </Col>
-
-        <div className='w-100 text-right'>
-          
-        </div>
       </Row>
     </div>
   )

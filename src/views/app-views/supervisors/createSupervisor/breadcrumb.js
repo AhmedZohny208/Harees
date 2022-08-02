@@ -10,7 +10,7 @@ export default function BreadcrumbC() {
         <Link to={`${APP_PREFIX_PATH}/home`}>Home</Link>
       </Breadcrumb.Item>
       <Breadcrumb.Item>
-        <Link to={`${APP_PREFIX_PATH}/home/supervisors`}>Supervisors</Link>
+        <Link to={`${APP_PREFIX_PATH}/supervisors`}>Supervisors</Link>
       </Breadcrumb.Item>
       <Breadcrumb.Item>
         Create a Supervisor
