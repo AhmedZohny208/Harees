@@ -4,6 +4,7 @@ import {
   CloudUploadOutlined
 } from '@ant-design/icons';
 import countries from 'configs/countries';
+import {ReactComponent as Error} from '../../../../components/shared-components/svgs/error.svg';
 
 const { Option } = Select
 const dateFormat = 'YYYY/MM/DD'
@@ -93,12 +94,15 @@ export default function Form() {
         <Col span={8}>
           <div className="input">
             <label htmlFor="organizationName">Organization Name</label>
-            <Input
-              id='organizationName'
-              name='organizationName'
-              value={inputValues.organizationName}
-              onChange={handleChange}
-            />
+            <div>
+              <Input
+                id='organizationName'
+                name='organizationName'
+                value={inputValues.organizationName}
+                onChange={handleChange}
+              />
+            </div>
+            <Error className='error-sign' />
           </div>
         </Col>
         <Col span={8}>
@@ -110,6 +114,7 @@ export default function Form() {
               value={inputValues.represetitiveName}
               onChange={handleChange}
             />
+            <Error className='error-sign' />
           </div>
         </Col>
         <Col span={8}>
@@ -121,6 +126,7 @@ export default function Form() {
               value={inputValues.represetitivePosition}
               onChange={handleChange}
             />
+            <Error className='error-sign' />
           </div>
         </Col>
         <Col span={8}>
@@ -133,6 +139,7 @@ export default function Form() {
               onChange={handleMobNumberChange}
               addonBefore={prefixSelector} 
             />
+            <Error className='error-sign' />
           </div>
         </Col>
         <Col span={8}>
@@ -144,6 +151,7 @@ export default function Form() {
               value={inputValues.email}
               onChange={handleChange}
             />
+            <Error className='error-sign' />
           </div>
         </Col>
         <Col span={8}>
@@ -155,16 +163,15 @@ export default function Form() {
               value={PONumber}
               onChange={handlePONumberChange}
             />
+            <Error className='error-sign' />
           </div>
         </Col>
         <Col span={12}>
-          <div className="input">
+          <div className="input svg-input">
             <label htmlFor="packageType">Package Type</label>
             <Select
               dropdownAlign={{ offset: [0, 8] }}
               id='packageType'
-              // name='packageType'
-              // value={inputValues.packageType}
               onChange={handlePackageChange}
             >
               <Option value='Platinum'>Platinum</Option>
@@ -172,10 +179,11 @@ export default function Form() {
               <Option value='Silver'>Silver</Option>
               <Option value='Free-access'>Free-access</Option>
             </Select>
+            <Error className='error-sign' />
           </div>
         </Col>
         <Col span={12}>
-          <div className="input">
+          <div className="input svg-input">
             <label htmlFor="contractStartDate">Contract Start Date</label>
             <DatePicker
               placeholder=''
@@ -184,6 +192,7 @@ export default function Form() {
               id='contractStartDate'
               onChange={onDateChange}
             />
+            <Error className='error-sign' />
           </div>
         </Col>
         <Col span={12}>
@@ -195,10 +204,11 @@ export default function Form() {
               value={inputValues.username}
               onChange={handleChange}
             />
+            <Error className='error-sign' />
           </div>
         </Col>
         <Col span={12}>
-          <div className="input">
+          <div className="input svg-input">
             <label htmlFor="password">Password</label>
             <Input.Password
               id='password' 
@@ -206,6 +216,7 @@ export default function Form() {
               value={inputValues.password}
               onChange={handleChange}
             />
+            <Error className='error-sign' />
           </div>
         </Col>
 

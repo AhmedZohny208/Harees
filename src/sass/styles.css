@@ -575,51 +575,10 @@ footer .font-weight-semibold {
   margin-bottom: 24px;
 }
 
-/* .ant-form-item-label {
-  margin-bottom: 0;
-  padding: 0 !important;
-}
-.ant-form-item-label label {
-  color: #223E5C;
-  font-weight: 700;
-}
-.ant-input,
-.ant-input-password {
-  border: unset;
-  border-bottom: 2px solid #223E5C;
-  border-radius: unset;
-  background: transparent;
-  color: rgba(0, 0, 0, 0.5);
-  padding-top: 0 !important;
-}
-.ant-input:focus,
-.ant-input-affix-wrapper:focus,
-.ant-input-password:focus,
-.ant-input-affix-wrapper-focused {
-  box-shadow: unset !important;
-  outline: unset !important;
-  border-color: #28A5DD;
-}
-
-.ant-select-selector {
-  border: none !important;
-  background: transparent !important;
-}
-.ant-select-selector:focus,
-.ant-select:focus,
-.ant-select-focused .ant-select-selector {
-  box-shadow: unset !important;
-  outline: none;
-}
-.ant-select {
-  border-bottom: 2px solid #223E5C !important;
-}
-.ant-select-arrow svg {
-  color: #223E5C;
-} */
-input:-internal-autofill-selected {
-  background-color: #fff !important;
-  color: #000 !important;
+input:-webkit-autofill,
+input:-webkit-autofill:focus {
+  -webkit-transition: background-color 600000s 0s, color 600000s 0s;
+  transition: background-color 600000s 0s, color 600000s 0s;
 }
 
 .create-form .input {
@@ -873,6 +832,35 @@ label.file svg {
 .create-form .ant-select-item-option-content {
   font-weight: 600 !important;
   color: #000 !important;
+}
+
+.create-form .input {
+  position: relative;
+}
+
+.create-form .input .error-sign {
+  position: absolute;
+  right: 11px;
+  bottom: 13px;
+  display: none;
+}
+
+.create-form .input.error .error-sign {
+  display: block;
+}
+
+.create-form .input.svg-input .error-sign {
+  right: 40px;
+}
+
+.create-form .input.error .ant-input,
+.create-form .input.error .ant-input-number,
+.create-form .input.error .ant-input-affix-wrapper,
+.create-form .input.error .ant-picker,
+.create-form .input.error .ant-input-wrapper,
+.create-form .input.error .ant-select,
+.create-form .input.error .ant-input-password {
+  border-color: #D0342C !important;
 }
 
 .select-search {
