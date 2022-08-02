@@ -114,10 +114,14 @@ input.ant-input:hover {
 }
 
 // Password Input
-.ant-input-password {
+.ant-input-affix-wrapper {
   border: 1px solid #B4B5B8 !important;
-  padding: 11px 16px !important;
+  padding: 0 16px 0 0;
 }
+// .ant-input-password {
+//   border: 1px solid #B4B5B8 !important;
+//   padding: 11px 16px !important;
+// }
 .ant-input-password 
 .ant-input:focus,
 .ant-input-affix-wrapper:focus,
