@@ -3,7 +3,7 @@
 }
 
 h1, h2, h3, h4, h5, h6, p {
-  margin: 0;
+  margin: 0 !important;
 }
 
 .home .welcome {
@@ -226,7 +226,7 @@ h1, h2, h3, h4, h5, h6, p {
 }
 
 .report-card .ant-card-body {
-  padding: 20px 20px;
+  padding: 20px 20px !important;
 }
 
 .ant-menu-item a, .ant-menu-item > .ant-badge a {
@@ -378,7 +378,7 @@ footer .font-weight-semibold {
 }
 
 .ant-card-extra {
-  padding-top: 0;
+  padding-top: 0 !important;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -617,6 +617,11 @@ footer .font-weight-semibold {
 .ant-select-arrow svg {
   color: #223E5C;
 } */
+input:-internal-autofill-selected {
+  background-color: #fff !important;
+  color: #000 !important;
+}
+
 .create-form .input {
   margin-bottom: 16px;
 }
@@ -793,9 +798,9 @@ input[type="file"] {
 
 label.file {
   border: 2px dashed #28A5DD;
-  border-radius: 5px;
-  width: 100%;
-  padding: 11px;
+  border-radius: 5px !important;
+  width: 100% !important;
+  padding: 11px !important;
   color: #223E5C;
   text-align: center;
   cursor: pointer;
@@ -845,16 +850,23 @@ label.file svg {
 }
 
 .create-form .ant-input-group-wrapper .ant-select-focused .ant-select-selector {
-  border: unset !important;
+  border: 1px solid #223E5C !important;
 }
 
-.create-form .ant-input-group-addon,
+.create-form .ant-input-group-addon {
+  border: unset !important;
+  width: 90px !important;
+  border-right: 1px solid #B4B5B8 !important;
+  padding-right: 0 !important;
+  padding-left: 0 !important;
+}
+
 .create-form .ant-input-wrapper .ant-input {
   border: unset !important;
 }
 
-.create-form .ant-input-wrapper .ant-input {
-  border-left: 1px solid #B4B5B8 !important;
+.ant-input-group-addon .ant-select {
+  margin: 0 !important;
 }
 
 .select-search {

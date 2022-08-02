@@ -54,9 +54,6 @@ export default function Form() {
   const prefixSelector = (
     <Select
       onChange={handlePhonePrefixChange}
-      style={{
-        width: 70,
-      }}
     >
       <Option value="86">+86</Option>
       <Option value="87">+87</Option>
@@ -155,6 +152,7 @@ export default function Form() {
           <div className="input">
             <label htmlFor="contractStartDate">Contract Start Date</label>
             <DatePicker
+              placeholder=''
               format={dateFormat}
               className='small w-100 mx-0'
               id='contractStartDate'
