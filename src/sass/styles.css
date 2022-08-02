@@ -632,12 +632,12 @@ footer .font-weight-semibold {
 .ant-input,
 .ant-input-disabled, .ant-input[disabled],
 .ant-input-password {
-  border: 1px solid #B4B5B8;
+  border: 1px solid #B4B5B8 !important;
   background-color: #fff;
-  color: black;
-  font-weight: 600;
-  padding: 11px 16px;
-  border-radius: 6px;
+  color: black !important;
+  font-weight: 600 !important;
+  padding: 11px 16px !important;
+  border-radius: 6px !important;
 }
 
 .ant-input-affix-wrapper {
