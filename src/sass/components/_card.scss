@@ -1,22 +1,22 @@
 .ant-card {
-  border-radius: 5px;
+  border-radius: 5px !important;
 }
 .ant-card-head-wrapper {
-  padding-top: 18px;
-  padding-bottom: 18px;
-  align-items: center;
+  padding-top: 18px !important;
+  padding-bottom: 18px !important;
+  align-items: center !important;
 }
 .ant-card-head {
   border-bottom: 0;
 }
 .ant-card-head-title {
-  font-size: 20px;
-  font-weight: 500;
-  color: #223E5C;
+  font-size: 20px !important;
+  font-weight: 500 !important;
+  color: #223E5C !important;
   padding-top: 0 !important;
 }
 .ant-card-body {
-  padding: 0;
+  padding: 0 !important;
 }
 .ant-card-extra {
   padding-top: 0;
@@ -26,7 +26,7 @@
 
 // FORM CARD
 .form-card {
-  padding: 30px 24px;
-  border-radius: 8px;
-  margin-top: 40px;
+  padding: 30px 24px !important;
+  border-radius: 8px !important;
+  margin-top: 40px !important;
 }

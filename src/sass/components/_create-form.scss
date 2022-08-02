@@ -122,6 +122,9 @@ input.ant-input:hover {
 //   border: 1px solid #B4B5B8 !important;
 //   padding: 11px 16px !important;
 // }
+.ant-input-affix-wrapper .ant-input {
+  border: unset !important;
+}
 .ant-input-password 
 .ant-input:focus,
 .ant-input-affix-wrapper:focus,

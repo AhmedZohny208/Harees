@@ -54,15 +54,15 @@
 
 // Submit Button
 .submit-btn {
-  width: 100%;
-  font-weight: 500;
-  background: #28A5DD;
-  border-color: #28A5DD;
-  color: #fff;
-  border-radius: 5px;
-  margin-top: 16px;
+  width: 100% !important;
+  font-weight: 500 !important;
+  background: #28A5DD !important;
+  border-color: #28A5DD !important;
+  color: #fff !important;
+  border-radius: 5px !important;
+  margin-top: 16px !important;
   /* padding: 13px 0; */
 }
 .submit-btn:hover {
-  background: #0f94d1;
+  background: #0f94d1 !important;
 }

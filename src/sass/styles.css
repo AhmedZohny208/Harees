@@ -256,15 +256,15 @@ footer .font-weight-semibold {
 
 .ant-breadcrumb,
 .ant-breadcrumb a {
-  color: #28A5DD;
-  font-size: 12px;
-  -webkit-transition: 0.3s;
-  transition: 0.3s;
-  margin-bottom: 9px;
+  color: #28A5DD !important;
+  font-size: 12px !important;
+  -webkit-transition: 0.3s !important;
+  transition: 0.3s !important;
+  margin-bottom: 9px !important;
 }
 
 .ant-breadcrumb a:hover {
-  color: #223E5C;
+  color: #223E5C !important;
 }
 
 .table .ant-spin-container {
@@ -351,15 +351,15 @@ footer .font-weight-semibold {
 }
 
 .ant-card {
-  border-radius: 5px;
+  border-radius: 5px !important;
 }
 
 .ant-card-head-wrapper {
-  padding-top: 18px;
-  padding-bottom: 18px;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  padding-top: 18px !important;
+  padding-bottom: 18px !important;
+  -webkit-box-align: center !important;
+      -ms-flex-align: center !important;
+          align-items: center !important;
 }
 
 .ant-card-head {
@@ -367,14 +367,14 @@ footer .font-weight-semibold {
 }
 
 .ant-card-head-title {
-  font-size: 20px;
-  font-weight: 500;
-  color: #223E5C;
+  font-size: 20px !important;
+  font-weight: 500 !important;
+  color: #223E5C !important;
   padding-top: 0 !important;
 }
 
 .ant-card-body {
-  padding: 0;
+  padding: 0 !important;
 }
 
 .ant-card-extra {
@@ -388,9 +388,9 @@ footer .font-weight-semibold {
 }
 
 .form-card {
-  padding: 30px 24px;
-  border-radius: 8px;
-  margin-top: 40px;
+  padding: 30px 24px !important;
+  border-radius: 8px !important;
+  margin-top: 40px !important;
 }
 
 .create-btn {
@@ -458,18 +458,18 @@ footer .font-weight-semibold {
 }
 
 .submit-btn {
-  width: 100%;
-  font-weight: 500;
-  background: #28A5DD;
-  border-color: #28A5DD;
-  color: #fff;
-  border-radius: 5px;
-  margin-top: 16px;
+  width: 100% !important;
+  font-weight: 500 !important;
+  background: #28A5DD !important;
+  border-color: #28A5DD !important;
+  color: #fff !important;
+  border-radius: 5px !important;
+  margin-top: 16px !important;
   /* padding: 13px 0; */
 }
 
 .submit-btn:hover {
-  background: #0f94d1;
+  background: #0f94d1 !important;
 }
 
 .ant-modal.delete-popup {
@@ -698,6 +698,10 @@ input.ant-input:hover {
   padding: 0 16px 0 0;
 }
 
+.ant-input-affix-wrapper .ant-input {
+  border: unset !important;
+}
+
 .ant-input-password
 .ant-input:focus,
 .ant-input-affix-wrapper:focus,
@@ -854,7 +858,7 @@ label.file svg {
 }
 
 .select-search {
-  margin-right: 24px;
+  margin-right: 24px !important;
 }
 
 .ant-select {
