@@ -443,13 +443,13 @@ footer .font-weight-semibold {
 }
 
 .update-password {
-  font-size: 12px;
-  font-weight: 600;
-  margin-left: 10px;
-  padding: 0;
-  border: none;
-  -webkit-box-shadow: none;
-          box-shadow: none;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  margin-left: 10px !important;
+  padding: 0 !important;
+  border: none !important;
+  -webkit-box-shadow: none !important;
+          box-shadow: none !important;
 }
 
 .update-password:hover {
@@ -638,7 +638,7 @@ input:-internal-autofill-selected {
 .ant-input-disabled, .ant-input[disabled],
 .ant-input-password {
   border: 1px solid #B4B5B8 !important;
-  background-color: #fff;
+  background-color: #fff !important;
   color: black !important;
   font-weight: 600 !important;
   padding: 11px 16px !important;
@@ -884,11 +884,11 @@ label.file svg {
 }
 
 .ant-select-selection-placeholder {
-  color: #223E5C;
+  color: #223E5C !important;
 }
 
 .ant-select svg {
-  fill: #223E5C;
+  fill: #223E5C !important;
 }
 
 .ant-select.ant-select-focused .ant-select-selector {
@@ -903,7 +903,7 @@ label.file svg {
 }
 
 .ant-select-selection-item {
-  font-weight: 600;
+  font-weight: 600 !important;
 }
 
 .ant-select-item-option {

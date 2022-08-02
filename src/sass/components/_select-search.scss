@@ -13,11 +13,11 @@
 }
 
 .ant-select-selection-placeholder {
-  color: #223E5C;
+  color: #223E5C !important;
 }
 
 .ant-select svg {
-  fill: #223E5C;
+  fill: #223E5C !important;
 }
 
 .ant-select.ant-select-focused .ant-select-selector {
@@ -30,7 +30,7 @@
   color: #000 !important;
 }
 .ant-select-selection-item {
-  font-weight: 600;
+  font-weight: 600 !important;
 }
 
 .ant-select-item-option {
