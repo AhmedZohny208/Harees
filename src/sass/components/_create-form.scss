@@ -259,7 +259,7 @@ label.file svg {
 }
 .create-form .ant-input-group-addon {
   border: unset !important;
-  width: 90px !important;
+  width: 100px !important;
   border-right: 1px solid #B4B5B8 !important;
   padding-right: 0 !important;
   padding-left: 0 !important;
@@ -273,3 +273,8 @@ label.file svg {
 // .create-form .ant-input-wrapper .ant-input {
 //   border-left: 1px solid #B4B5B8 !important;
 // }
+
+.create-form .ant-select-item-option-content {
+  font-weight: 600 !important;
+  color: #000 !important;
+}

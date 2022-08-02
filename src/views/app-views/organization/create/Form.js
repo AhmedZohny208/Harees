@@ -3,21 +3,23 @@ import { Col, Row, Input, InputNumber, Button, DatePicker, Select, Switch } from
 import { 
   CloudUploadOutlined
 } from '@ant-design/icons';
+import countries from 'configs/countries';
 
 const { Option } = Select
 const dateFormat = 'YYYY/MM/DD'
 
 export default function Form() {
   const [packageType, setPackageType] = useState('')
-  const [phonePrefix, setPhonePrefix] = useState('')
+  const [PONumber, setPONumber] = useState('')
+  const [phonePrefix, setPhonePrefix] = useState('966')
   const [mobNumber, setMobNumber] = useState('')
   const [contractStartDate, setContractStartDate] = useState('')
+  const [isActive, setIsActive] = useState(false)
   const [inputValues, setInputValues] = useState({
     organizationName: '',
     represetitiveName: '',
     represetitivePosition: '',
     email: '',
-    PONumber: '',
     username: '',
     password: ''
   })
@@ -25,38 +27,62 @@ export default function Form() {
   const handlePackageChange = (value) => {
     setPackageType(value)
   }
+  const handlePONumberChange = (value) => {
+    setPONumber(value)
+  }
   const handlePhonePrefixChange = (value) => {
     setPhonePrefix(value);
   }
   const handleMobNumberChange = (e) => {
     setMobNumber(e.target.value);
-    console.log(mobNumber);
   }
   const onDateChange = (date, dateString) => {
-    console.log(dateString);
+    setContractStartDate(dateString)
   };
+  const onIsActive = (value) => {
+    setIsActive(value)
+  }
   const handleChange = (e) => {
     const name = e.target.name
     const value = e.target.value
     setInputValues({ ...inputValues, [name]: value })
   }
-// ssh key
+
   const handleSubmit = (e) => {
     e.preventDefault()
     const formValues = {
       ...inputValues,
+      PONumber,
       packageType,
-      contractStartDate
+      contractStartDate,
+      phoneNumber: `+${phonePrefix}${mobNumber}`,
+      isActive
     }
     console.log(formValues);
   }
 
   const prefixSelector = (
     <Select
+      defaultValue='+966'
       onChange={handlePhonePrefixChange}
+      showSearch
+      optionFilterProp="children"
+      filterOption={(input, option) =>
+                  option.children
+                    .toString()
+                    .toLowerCase()
+                    .indexOf(input.toLowerCase()) >= 0
+                }
     >
-      <Option value="86">+86</Option>
-      <Option value="87">+87</Option>
+      {countries &&
+        countries.map((e, i) => (
+          <Option key={i} value={e.code}>
+            <span
+              className={`flag-icon flag-icon-${e.iso2.toLowerCase()} mr-2`}
+            ></span>
+            {`+${e.code}`}
+          </Option>
+        ))}
     </Select>
   );
 
@@ -126,8 +152,8 @@ export default function Form() {
             <InputNumber
               id='PONumber'
               name='PONumber'
-              value={inputValues.PONumber}
-              onChange={handleChange}
+              value={PONumber}
+              onChange={handlePONumberChange}
             />
           </div>
         </Col>
@@ -156,8 +182,6 @@ export default function Form() {
               format={dateFormat}
               className='small w-100 mx-0'
               id='contractStartDate'
-              // name='contractStartDate'
-              // value={inputValues.contractStartDate}
               onChange={onDateChange}
             />
           </div>
@@ -190,7 +214,7 @@ export default function Form() {
             <Col span={6}>
               <div className="input is-active">
                 <label htmlFor="">Is Active</label>
-                <Switch defaultChecked />
+                <Switch onChange={onIsActive} />
               </div>
             </Col>
             <Col span={6}>

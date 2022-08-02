@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import 'flag-icon-css/css/flag-icons.min.css';
 import './index.css';
 
 ReactDOM.render(<App />, document.getElementById('root'));
