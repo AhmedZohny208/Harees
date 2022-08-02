@@ -71,6 +71,7 @@ input:-internal-autofill-selected {
 .ant-input-affix-wrapper {
   padding: 0 !important;
   border: none;
+  padding-right: 16px !important;
 }
 
 input.ant-input:focus {
@@ -254,7 +255,7 @@ label.file svg {
   padding: 0 !important;
 }
 .create-form .ant-input-group-wrapper .ant-select-focused .ant-select-selector {
-  border: 1px solid #223E5C !important;
+  border: unset !important;
 }
 .create-form .ant-input-group-addon {
   border: unset !important;
