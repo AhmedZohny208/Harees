@@ -208,6 +208,8 @@ label.file svg {
 }
 
 // Prefix Selector
+.create-form .ant-input-affix-wrapper, 
+.ant-input-affix-wrapper-textarea-with-clear-btn,
 .create-form .ant-input-wrapper {
   border: 1px solid #B4B5B8 !important;
   border-radius: 8px !important;

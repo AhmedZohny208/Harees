@@ -10,7 +10,7 @@ export default function Form() {
   const [technicianName, setTechnicianName] = useState('')
   const [address, setAddress] = useState('')
   const [teamName, setTeamName] = useState('')
-  const [isTeamLead, setIsTeamLead] = useState('')
+  const [isTeamLead, setIsTeamLead] = useState(false)
   const [phonePrefix, setPhonePrefix] = useState('966')
   const [mobNumber, setMobNumber] = useState('')
   const [email, setEmail] = useState('')

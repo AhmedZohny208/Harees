@@ -1,11 +1,44 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Modal, Button } from 'antd';
 import {
   CloseOutlined
 } from '@ant-design/icons'
 import { Col, Row, Input } from 'antd';
+import {ReactComponent as Error} from '../svgs/error.svg';
 
-export default function UpdateService({ visible, onConfirm, onCancel }) {
+export default function CreateService({ visible, onConfirm, onCancel }) {
+  const [formValues, setFormValues] = useState()
+  const [serviceName, setServiceName] = useState('Plumping')
+
+  const [formErrors, setFormErrors] = useState({})
+  const [isSubmit, setIsSubmit] = useState(false)
+
+  useEffect(() => {
+    setFormValues({ serviceName })
+  }, [serviceName])
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    setFormErrors(validate(formValues));
+    setIsSubmit(true)
+  }
+
+  useEffect(() => {
+    console.log(formErrors);
+    if(Object.keys(formErrors).length === 0 && isSubmit) {
+      console.log(formValues);
+      onConfirm()
+    }
+  }, [formErrors, formValues, isSubmit])
+
+  const validate = (values) => {
+    const errors = {}
+    if (!values.serviceName) {
+      errors.serviceName = "Service name is required!";
+    }
+    return errors;
+  }
+
   return (
     <>
       <Modal
@@ -17,15 +50,22 @@ export default function UpdateService({ visible, onConfirm, onCancel }) {
         closable={false}
         centered
       >
-        <h3>Update service</h3>
+        <h3>Create a New Service</h3>
 
         <div className='create-form'>
 
           <Row gutter={16}>
             <Col span={24}>
-              <div className="input">
-                <label htmlFor="">Service Name</label>
-                <Input defaultValue='Plumping' />
+              <div className={`input ${formErrors.serviceName && 'error'}`}>
+                <label htmlFor="serviceName">Name</label>
+                <Input
+                  id='serviceName'
+                  name='serviceName'
+                  value={serviceName}
+                  onChange={(e) => setServiceName(e.target.value)}
+                />
+                <Error className='error-sign' />
+                <small>{formErrors.serviceName}</small>
               </div>
             </Col>
             <Col span={24}>
@@ -33,9 +73,9 @@ export default function UpdateService({ visible, onConfirm, onCancel }) {
                 className='submit-btn' 
                 type="primary" 
                 htmlType="submit"
-                onClick={onConfirm}
+                onClick={handleSubmit}
               >
-                Update
+                Create new service
               </Button>
             </Col>
           </Row>
