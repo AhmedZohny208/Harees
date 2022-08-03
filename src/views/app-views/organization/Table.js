@@ -13,6 +13,17 @@ import { useHistory } from 'react-router-dom'
 import { APP_PREFIX_PATH } from 'configs/AppConfig'
 import DisplayModal from 'components/shared-components/modals/DisplayOrganization'
 import DeletePopup from 'components/shared-components/modals/DeletePopup'
+import TableSearch from 'components/shared-components/Form/TableSearch'
+
+function ExtraCard() {
+  const history = useHistory()
+  return (
+    <>
+      <TableSearch placeholder='Search for organization' />
+      <CreateBtn text='Create New Organization' onclick={() => history.push(`${APP_PREFIX_PATH}/organization/create`)} />
+    </>
+  )
+}
 
 export default function TableC() {
   const history = useHistory()
@@ -121,7 +132,7 @@ export default function TableC() {
         title='Organization Details'
         bordered={false}
         style={{ marginBottom: '480px' }}
-        extra={<CreateBtn text='Create New Organization' onclick={() => history.push(`${APP_PREFIX_PATH}/organization/create`)} />}
+        extra={<ExtraCard />}
       >
         <Table
           columns={columns}

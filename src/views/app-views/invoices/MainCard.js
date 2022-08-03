@@ -20,7 +20,6 @@ function ExtraCard() {
   return (
     <>
       <SelectSearch />
-      
       <CreateBtn text='Create a new invoice' onclick={() => history.push(`${APP_PREFIX_PATH}/invoices/create`)} />
     </>
   )

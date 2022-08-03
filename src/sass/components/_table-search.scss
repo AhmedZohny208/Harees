@@ -1,0 +1,16 @@
+.table-search {
+  width: 250px;
+  margin-right: 24px;
+  position: relative;
+}
+.table-search input {
+  background: #f4f4f4 !important;
+  border: unset !important;
+  border-radius: 12px !important;
+  padding: 15px 48px 15px 16px !important;
+}
+.table-search svg {
+  position: absolute;
+  top: 14px;
+  right: 8px;
+}
