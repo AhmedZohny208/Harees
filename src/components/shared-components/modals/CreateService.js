@@ -29,7 +29,7 @@ export default function CreateService({ visible, onConfirm, onCancel }) {
       console.log(formValues);
       onConfirm()
     }
-  }, [formErrors, formValues, isSubmit])
+  }, [formErrors, formValues, isSubmit, onConfirm])
 
   const validate = (values) => {
     const errors = {}

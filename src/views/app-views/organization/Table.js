@@ -127,6 +127,7 @@ export default function TableC() {
           columns={columns}
           dataSource={data}
           pagination={false}
+          rowKey={data => data.id}
         />
       </Card>
       

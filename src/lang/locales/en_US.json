@@ -1,5 +1,17 @@
 {
 	"home": "Home",
+	"Organization": "Organization",
+	"Packages": "Packages",
+	"Invoices": "Invoices",
+	"Reports & Documents": "Reports & Documents",
+	"Operator": "Operator",
+	"Services": "Services",
+	"Compounds": "Compounds",
+	"Tenants": "Tenants",
+	"Supervisors": "Supervisors",
+	"Technician": "Technician",
+	"Teams": "Teams",
+	"Statisitics": "Statisitics",
 	
 	"sidenav.dashboard": "Dashboard",
 	"sidenav.dashboard.default": "Default",

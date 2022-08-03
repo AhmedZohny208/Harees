@@ -126,6 +126,7 @@ export default function MainCard() {
         columns={columns}
         dataSource={data}
         pagination={false}
+        rowKey={data => data.id}
       />
     </Card>
     
