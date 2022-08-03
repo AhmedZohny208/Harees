@@ -78,7 +78,12 @@ input.ant-input:hover {
 // Password Input
 .ant-input-affix-wrapper {
   border: 1px solid #B4B5B8 !important;
-  padding: 0 16px 0 0;
+  padding: 1px !important;
+  padding-right: 0 !important;
+}
+.ant-input-affix-wrapper.ant-input-password {
+  border: 1px solid #B4B5B8 !important;
+  padding: 0 16px 0 0 !important;
 }
 // .ant-input-password {
 //   border: 1px solid #B4B5B8 !important;
@@ -243,7 +248,7 @@ label.file svg {
 .create-form .input .error-sign {
   position: absolute;
   right: 11px;
-  bottom: 13px;
+  bottom: 34px;
   display: none;
 }
 .create-form .input.error .error-sign {
@@ -260,4 +265,8 @@ label.file svg {
 .create-form .input.error .ant-select,
 .create-form .input.error .ant-input-password {
   border-color: #D0342C !important;
+}
+.create-form small {
+  color: #D0342C;
+  font-weight: 500;
 }

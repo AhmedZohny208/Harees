@@ -19,7 +19,7 @@ export default function UpdateUnit({ visible, onConfirm, onCancel }) {
         closable={false}
         centered
       >
-        <h3>Add a New Unit</h3>
+        <h3>Update Unit</h3>
 
         <div className='create-form'>
 
@@ -50,7 +50,7 @@ export default function UpdateUnit({ visible, onConfirm, onCancel }) {
                 htmlType="submit"
                 onClick={onConfirm}
               >
-                Add new unit
+                Update
               </Button>
             </Col>
           </Row>

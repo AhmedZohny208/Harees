@@ -17,7 +17,7 @@ export default function UpdateService({ visible, onConfirm, onCancel }) {
         closable={false}
         centered
       >
-        <h3>Create a New Service</h3>
+        <h3>Update service</h3>
 
         <div className='create-form'>
 
@@ -35,7 +35,7 @@ export default function UpdateService({ visible, onConfirm, onCancel }) {
                 htmlType="submit"
                 onClick={onConfirm}
               >
-                Create new service
+                Update
               </Button>
             </Col>
           </Row>
