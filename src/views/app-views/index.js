@@ -2,13 +2,14 @@ import React, { lazy, Suspense } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import Loading from 'components/shared-components/Loading';
 import { APP_PREFIX_PATH } from 'configs/AppConfig'
+import ProtectedRoute from "components/util-components/ProtectedRoute";
 
 export const AppViews = () => {
   return (
     <Suspense fallback={<Loading cover="content"/>}>
       <Switch>
         {/* HOME */}
-        <Route exact path={`${APP_PREFIX_PATH}/home`} component={lazy(() => import(`./home`))} />
+        <ProtectedRoute exact path={`${APP_PREFIX_PATH}/home`} component={lazy(() => import(`./home`))} />
 
         {/* COMPOUNDS */}
         <Route exact path={`${APP_PREFIX_PATH}/compounds`} component={lazy(() => import(`./compounds`))} />
