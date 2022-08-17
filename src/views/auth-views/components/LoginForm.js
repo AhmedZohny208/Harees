@@ -1,17 +1,9 @@
 import React from 'react';
-import { connect } from "react-redux";
 import { Button, Form, Input, message } from "antd";
-import PropTypes from 'prop-types';
-import {  
-	showLoading, 
-	showAuthMessage, 
-	hideAuthMessage,
-	authenticated
-} from 'redux/actions/Auth';
 import { useHistory } from "react-router-dom";
 import { APP_PREFIX_PATH } from 'configs/AppConfig';
 
-export const LoginForm = () => {
+export default function LoginForm() {
 	let history = useHistory();
 
 	const onLogin = values => {
@@ -53,31 +45,3 @@ export const LoginForm = () => {
 		</>
 	)
 }
-
-LoginForm.propTypes = {
-	otherSignIn: PropTypes.bool,
-	showForgetPassword: PropTypes.bool,
-	extra: PropTypes.oneOfType([
-		PropTypes.string,
-		PropTypes.element
-	]),
-};
-
-LoginForm.defaultProps = {
-	otherSignIn: true,
-	showForgetPassword: false
-};
-
-const mapStateToProps = ({auth}) => {
-	const {loading, message, showMessage, token, redirect} = auth;
-  	return {loading, message, showMessage, token, redirect}
-}
-
-const mapDispatchToProps = {
-	showAuthMessage,
-	showLoading,
-	hideAuthMessage,
-	authenticated
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(LoginForm)

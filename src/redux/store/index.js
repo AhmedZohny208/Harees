@@ -1,11 +1,12 @@
 import { createStore, applyMiddleware, compose } from "redux";
+import thunk from 'redux-thunk';
 import reducers from "../reducers";
 import createSagaMiddleware from "redux-saga";
 import rootSaga from "../sagas/index";
 
 const sagaMiddleware = createSagaMiddleware();
 
-const middlewares = [sagaMiddleware];
+const middlewares = [sagaMiddleware, thunk];
 
 function configureStore(preloadedState) {
  
