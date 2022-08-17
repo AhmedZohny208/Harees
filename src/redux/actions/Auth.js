@@ -6,12 +6,12 @@ import {
   CLEAR_ERRORS
 } from '../constants/Auth'
 
-export const login = (email, password, firebaseId, language) => async (dispatch) => {
+export const login = ({ email, password, fireBaseId, language }) => async (dispatch) => {
   try {
     dispatch({ type: LOGIN_REQUEST })
 
     const { data } = await axios.post('/owner/signing/login', {
-      email, password, firebaseId, language
+      email, password, fireBaseId, language
     })
 
     dispatch({
