@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Form, Input, message } from "antd";
+import { Button, Input, message, Alert } from "antd";
 import { useHistory } from "react-router-dom";
 import { APP_PREFIX_PATH } from 'configs/AppConfig';
 import {ReactComponent as Error} from '../../../components/shared-components/svgs/error.svg';
@@ -15,12 +15,14 @@ export default function LoginForm() {
 
 	const { isAuthenticated, error, loading } = useSelector(state => state.ownerAuth)
 
-	const [formValues, setFormValues] = useState()
+	const [formValues, setFormValues] = useState({})
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
 
 	const [formErrors, setFormErrors] = useState({})
   const [isSubmit, setIsSubmit] = useState(false)
+
+	const [alertError, setAlertError] = useState('')
 
 	const validate = (values) => {
 		const errors = {}
@@ -44,27 +46,25 @@ export default function LoginForm() {
 
 	const handleSubmit = (e) => {
     e.preventDefault()
-    setFormErrors(validate(formValues));
+		setFormErrors(validate(formValues));
     setIsSubmit(true)
   }
-
-	useEffect(() => {
-		if (isAuthenticated) {
-			// PUSH
-		}
-		if (error) {
-			// DISPLAY 
-			// CLEAR
-		}
-	}, [])
-
 	useEffect(() => {
     if(Object.keys(formErrors).length === 0 && isSubmit) {
-      console.log(formValues);
-			// DISPATCH
 			dispatch(login(formValues))
     }
   }, [formErrors, formValues, isSubmit])
+
+	useEffect(() => {
+		if (isAuthenticated) {
+			history.push(`${APP_PREFIX_PATH}/app/home`)
+			message.success('Logged in successfully')
+		}
+		if (error) {
+			setAlertError(error)
+			dispatch(clearErrors())
+		}
+	}, [dispatch, isAuthenticated, error, history])
 
 	return (
 		<>
@@ -94,11 +94,14 @@ export default function LoginForm() {
 					<small>{formErrors.password}</small>
 				</div>
 
+				{alertError && <Alert className='mb-1' message={`${alertError}`} type="error" showIcon />}
+
 				<Button 
 					className='submit-btn' 
 					type="primary" 
 					htmlType="submit"
 					onClick={handleSubmit}
+					loading={loading ? true : false}
 				>
 					Sign in
 				</Button>

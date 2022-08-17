@@ -21,7 +21,7 @@ export const login = ({ email, password, fireBaseId, language }) => async (dispa
   } catch (error) {
     dispatch({
       type: LOGIN_FAIL,
-      payload: error
+      payload: error.response.data
     })
   }
 }
