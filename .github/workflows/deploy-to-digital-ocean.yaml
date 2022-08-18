@@ -14,4 +14,4 @@ jobs:
           username: ${{ secrets.DIGITAL_OCEAN_USER }}
           key: ${{ secrets.DIGITAL_OCEAN_KEY }}
           script: |
-            ls -la
+            echo $REDIS_URL
