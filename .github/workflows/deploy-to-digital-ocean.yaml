@@ -2,7 +2,7 @@ name: Deploy To Digital Ocean Droplet
 on:
   push:
     branches:
-      - master
+      - main
 jobs:
   deploy:
     runs-on: ubuntu-latest
