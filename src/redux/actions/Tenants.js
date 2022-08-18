@@ -12,7 +12,6 @@ import {
   UPDATE_TENANT_FAIL,
   DELETE_TENANT_REQUEST,
   DELETE_TENANT_SUCCESS,
-  DELETE_TENANT_RESET,
   DELETE_TENANT_FAIL,
   TENANT_DETAILS_REQUEST,
   TENANT_DETAILS_SUCCESS,
@@ -128,4 +127,11 @@ export const getTenantDetails = (id, currentPage = 1) => async (dispatch) => {
       payload: error.response.data.message,
     })
   }
+}
+
+// Clear Errors
+export const clearErrors = () => async (dispatch) => {
+  dispatch({
+    type: CLEAR_ERRORS,
+  })
 }
