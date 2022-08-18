@@ -2,6 +2,8 @@ import {
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
+  LOGOUT_SUCCESS,
+  LOGOUT_FAIL,
   CLEAR_ERRORS
 } from '../constants/Auth'
 
@@ -19,8 +21,16 @@ export const ownerAuthReducer = (state = { user: {} }, action) => {
         ...state,
         loading: false,
 				isAuthenticated: true,
-				user: action.payload
+				user: action.payload.data,
+        token: action.payload.headers['x-auth-token']
       }
+
+    case LOGOUT_SUCCESS:
+			return {
+				loading: false,
+				isAuthenticated: false,
+				user: null
+			}
 
     case LOGIN_FAIL:
       return {
@@ -30,6 +40,12 @@ export const ownerAuthReducer = (state = { user: {} }, action) => {
 				user: null,
 				error: action.payload
       }
+
+    case LOGOUT_FAIL:
+			return {
+				...state,
+				error: action.payload
+			}
 
     case CLEAR_ERRORS:
 			return {

@@ -13,6 +13,7 @@ export const Views = (props) => {
   const { locale, location, direction } = props;
   const currentAppLocale = AppLocale[locale];
   useBodyClass(`dir-${direction}`);
+
   return (
     <IntlProvider
       locale={currentAppLocale.locale}

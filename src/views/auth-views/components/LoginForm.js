@@ -5,6 +5,8 @@ import { APP_PREFIX_PATH } from 'configs/AppConfig';
 import {ReactComponent as Error} from '../../../components/shared-components/svgs/error.svg';
 import { useDispatch, useSelector } from 'react-redux'
 import { login, clearErrors } from '../../../redux/actions/Auth'
+import { getProfileData } from "redux/actions/Profile";
+import axios from 'axios';
 
 export default function LoginForm() {
 	let history = useHistory();
@@ -13,7 +15,7 @@ export default function LoginForm() {
 	let fireBaseId = "idddddd05127004107";
 	let language = "ar";
 
-	const { isAuthenticated, error, loading } = useSelector(state => state.ownerAuth)
+	const { isAuthenticated, token, error, loading } = useSelector(state => state.ownerAuth)
 
 	const [formValues, setFormValues] = useState({})
 	const [email, setEmail] = useState('')
@@ -53,22 +55,24 @@ export default function LoginForm() {
     if(Object.keys(formErrors).length === 0 && isSubmit) {
 			dispatch(login(formValues))
     }
-  }, [formErrors, formValues, isSubmit])
+  }, [formErrors, formValues, isSubmit, dispatch])
 
 	useEffect(() => {
 		if (isAuthenticated) {
-			history.push(`${APP_PREFIX_PATH}/app/home`)
 			message.success('Logged in successfully')
+			axios.defaults.headers.common['X-Auth-Token'] = token
+			localStorage.setItem('HaressOwnerjwtToken', token)
+			dispatch(getProfileData())
+			history.push(`${APP_PREFIX_PATH}/app/home`)
 		}
 		if (error) {
 			setAlertError(error)
 			dispatch(clearErrors())
 		}
-	}, [dispatch, isAuthenticated, error, history])
+	}, [dispatch, isAuthenticated, error, history, token])
 
 	return (
 		<>
-
 			<div className="create-form">
 				<div className={`input ${formErrors.email && 'error'}`}>
 					<label htmlFor="name">Email</label>

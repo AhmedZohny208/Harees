@@ -1,15 +1,22 @@
 import { combineReducers } from 'redux';
 import Theme from './Theme';
 
-// OWNER AUTH REDUCERS
+// AUTH
 import {
     ownerAuthReducer
 } from './Auth';
 
+// PROFILE
+import {
+    profileDataReducer
+} from './Profile'
+
 const reducers = combineReducers({
     theme: Theme,
 
-    ownerAuth: ownerAuthReducer
+    ownerAuth: ownerAuthReducer,
+
+    profileData: profileDataReducer
 });
 
 export default reducers;

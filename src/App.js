@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './app.css';
 import './sass/styles.css';
 import { Provider } from 'react-redux';
@@ -8,6 +8,7 @@ import Views from './views';
 import { Route, Switch } from 'react-router-dom';
 import { ThemeSwitcherProvider } from "react-css-theme-switcher";
 import { THEME_CONFIG } from './configs/AppConfig';
+import axios from 'axios';
 
 const themes = {
   dark: `${process.env.PUBLIC_URL}/css/dark-theme.css`,
@@ -15,6 +16,15 @@ const themes = {
 };
 
 function App() {
+
+  // SEND STORED TOKEN WITH EVERY REQUEST
+  useEffect(() => {
+    const storedToken = localStorage.getItem("HaressOwnerjwtToken");
+    if (storedToken){
+      axios.defaults.headers.common['X-Auth-Token'] = storedToken
+    }
+  })
+
   return (
     <div className="App">
       <Provider store={store}>

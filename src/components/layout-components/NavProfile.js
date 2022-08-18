@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Menu, Dropdown, Avatar } from "antd";
+import { useDispatch, useSelector } from 'react-redux'
+import { useHistory } from "react-router-dom";
 import { 
   EditOutlined, 
   SettingOutlined, 
@@ -8,6 +10,9 @@ import {
   LogoutOutlined 
 } from '@ant-design/icons';
 import Icon from 'components/util-components/Icon';
+import { logout } from '../../redux/actions/Auth';
+import { getProfileData } from "redux/actions/Profile";
+import { AUTH_PREFIX_PATH } from 'configs/AppConfig';
 
 const menuItem = [
 	{
@@ -34,18 +39,34 @@ const menuItem = [
 ]
 
 export default function NavProfile() {
+  let history = useHistory();
+  const dispatch = useDispatch()
+
+  const { user } = useSelector(state => state.profileData)
+
+  const logoutHandler = () => {
+    dispatch(logout())
+    localStorage.removeItem("HaressOwnerjwtToken");
+    console.log('Logged out successfully.');
+  }
+  useEffect(() => {
+    dispatch(getProfileData())
+  }, [dispatch])
+
   const profileImg = "/img/avatars/thumb-1.jpg";
   const profileMenu = (
     <div className="nav-profile nav-dropdown">
-      <div className="nav-profile-header">
-        <div className="d-flex">
-          <Avatar size={45} src={profileImg} />
-          <div className="pl-3">
-            <h4 className="mb-0">Charlie Howard</h4>
-            <span className="text-muted">Frontend Developer</span>
+      {user && (
+        <div className="nav-profile-header">
+          <div className="d-flex">
+            <Avatar size={45} src={profileImg} />
+            <div className="pl-3">
+              <h4 className="mb-0">{user.fullName}</h4>
+              <span className="text-muted">{user.userTitle}</span>
+            </div>
           </div>
         </div>
-      </div>
+      )}
       <div className="nav-profile-body">
         <Menu>
           {menuItem.map((el, i) => {
@@ -58,11 +79,11 @@ export default function NavProfile() {
               </Menu.Item>
             );
           })}
-          <Menu.Item key={menuItem.length + 1}>
-            <span>
+          <Menu.Item key={menuItem.length + 1} onClick={logoutHandler}>
+            <a href={`${AUTH_PREFIX_PATH}/auth`}>
               <LogoutOutlined />
               <span className="font-weight-normal">Sign Out</span>
-            </span>
+            </a>
           </Menu.Item>
         </Menu>
       </div>
