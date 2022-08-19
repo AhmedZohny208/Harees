@@ -19,11 +19,11 @@ import {
   CLEAR_ERRORS
 } from '../constants/Tenants'
 
-export const queryTenants = (keyword = '', currentPage = 1) => async (dispatch) => {
+export const queryTenants = (currentPage) => async (dispatch) => {
   try {
     dispatch({ type: ALL_TENANTS_REQUEST })
 
-    let link = `${HOST}/owner/tenant-users?searchKeyword=${keyword}&page=${currentPage}&itemsPerPage=10&sortBy=createdAt&ascendingOrder=true`
+    let link = `${HOST}/owner/tenant-users?page=${currentPage}&itemsPerPage=10&sortBy=createdAt&ascendingOrder=true`
 
     const { data } = await axios.get(link)
 

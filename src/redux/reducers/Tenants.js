@@ -62,7 +62,10 @@ export const allTenantsReducer = (state = { tenants: {} }, action) => {
     case ALL_TENANTS_SUCCESS:
       return {
         loading: false,
-        tenants: action.payload.data
+        tenants: action.payload.items,
+        page: action.payload.page,
+        totalPages: action.payload.totalPages,
+        itemsTotalCount: action.payload.itemsTotalCount
       }
 
     case ALL_TENANTS_FAIL:

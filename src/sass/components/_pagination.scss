@@ -1,0 +1,24 @@
+.pagination {
+  padding: 15px;
+  text-align: right;
+}
+.ant-pagination-item {
+  border: 1px solid #C2C9D1;
+  border-radius: 4px;
+  line-height: 30px;
+}
+.ant-pagination-item a {
+  color: rgba(0, 0, 0, 0.5);
+  font-weight: 500;
+}
+.ant-pagination-item:hover,
+.ant-pagination-item.ant-pagination-item-active {
+  background: linear-gradient(0deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), #002044;
+}
+.ant-pagination-item:hover a,
+.ant-pagination-item.ant-pagination-item-active a {
+  color: #002044;
+}
+.ant-pagination-item-link {
+  border: unset !important;
+}

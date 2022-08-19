@@ -9,12 +9,10 @@ export default function Form() {
   const [formValues, setFormValues] = useState()
   const [tenantName, setTenantName] = useState('')
   const [address, setAddress] = useState('')
-  const [unitID, setUnitID] = useState('')
-  const [compoundName, setCompoundName] = useState('')
+  const [area, setArea] = useState('')
   const [phonePrefix, setPhonePrefix] = useState('966')
   const [mobNumber, setMobNumber] = useState('')
   const [email, setEmail] = useState('')
-  const [username, setUserName] = useState('')
 
   const [formErrors, setFormErrors] = useState({})
   const [isSubmit, setIsSubmit] = useState(false)
@@ -25,13 +23,11 @@ export default function Form() {
     setFormValues({
       tenantName, 
       address, 
-      unitID,
-      compoundName,
+      area,
       phoneNumber: `+${phonePrefix}${mobNumber}`,
       email,
-      username
     })
-  }, [tenantName, address, unitID, compoundName, phonePrefix, mobNumber, email, username])
+  }, [tenantName, address, area, phonePrefix, mobNumber, email])
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -51,17 +47,14 @@ export default function Form() {
     if (!values.tenantName) {
       errors.tenantName = "Tenant name is required!";
     }
-    if (!values.unitID) {
-      errors.unitID = "Unit ID is required!";
+    if (!values.area) {
+      errors.area = "Area is required!";
     }
     if (!values.compoundName) {
       errors.compoundName = "Compound name is required!";
     }
     if (!mobNumber) {
       errors.mobNumber = "Phone number is required!";
-    }
-    if (!values.username) {
-      errors.username = "Username is required!";
     }
     return errors;
   }
@@ -97,33 +90,18 @@ export default function Form() {
           </div>
         </Col>
         <Col span={8}>
-          <div className={`input svg-input ${formErrors.unitID && 'error'}`}>
-            <label htmlFor="unitID">Unit ID</label>
+          <div className={`input svg-input ${formErrors.area && 'error'}`}>
+            <label htmlFor="area">Area</label>
             <Select
               dropdownAlign={{ offset: [0, 8] }}
-              onChange={(val) => setUnitID(val)}
+              onChange={(val) => setArea(val)}
             >
               <Option value='A13'>A13</Option>
               <Option value='B1-11'>B1-11</Option>
               <Option value='B12-12'>B12-12</Option>
             </Select>
             <Error className='error-sign' />
-            <small>{formErrors.unitID}</small>
-          </div>
-        </Col>
-        <Col span={8}>
-          <div className={`input svg-input ${formErrors.compoundName && 'error'}`}>
-            <label htmlFor="compoundName">Compound</label>
-            <Select
-              dropdownAlign={{ offset: [0, 8] }}
-              onChange={(val) => setCompoundName(val)}
-            >
-              <Option value='Building 71'>Building 71</Option>
-              <Option value='Building 02'>Building 02</Option>
-              <Option value='Building 01'>Building 01</Option>
-            </Select>
-            <Error className='error-sign' />
-            <small>{formErrors.compoundName}</small>
+            <small>{formErrors.area}</small>
           </div>
         </Col>
         <Col span={8}>
@@ -151,19 +129,6 @@ export default function Form() {
             />
             <Error className='error-sign' />
             <small>{formErrors.email}</small>
-          </div>
-        </Col>
-        <Col span={8}>
-          <div className={`input ${formErrors.username && 'error'}`}>
-            <label htmlFor="username">Username</label>
-            <Input
-              id='username'
-              name='username'
-              value={username}
-              onChange={(e) => setUserName(e.target.value)}
-            />
-            <Error className='error-sign' />
-            <small>{formErrors.username}</small>
           </div>
         </Col>
 
