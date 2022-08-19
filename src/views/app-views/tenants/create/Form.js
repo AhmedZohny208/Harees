@@ -1,11 +1,23 @@
 import React, { useState, useEffect } from 'react'
-import { Col, Row, Input, Button, Select } from 'antd'
+import { Col, Row, Input, Button, Select, message, Alert } from 'antd'
+import { useHistory } from "react-router-dom";
 import {ReactComponent as Error} from '../../../../components/shared-components/svgs/error.svg';
 import PrefixSelector from 'components/shared-components/PrefixSelector';
+import { useDispatch, useSelector } from 'react-redux'
+import { registerTenant, clearErrors } from 'redux/actions/Tenants'
+import { queryAreas } from 'redux/actions/Areas'
+import { APP_PREFIX_PATH } from 'configs/AppConfig';
+import { CREATE_TENANT_RESET } from 'redux/constants/Tenants';
 
 const { Option } = Select
 
 export default function Form() {
+  let history = useHistory();
+  const dispatch = useDispatch();
+
+  const { areas } = useSelector(state => state.allAreas);
+  const { tenant, error, loading } = useSelector(state => state.registerTenant);
+
   const [formValues, setFormValues] = useState()
   const [tenantName, setTenantName] = useState('')
   const [address, setAddress] = useState('')
@@ -17,14 +29,31 @@ export default function Form() {
   const [formErrors, setFormErrors] = useState({})
   const [isSubmit, setIsSubmit] = useState(false)
 
+  const [alertError, setAlertError] = useState('')
+
   const prefixSelector = <PrefixSelector setPrefix={setPhonePrefix} />
 
   useEffect(() => {
+    dispatch(queryAreas())
+
+    if (tenant) {
+      setAlertError('')
+      message.success('Record has been created successfully')
+      history.push(`${APP_PREFIX_PATH}/tenants`)
+      dispatch({ type: CREATE_TENANT_RESET })
+    }
+    if (error) {
+			setAlertError(error)
+			dispatch(clearErrors())
+		}
+  }, [dispatch, error, tenant])
+
+  useEffect(() => {
     setFormValues({
-      tenantName, 
+      fullName: tenantName, 
       address, 
-      area,
-      phoneNumber: `+${phonePrefix}${mobNumber}`,
+      _area: area,
+      phone: `+${phonePrefix}${mobNumber}`,
       email,
     })
   }, [tenantName, address, area, phonePrefix, mobNumber, email])
@@ -33,25 +62,24 @@ export default function Form() {
     e.preventDefault()
     setFormErrors(validate(formValues));
     setIsSubmit(true)
+    dispatch(registerTenant(formValues))
   }
 
-  useEffect(() => {
-    console.log(formErrors);
-    if(Object.keys(formErrors).length === 0 && isSubmit) {
-      console.log(formValues);
-    }
-  }, [formErrors, formValues, isSubmit])
+  // useEffect(() => {
+  //   console.log(formErrors);
+  //   if(Object.keys(formErrors).length === 0 && isSubmit) {
+  //     console.log(formValues);
+  //     dispatch(registerTenant(formValues))
+  //   }
+  // }, [formErrors, formValues, isSubmit])
 
   const validate = (values) => {
     const errors = {}
-    if (!values.tenantName) {
+    if (!values.fullName) {
       errors.tenantName = "Tenant name is required!";
     }
-    if (!values.area) {
+    if (!values._area) {
       errors.area = "Area is required!";
-    }
-    if (!values.compoundName) {
-      errors.compoundName = "Compound name is required!";
     }
     if (!mobNumber) {
       errors.mobNumber = "Phone number is required!";
@@ -96,9 +124,9 @@ export default function Form() {
               dropdownAlign={{ offset: [0, 8] }}
               onChange={(val) => setArea(val)}
             >
-              <Option value='A13'>A13</Option>
-              <Option value='B1-11'>B1-11</Option>
-              <Option value='B12-12'>B12-12</Option>
+              {areas && areas.map(ele => (
+                <Option value={ele._id}>{ele.title}</Option>
+              ))}
             </Select>
             <Error className='error-sign' />
             <small>{formErrors.area}</small>
@@ -133,13 +161,17 @@ export default function Form() {
         </Col>
 
         <Col span={24}>
-          <Row justify="end">
+          <Row justify="space-between" align='bottom' gutter={16}>
+            <Col span={18}>
+              {alertError && <Alert className='' message={`${alertError}`} type="error" showIcon />}
+            </Col>
             <Col span={6}>
               <Button 
                 className='submit-btn' 
                 type="primary" 
                 htmlType="submit"
                 onClick={handleSubmit}
+                loading={loading ? true : false}
               >
                 Add new tenant
               </Button>

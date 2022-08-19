@@ -5,7 +5,7 @@ import {
   CLEAR_ERRORS
 } from '../constants/Areas'
 
-export const allAreasReducer = (state = { areas: {} }, action) => {
+export const allAreasReducer = (state = { areas: [] }, action) => {
   switch (action.type) {
 
     case ALL_AREAS_REQUEST:
@@ -16,7 +16,10 @@ export const allAreasReducer = (state = { areas: {} }, action) => {
     case ALL_AREAS_SUCCESS:
       return {
         loading: false,
-        areas: action.payload
+        areas: action.payload.items,
+        page: action.payload.page,
+        totalPages: action.payload.totalPages,
+        itemsTotalCount: action.payload.itemsTotalCount
       }
 
     case ALL_AREAS_FAIL:

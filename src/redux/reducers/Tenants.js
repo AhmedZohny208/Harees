@@ -4,6 +4,7 @@ import {
   ALL_TENANTS_FAIL,
   CREATE_TENANT_REQUEST,
   CREATE_TENANT_SUCCESS,
+  CREATE_TENANT_RESET,
   CREATE_TENANT_FAIL,
   UPDATE_TENANT_REQUEST,
   UPDATE_TENANT_SUCCESS,
@@ -32,6 +33,12 @@ export const registerTenantReducer = (state = {}, action) => {
       return {
         loading: false,
         tenant: action.payload
+      }
+
+    case CREATE_TENANT_RESET:
+      return {
+        loading: false,
+        tenant: null
       }
     
     case CREATE_TENANT_FAIL:

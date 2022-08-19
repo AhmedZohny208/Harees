@@ -11,6 +11,11 @@ import {
     profileDataReducer
 } from './Profile'
 
+// AREAS
+import {
+    allAreasReducer
+} from './Areas'
+
 // TENANTS
 import {
     allTenantsReducer,
@@ -25,6 +30,8 @@ const reducers = combineReducers({
     ownerAuth: ownerAuthReducer,
 
     profileData: profileDataReducer,
+
+    allAreas: allAreasReducer,
 
     allTenants: allTenantsReducer,
     registerTenant: registerTenantReducer,

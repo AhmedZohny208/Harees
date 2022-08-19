@@ -7,11 +7,11 @@ import {
   CLEAR_ERRORS
 } from '../constants/Areas'
 
-export const queryAreas = (keyword = '', currentPage = 1, itemsPerPage = 10) => async (dispatch) => {
+export const queryAreas = (currentPage = 1, itemsPerPage = 10) => async (dispatch) => {
   try {
     dispatch({ type: ALL_AREAS_REQUEST })
 
-    let link = `${HOST}/owner/area?searchKeyword=${keyword}&page=${currentPage}&itemsPerPage=${itemsPerPage}&sortBy=createdAt&ascendingOrder=true`
+    let link = `${HOST}/owner/area?page=${currentPage}&itemsPerPage=${itemsPerPage}&sortBy=createdAt&ascendingOrder=true`
 
     const { data } = await axios.get(link)
 
