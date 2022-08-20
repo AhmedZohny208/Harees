@@ -13,7 +13,8 @@ import { useHistory } from 'react-router-dom'
 import { APP_PREFIX_PATH } from 'configs/AppConfig'
 import DisplayModal from 'components/shared-components/modals/DisplayTenants'
 import DeletePopup from 'components/shared-components/modals/DeletePopup'
-import { queryTenants, clearErrors } from 'redux/actions/Tenants'
+import { queryTenants, deleteTenant, clearErrors } from 'redux/actions/Tenants'
+import { DELETE_TENANT_RESET } from 'redux/constants/Tenants'
 
 export default function TableC() {
   const history = useHistory()
@@ -27,19 +28,26 @@ export default function TableC() {
 
   // QUERY TENANTS
   const { loading, tenants, itemsTotalCount, error } = useSelector(state => state.allTenants)
+  // DELETE TENANT
+  const { loading: loadingDelete, isDeleted, error: errorDelete } = useSelector(state => state.tenant)
 
   useEffect(() => {
     dispatch(queryTenants(currentPage))
 
+    if (isDeleted) {
+      message.success('Record has been deleted successfully')
+      dispatch({ type: DELETE_TENANT_RESET })
+    }
+
     if (error) {
-      console.log(error);
+      message.error(error);
       dispatch(clearErrors())
     }
-  }, [dispatch, currentPage, error])
-
-  useEffect(() => {
-    console.log(currentId);
-  }, [currentId])
+    if (errorDelete) {
+      message.error(errorDelete);
+      dispatch(clearErrors())
+    }
+  }, [dispatch, currentPage, isDeleted, error, errorDelete])
 
   const showDisplayModal = (id) => {
     setCurrentId(id)
@@ -54,8 +62,8 @@ export default function TableC() {
     isDeleteVisible(true)
   }
   const handleOkDeleteModal = () => {
+    dispatch(deleteTenant(currentId))
     isDeleteVisible(false)
-    message.success('Record has been deleted successfully')
   }
   const handleCancelDeleteModal = () => {
     isDeleteVisible(false)
