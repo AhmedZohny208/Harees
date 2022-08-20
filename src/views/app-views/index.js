@@ -67,6 +67,11 @@ export const AppViews = () => {
         <Route path={`${APP_PREFIX_PATH}/teams/create`} component={lazy(() => import(`./teams/create`))} />
         <Route path={`${APP_PREFIX_PATH}/teams/update/:id`} component={lazy(() => import(`./teams/update`))} />
 
+        {/* TEAM LEAD */}
+        <Route exact path={`${APP_PREFIX_PATH}/teamlead`} component={lazy(() => import(`./teamlead`))} />
+        <Route path={`${APP_PREFIX_PATH}/teamlead/create`} component={lazy(() => import(`./teamlead/create`))} />
+        <Route path={`${APP_PREFIX_PATH}/teamlead/update/:id`} component={lazy(() => import(`./teamlead/update`))} />
+
         <Route exact path={`${APP_PREFIX_PATH}/home/compound-admins`} component={lazy(() => import(`./compoundAdmins`))} />
         <Route path={`${APP_PREFIX_PATH}/home/compound-admins/create`} component={lazy(() => import(`./compoundAdmins/create`))} />
         <Route path={`${APP_PREFIX_PATH}/home/compound-admins/update/:id`} component={lazy(() => import(`./compoundAdmins/update`))} />

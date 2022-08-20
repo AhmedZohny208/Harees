@@ -12,6 +12,7 @@ import {
   UsergroupAddOutlined,
   ToolOutlined,
   TeamOutlined,
+  RocketOutlined,
   PartitionOutlined
 } from '@ant-design/icons';
 import { APP_PREFIX_PATH } from 'configs/AppConfig'
@@ -118,6 +119,14 @@ const dashBoardNavTree = [
     path: `${APP_PREFIX_PATH}/teams`,
     title: 'Teams',
     icon: PartitionOutlined,
+    breadcrumb: false,
+    submenu: []
+  },
+  {
+    key: 'teamlead',
+    path: `${APP_PREFIX_PATH}/teamlead`,
+    title: 'Teamleads',
+    icon: RocketOutlined,
     breadcrumb: false,
     submenu: []
   },
