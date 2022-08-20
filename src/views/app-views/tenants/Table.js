@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Table, Card, Pagination, Space, message } from 'antd'
+import { Table, Card, Avatar, Pagination, Space, message } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   EditOutlined,
@@ -7,6 +7,8 @@ import {
   EyeOutlined,
 } from '@ant-design/icons'
 import CreateBtn from 'components/shared-components/buttons/Create'
+import Utils from 'utils'
+import { COLORS } from 'constants/ChartConstant'
 import { useHistory } from 'react-router-dom'
 import { APP_PREFIX_PATH } from 'configs/AppConfig'
 import DisplayModal from 'components/shared-components/modals/DisplayTenants'
@@ -32,6 +34,7 @@ export default function TableC() {
 
     if (error) {
       console.log(error);
+      dispatch(clearErrors())
     }
   }, [dispatch, currentPage, error])
 
@@ -62,12 +65,28 @@ export default function TableC() {
   const columns = [
     {
       title: 'ID',
-      dataIndex: 'id',
+      dataIndex: '_id',
       hidden: true
     },
     {
       title: 'Tenant Name',
       dataIndex: 'fullName',
+      render: (text, record, index) => (
+        <div className='d-flex align-items-center'>
+          <Avatar
+            size={30}
+            className='font-size-sm'
+            style={{ backgroundColor: COLORS[index % 10] }}
+          >
+            {Utils.getNameInitial(text)}
+          </Avatar>
+          <span className='ml-2 fw-600'>{text}</span>
+        </div>
+      ),
+    },
+    {
+      title: 'Tenant Nickname',
+      dataIndex: 'nickName',
       render: text => <span className='fw-600'>{text}</span>
     },
     {
@@ -75,19 +94,6 @@ export default function TableC() {
       dataIndex: '_area',
       render: text => <span className='fw-600'>{text && text.title}</span>
     },
-    // {
-    //   title: 'Unit ID',
-    //   dataIndex: 'unitID',
-    //   render: text => <span className='fw-600'>{text}</span>
-    // },
-    // {
-    //   title: 'Compound Name',
-    //   dataIndex: 'compoundName'
-    // },
-    // {
-    //   title: 'Phone Number',
-    //   dataIndex: 'phoneNumber',
-    // },
     {
       title: 'Action',
       key: 'action',
@@ -110,17 +116,19 @@ export default function TableC() {
         style={{ marginBottom: '480px' }}
         extra={<CreateBtn text='Add New Tenant' onclick={() => history.push(`${APP_PREFIX_PATH}/tenants/create`)} />}
       >
-        {tenants && tenants.length > 0 ? (
-          <>
+        {loading ? (
+          <h4 className='text-center mt-5'>Loading...</h4>
+        ) : (
+          tenants && tenants.length > 0 ? (
             <Table
               columns={columns}
               dataSource={tenants}
               pagination={false}
-              rowKey={data => data.id}
+              rowKey={data => data._id}
             />
-          </>
-        ) : (
-          <h4 className='text-center mt-5'>Loading...</h4>
+          ) : (
+            <h4 className='text-center mt-5'>NO TENANTS FOUND</h4>
+          )
         )}
         <div className="pagination">
           <Pagination 

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { Table, Card, Space, Avatar, Tag, message } from 'antd'
+import { Table, Card, Space, Avatar, message, Pagination } from 'antd'
+import { useDispatch, useSelector } from 'react-redux'
 import {
   EditOutlined,
   DeleteOutlined,
   EyeOutlined,
 } from '@ant-design/icons'
-import data from 'configs/technicianData'
 import CreateBtn from 'components/shared-components/buttons/Create'
 import Utils from 'utils'
 import { COLORS } from 'constants/ChartConstant'
@@ -13,13 +13,30 @@ import { useHistory } from 'react-router-dom'
 import { APP_PREFIX_PATH } from 'configs/AppConfig'
 import DisplayModal from 'components/shared-components/modals/DisplayTechnician'
 import DeletePopup from 'components/shared-components/modals/DeletePopup'
+import { queryTechnicians, clearErrors } from 'redux/actions/Technicians'
 
 export default function TableC() {
   const history = useHistory()
+  const dispatch = useDispatch()
+
+  const [currentPage, setCurrentPage] = useState(1)
+  const [keyword, setKeyword] = useState('')
 
   const [currentId, setCurrentId] = useState('')
   const [displayVisible, isDisplayVisible] = useState(false)
   const [deleteVisible, isDeleteVisible] = useState(false)
+
+  // QUERY TECHNICIANS
+  const { loading, technicians, itemsTotalCount, error } = useSelector(state => state.allTechnicians)
+
+  useEffect(() => {
+    dispatch(queryTechnicians(currentPage))
+
+    if (error) {
+      console.log(error);
+      dispatch(clearErrors())
+    }
+  }, [dispatch, currentPage, error])
 
   useEffect(() => {
     console.log(currentId);
@@ -48,12 +65,12 @@ export default function TableC() {
   const columns = [
     {
       title: 'ID',
-      dataIndex: 'id',
+      dataIndex: '_id',
       hidden: true
     },
     {
       title: 'Technician Name',
-      dataIndex: 'technicianName',
+      dataIndex: 'fullName',
       render: (text, record, index) => (
         <div className='d-flex align-items-center'>
           <Avatar
@@ -69,19 +86,13 @@ export default function TableC() {
     },
     {
       title: 'Team Name',
-      dataIndex: 'teamName',
+      dataIndex: 'team',
       render: text => <span className='fw-600'>{text}</span>
     },
     {
-      title: 'Team Lead',
-      dataIndex: 'teamlead',
-      render: text => (
-        text === true ? <Tag color="#2A9F20">true</Tag> : <Tag color="#EB001B">false</Tag>
-      )
-    },
-    {
-      title: 'Phone Number',
-      dataIndex: 'phoneNumber'
+      title: 'Service Category',
+      dataIndex: '_serviceCategory',
+      render: text => <span className='fw-600'>{text}</span>
     },
     {
       title: 'Action',
@@ -104,12 +115,30 @@ export default function TableC() {
         style={{ marginBottom: '480px' }}
         extra={<CreateBtn text='Add New Technician' onclick={() => history.push(`${APP_PREFIX_PATH}/technician/create`)} />}
       >
-        <Table
-          columns={columns}
-          dataSource={data}
-          pagination={false}
-          rowKey={data => data.id}
-        />
+        {loading ? (
+          <h4 className='text-center mt-5'>Loading...</h4>
+        ) : (
+          technicians && technicians.length > 0 ? (
+            <Table
+              columns={columns}
+              dataSource={technicians}
+              pagination={false}
+              rowKey={data => data._id}
+            />
+          ) : (
+            <h4 className='text-center mt-5'>NO TECHNICIANS FOUND</h4>
+          )
+        )}
+        <div className="pagination">
+          <Pagination 
+            defaultCurrent={1} 
+            defaultPageSize={10}
+            total={itemsTotalCount} 
+            onChange={(page) => {
+              setCurrentPage(page)
+            }}
+          />
+        </div>
       </Card>
       
       <DeletePopup onConfirm={handleOkDeleteModal} visible={deleteVisible} onCancel={handleCancelDeleteModal} />
