@@ -1,5 +1,6 @@
 import { 
-  HomeOutlined,
+  // HomeOutlined,
+  EnvironmentOutlined,
   // GoldOutlined,
   // CrownOutlined,
   // FileOutlined,
@@ -72,11 +73,19 @@ const dashBoardNavTree = [
   //   breadcrumb: false,
   //   submenu: []
   // },
+  // {
+  //   key: 'compounds',
+  //   path: `${APP_PREFIX_PATH}/compounds`,
+  //   title: 'Compounds',
+  //   icon: HomeOutlined,
+  //   breadcrumb: false,
+  //   submenu: []
+  // },
   {
-    key: 'compounds',
-    path: `${APP_PREFIX_PATH}/compounds`,
-    title: 'Compounds',
-    icon: HomeOutlined,
+    key: 'areas',
+    path: `${APP_PREFIX_PATH}/areas`,
+    title: 'Areas',
+    icon: EnvironmentOutlined,
     breadcrumb: false,
     submenu: []
   },

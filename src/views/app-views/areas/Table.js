@@ -13,7 +13,7 @@ import { useHistory } from 'react-router-dom'
 import { APP_PREFIX_PATH } from 'configs/AppConfig'
 import DisplayModal from 'components/shared-components/modals/DisplayTenants'
 import DeletePopup from 'components/shared-components/modals/DeletePopup'
-import { queryTenants, clearErrors } from 'redux/actions/Tenants'
+import { queryAreas, clearErrors } from 'redux/actions/Areas'
 
 export default function TableC() {
   const history = useHistory()
@@ -22,14 +22,13 @@ export default function TableC() {
   const [currentPage, setCurrentPage] = useState(1)
 
   const [currentId, setCurrentId] = useState('')
-  const [displayVisible, isDisplayVisible] = useState(false)
   const [deleteVisible, isDeleteVisible] = useState(false)
 
-  // QUERY TENANTS
-  const { loading, tenants, itemsTotalCount, error } = useSelector(state => state.allTenants)
+  // QUERY TEAMS
+  const { loading, areas, itemsTotalCount, error } = useSelector(state => state.allAreas)
 
   useEffect(() => {
-    dispatch(queryTenants(currentPage))
+    dispatch(queryAreas(currentPage))
 
     if (error) {
       console.log(error);
@@ -40,14 +39,6 @@ export default function TableC() {
   useEffect(() => {
     console.log(currentId);
   }, [currentId])
-
-  const showDisplayModal = (id) => {
-    setCurrentId(id)
-    isDisplayVisible(true)
-  }
-  const handleCancelDisplayModal = () => {
-    isDisplayVisible(false)
-  }
 
   const showDeleteModal = (id) => {
     setCurrentId(id)
@@ -68,30 +59,27 @@ export default function TableC() {
       hidden: true
     },
     {
-      title: 'Tenant Name',
-      dataIndex: 'fullName',
-      render: (text, record, index) => (
-        <div className='d-flex align-items-center'>
-          <Avatar
-            size={30}
-            className='font-size-sm'
-            style={{ backgroundColor: COLORS[index % 10] }}
-          >
-            {Utils.getNameInitial(text)}
-          </Avatar>
-          <span className='ml-2 fw-600'>{text}</span>
-        </div>
-      ),
-    },
-    {
-      title: 'Tenant Nickname',
-      dataIndex: 'nickName',
+      title: 'Area Name',
+      dataIndex: 'title',
       render: text => <span className='fw-600'>{text}</span>
     },
     {
-      title: 'Area',
-      dataIndex: '_area',
-      render: text => <span className='fw-600'>{text && text.title}</span>
+      title: 'Tenants Number',
+      dataIndex: 'tenantsCount',
+      align: 'center',
+      render: text => <span className='fw-600'>{text}</span>
+    },
+    {
+      title: 'Teams Number',
+      dataIndex: 'teamsCount',
+      align: 'center',
+      render: text => <span className='fw-600'>{text}</span>
+    },
+    {
+      title: 'Technicians Number',
+      dataIndex: 'techniciansCount',
+      align: 'center',
+      render: text => <span className='fw-600'>{text}</span>
     },
     {
       title: 'Action',
@@ -99,8 +87,8 @@ export default function TableC() {
       width: 165,
       render: (text, record) => (
         <Space>
-          <EyeOutlined className='display-btn' onClick={() => showDisplayModal(record._id)} />
-          <EditOutlined className='edit-btn' onClick={() => history.push(`${APP_PREFIX_PATH}/tenants/update/${record.id}`)} />
+          <EyeOutlined className='display-btn' />
+          <EditOutlined className='edit-btn' onClick={() => history.push(`${APP_PREFIX_PATH}/areas/update/${record.id}`)} />
           <DeleteOutlined className='delete-btn' onClick={() => showDeleteModal(record._id)} />
         </Space>
       )
@@ -110,23 +98,23 @@ export default function TableC() {
   return (
     <>
       <Card
-        title='Tenants'
+        title='Areas'
         bordered={false}
         style={{ marginBottom: '480px' }}
-        extra={<CreateBtn text='Add New Tenant' onclick={() => history.push(`${APP_PREFIX_PATH}/tenants/create`)} />}
+        extra={<CreateBtn text='Add New Area' onclick={() => history.push(`${APP_PREFIX_PATH}/areas/create`)} />}
       >
         {loading ? (
           <h4 className='text-center mt-5'>Loading...</h4>
         ) : (
-          tenants && tenants.length > 0 ? (
+          areas && areas.length > 0 ? (
             <Table
               columns={columns}
-              dataSource={tenants}
+              dataSource={areas}
               pagination={false}
               rowKey={data => data._id}
             />
           ) : (
-            <h4 className='text-center mt-5'>NO TENANTS FOUND</h4>
+            <h4 className='text-center mt-5'>NO AREAS FOUND</h4>
           )
         )}
         <div className="pagination">
@@ -142,8 +130,6 @@ export default function TableC() {
       </Card>
       
       <DeletePopup onConfirm={handleOkDeleteModal} visible={deleteVisible} onCancel={handleCancelDeleteModal} />
-
-      <DisplayModal visible={displayVisible} onCancel={handleCancelDisplayModal} />
     </>
   )
 }

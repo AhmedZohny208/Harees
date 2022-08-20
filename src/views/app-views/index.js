@@ -16,6 +16,11 @@ export const AppViews = () => {
         <Route path={`${APP_PREFIX_PATH}/compounds/create`} component={lazy(() => import(`./compounds/createCompound`))} />
         <Route path={`${APP_PREFIX_PATH}/compounds/update/:id`} component={lazy(() => import(`./compounds/updateCompound`))} />
 
+        {/* AREAS */}
+        <Route exact path={`${APP_PREFIX_PATH}/areas`} component={lazy(() => import(`./areas`))} />
+        <Route path={`${APP_PREFIX_PATH}/areas/create`} component={lazy(() => import(`./areas/create`))} />
+        <Route path={`${APP_PREFIX_PATH}/areas/update/:id`} component={lazy(() => import(`./areas/update`))} />
+
         {/* ORGANIZATION */}
         <Route exact path={`${APP_PREFIX_PATH}/organization`} component={lazy(() => import(`./organization`))} />
         <Route path={`${APP_PREFIX_PATH}/organization/create`} component={lazy(() => import(`./organization/create`))} />

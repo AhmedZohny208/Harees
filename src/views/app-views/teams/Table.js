@@ -54,7 +54,6 @@ export default function TableC() {
     {
       title: 'Team Name',
       dataIndex: 'title',
-      width: '15%',
       render: text => <span className='fw-600'>{text}</span>
     },
     {
@@ -65,6 +64,7 @@ export default function TableC() {
     {
       title: 'Number of Technicians',
       dataIndex: 'techniciansCount',
+      align: 'center',
       render: text => <span className='fw-600'>{text}</span>
     },
     {
