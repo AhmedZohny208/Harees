@@ -9,9 +9,9 @@ import {
   // UserOutlined,
   // ApiOutlined,
   UsergroupAddOutlined,
-  // ToolOutlined,
-  // TeamOutlined,
-  // PartitionOutlined
+  ToolOutlined,
+  TeamOutlined,
+  PartitionOutlined
 } from '@ant-design/icons';
 import { APP_PREFIX_PATH } from 'configs/AppConfig'
 
@@ -88,30 +88,30 @@ const dashBoardNavTree = [
     breadcrumb: false,
     submenu: []
   },
-  // {
-  //   key: 'supervisors',
-  //   path: `${APP_PREFIX_PATH}/supervisors`,
-  //   title: 'Supervisors',
-  //   icon: TeamOutlined,
-  //   breadcrumb: false,
-  //   submenu: []
-  // },
-  // {
-  //   key: 'technician',
-  //   path: `${APP_PREFIX_PATH}/technician`,
-  //   title: 'Technician',
-  //   icon: ToolOutlined,
-  //   breadcrumb: false,
-  //   submenu: []
-  // },
-  // {
-  //   key: 'teams',
-  //   path: `${APP_PREFIX_PATH}/teams`,
-  //   title: 'Teams',
-  //   icon: PartitionOutlined,
-  //   breadcrumb: false,
-  //   submenu: []
-  // },
+  {
+    key: 'supervisors',
+    path: `${APP_PREFIX_PATH}/supervisors`,
+    title: 'Supervisors',
+    icon: TeamOutlined,
+    breadcrumb: false,
+    submenu: []
+  },
+  {
+    key: 'technician',
+    path: `${APP_PREFIX_PATH}/technician`,
+    title: 'Technician',
+    icon: ToolOutlined,
+    breadcrumb: false,
+    submenu: []
+  },
+  {
+    key: 'teams',
+    path: `${APP_PREFIX_PATH}/teams`,
+    title: 'Teams',
+    icon: PartitionOutlined,
+    breadcrumb: false,
+    submenu: []
+  },
   // {
   //   key: 'compoundAdmins',
   //   path: `${APP_PREFIX_PATH}/home/compound-admins`,
