@@ -1,22 +1,37 @@
 import React, { useState, useEffect } from 'react'
-import { Table, Card, Space, Avatar } from 'antd'
+import { Table, Card, Space, Pagination } from 'antd'
+import { useDispatch, useSelector } from 'react-redux'
 import {
   EditOutlined,
   DeleteOutlined,
+  EyeOutlined,
 } from '@ant-design/icons'
-import data from 'configs/teamsData'
 import CreateBtn from 'components/shared-components/buttons/Create'
-import Utils from 'utils'
-import { COLORS } from 'constants/ChartConstant'
 import { useHistory } from 'react-router-dom'
 import { APP_PREFIX_PATH } from 'configs/AppConfig'
 import DeletePopup from 'components/shared-components/modals/DeletePopup'
+import { queryTeams, clearErrors } from 'redux/actions/Teams'
 
 export default function TableC() {
   const history = useHistory()
+  const dispatch = useDispatch()
+
+  const [currentPage, setCurrentPage] = useState(1)
 
   const [currentId, setCurrentId] = useState('')
   const [deleteVisible, isDeleteVisible] = useState(false)
+
+  // QUERY TEAMS
+  const { loading, teams, itemsTotalCount, error } = useSelector(state => state.allTeams)
+
+  useEffect(() => {
+    dispatch(queryTeams(currentPage))
+
+    if (error) {
+      console.log(error);
+      dispatch(clearErrors())
+    }
+  }, [dispatch, currentPage, error])
 
   useEffect(() => {
     console.log(currentId);
@@ -26,9 +41,6 @@ export default function TableC() {
     setCurrentId(id)
     isDeleteVisible(true)
   }
-  // const handleOkDeleteModal = () => {
-  //   isDeleteVisible(false)
-  // }
   const handleCancelDeleteModal = () => {
     isDeleteVisible(false)
   }
@@ -36,35 +48,24 @@ export default function TableC() {
   const columns = [
     {
       title: 'ID',
-      dataIndex: 'id',
+      dataIndex: '_id',
       hidden: true
     },
     {
       title: 'Team Name',
-      dataIndex: 'name',
+      dataIndex: 'title',
       width: '15%',
       render: text => <span className='fw-600'>{text}</span>
     },
     {
-      title: 'Description',
-      dataIndex: 'description'
+      title: 'Area',
+      dataIndex: '_area',
+      render: text => <span className='fw-600'>{text.title}</span>
     },
     {
-      title: 'Team Lead',
-      dataIndex: 'teamLead',
-      width: '20%',
-      render: (text, record, index) => (
-        <div className='d-flex align-items-center'>
-          <Avatar
-            size={30}
-            className='font-size-sm'
-            style={{ backgroundColor: COLORS[index % 10] }}
-          >
-            {Utils.getNameInitial(text)}
-          </Avatar>
-          <span className='ml-2 fw-600'>{text}</span>
-        </div>
-      ),
+      title: 'Number of Technicians',
+      dataIndex: 'techniciansCount',
+      render: text => <span className='fw-600'>{text}</span>
     },
     {
       title: 'Action',
@@ -72,7 +73,8 @@ export default function TableC() {
       width: '15%',
       render: (text, record) => (
         <Space>
-          <EditOutlined className='edit-btn ml-0' onClick={() => history.push(`${APP_PREFIX_PATH}/teams/update/${record.id}`)} />
+          <EyeOutlined className='display-btn' />
+          <EditOutlined className='edit-btn' onClick={() => history.push(`${APP_PREFIX_PATH}/teams/update/${record.id}`)} />
           <DeleteOutlined className='delete-btn' onClick={() => showDeleteModal(record._id)} />
         </Space>
       )
@@ -87,12 +89,30 @@ export default function TableC() {
       style={{ marginBottom: '480px' }}
       extra={<CreateBtn text='Create a new team' onclick={() => history.push(`${APP_PREFIX_PATH}/teams/create`)} />}
     >
-      <Table
-        columns={columns}
-        dataSource={data}
-        pagination={false}
-        rowKey={data => data.id}
-      />
+      {loading ? (
+        <h4 className='text-center mt-5'>Loading...</h4>
+      ) : (
+        teams && teams.length > 0 ? (
+          <Table
+            columns={columns}
+            dataSource={teams}
+            pagination={false}
+            rowKey={data => data._id}
+          />
+        ) : (
+          <h4 className='text-center mt-5'>NO TEAMS FOUND</h4>
+        )
+      )}
+      <div className="pagination">
+        <Pagination 
+          defaultCurrent={1} 
+          defaultPageSize={10}
+          total={itemsTotalCount} 
+          onChange={(page) => {
+            setCurrentPage(page)
+          }}
+        />
+      </div>
     </Card>
     
     <DeletePopup visible={deleteVisible} onCancel={handleCancelDeleteModal} />
