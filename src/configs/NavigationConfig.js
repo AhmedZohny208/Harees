@@ -8,7 +8,7 @@ import {
   // DotChartOutlined,
   DashboardOutlined,
   // UserOutlined,
-  // ApiOutlined,
+  ApiOutlined,
   UsergroupAddOutlined,
   ToolOutlined,
   TeamOutlined,
@@ -66,14 +66,14 @@ const dashBoardNavTree = [
   //   breadcrumb: false,
   //   submenu: []
   // },
-  // {
-  //   key: 'services',
-  //   path: `${APP_PREFIX_PATH}/services`,
-  //   title: 'Services',
-  //   icon: ApiOutlined,
-  //   breadcrumb: false,
-  //   submenu: []
-  // },
+  {
+    key: 'services',
+    path: `${APP_PREFIX_PATH}/services`,
+    title: 'Services',
+    icon: ApiOutlined,
+    breadcrumb: false,
+    submenu: []
+  },
   // {
   //   key: 'compounds',
   //   path: `${APP_PREFIX_PATH}/compounds`,

@@ -27,7 +27,6 @@ export default function Form() {
   const [email, setEmail] = useState('')
 
   const [formErrors, setFormErrors] = useState({})
-  const [isSubmit, setIsSubmit] = useState(false)
 
   const [alertError, setAlertError] = useState('')
 
@@ -61,28 +60,28 @@ export default function Form() {
   const handleSubmit = (e) => {
     e.preventDefault()
     setFormErrors(validate(formValues));
-    setIsSubmit(true)
-    dispatch(registerTenant(formValues))
+    // REPEAT THE ABOVE VALIDATION
+    if (formValues.fullName !== '' && formValues.address !== '' && formValues._area !== '' && formValues.email !== '') {
+      dispatch(registerTenant(formValues))
+    }
   }
-
-  // useEffect(() => {
-  //   console.log(formErrors);
-  //   if(Object.keys(formErrors).length === 0 && isSubmit) {
-  //     console.log(formValues);
-  //     dispatch(registerTenant(formValues))
-  //   }
-  // }, [formErrors, formValues, isSubmit])
 
   const validate = (values) => {
     const errors = {}
     if (!values.fullName) {
       errors.tenantName = "Tenant name is required!";
     }
+    if (!values.address) {
+      errors.address = "Address is required!";
+    }
     if (!values._area) {
       errors.area = "Area is required!";
     }
     if (!mobNumber) {
       errors.mobNumber = "Phone number is required!";
+    }
+    if (!email) {
+      errors.email = "Email is required!";
     }
     return errors;
   }
@@ -125,7 +124,7 @@ export default function Form() {
               onChange={(val) => setArea(val)}
             >
               {areas && areas.map(ele => (
-                <Option value={ele._id}>{ele.title}</Option>
+                <Option key={ele._id} value={ele._id}>{ele.title}</Option>
               ))}
             </Select>
             <Error className='error-sign' />
