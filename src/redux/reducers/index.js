@@ -24,6 +24,38 @@ import {
     tenantReducer
 } from './Tenants'
 
+// SUPERVISOR
+import {
+    allSupervisorsReducer,
+    registerSupervisorReducer,
+    supervisorDetailsReducer,
+    SupervisorReducer
+} from './Supervisor'
+
+// TEAMLEAD
+import {
+    allTeamleadsReducer,
+    registerTeamLeadReducer,
+    teamLeadDetailsReducer,
+    teamleadReducer
+} from './TeamLead'
+
+// TECHNICIANS
+import {
+    allTechniciansReducer,
+    registerTechnicianReducer,
+    technicianDetailsReducer,
+    technicianReducer
+} from './Technicians'
+
+// TEAMS
+import {
+    allTeamsReducer,
+    registerTeamReducer,
+    teamDetailsReducer,
+    teamReducer
+} from './Teams'
+
 const reducers = combineReducers({
     theme: Theme,
 
@@ -36,7 +68,27 @@ const reducers = combineReducers({
     allTenants: allTenantsReducer,
     registerTenant: registerTenantReducer,
     tenantDetails: tenantDetailsReducer,
-    tenant: tenantReducer
+    tenant: tenantReducer,
+
+    allSupervisors: allSupervisorsReducer,
+    registerSupervisor: registerSupervisorReducer,
+    supervisorDetails: supervisorDetailsReducer,
+    Supervisor: SupervisorReducer,
+
+    allTeamleads: allTeamleadsReducer,
+    registerTeamLead: registerTeamLeadReducer,
+    teamLeadDetails: teamLeadDetailsReducer,
+    teamlead: teamleadReducer,
+
+    allTechnicians: allTechniciansReducer,
+    registerTechnician: registerTechnicianReducer,
+    technicianDetails: technicianDetailsReducer,
+    technician: technicianReducer,
+
+    allTeams: allTeamsReducer,
+    registerTeam: registerTeamReducer,
+    teamDetails: teamDetailsReducer,
+    team: teamReducer
 });
 
 export default reducers;

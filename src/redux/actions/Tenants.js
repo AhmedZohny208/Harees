@@ -124,7 +124,7 @@ export const getTenantDetails = (id, currentPage = 1) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: TENANT_DETAILS_FAIL,
-      payload: error.response.data.message,
+      payload: error.response.data,
     })
   }
 }

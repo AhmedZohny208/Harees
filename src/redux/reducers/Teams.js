@@ -58,7 +58,7 @@ export const registerTeamReducer = (state = {}, action) => {
   }
 }
 
-export const allTEAMsReducer = (state = { teams: [] }, action) => {
+export const allTeamsReducer = (state = { teams: [] }, action) => {
   switch (action.type) {
 
     case ALL_TEAMS_REQUEST:
