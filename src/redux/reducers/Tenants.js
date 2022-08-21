@@ -103,7 +103,8 @@ export const tenantDetailsReducer = (state = {}, action) => {
     case TENANT_DETAILS_SUCCESS:
       return {
         loading: false,
-        tenant: action.payload
+        tenant: action.payload,
+        tickets: action.payload.ticketsData
       }
 
     case TENANT_DETAILS_FAIL:

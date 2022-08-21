@@ -92,11 +92,6 @@ export default function TableC() {
       ),
     },
     {
-      title: 'Tenant Nickname',
-      dataIndex: 'nickName',
-      render: text => <span className='fw-600'>{text}</span>
-    },
-    {
       title: 'Area',
       dataIndex: '_area',
       render: text => <span className='fw-600'>{text && text.title}</span>
@@ -107,8 +102,8 @@ export default function TableC() {
       width: 165,
       render: (text, record) => (
         <Space>
-          <EyeOutlined className='display-btn' onClick={() => showDisplayModal(record._id)} />
-          <EditOutlined className='edit-btn' onClick={() => history.push(`${APP_PREFIX_PATH}/tenants/update/${record.id}`)} />
+          <EyeOutlined className='display-btn' onClick={() => history.push(`${APP_PREFIX_PATH}/tenants/${record._id}`)} />
+          <EditOutlined className='edit-btn' onClick={() => history.push(`${APP_PREFIX_PATH}/tenants/update/${record._id}`)} />
           <DeleteOutlined className='delete-btn' onClick={() => showDeleteModal(record._id)} />
         </Space>
       )
