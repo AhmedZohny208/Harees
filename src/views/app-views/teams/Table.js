@@ -59,7 +59,7 @@ export default function TableC() {
     {
       title: 'Area',
       dataIndex: '_area',
-      render: text => <span className='fw-600'>{text.title}</span>
+      render: text => <span className='fw-600'>{text && text.title}</span>
     },
     {
       title: 'Number of Technicians',
