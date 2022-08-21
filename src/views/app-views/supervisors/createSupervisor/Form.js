@@ -1,55 +1,69 @@
 import React, { useState, useEffect } from 'react'
-import { Col, Row, Input, Button } from 'antd'
+import { Col, Row, Input, Button, message, Alert } from 'antd'
+import { useHistory } from "react-router-dom";
 import {ReactComponent as Error} from '../../../../components/shared-components/svgs/error.svg';
 import PrefixSelector from 'components/shared-components/PrefixSelector';
+import { useDispatch, useSelector } from 'react-redux'
+import { registerSupervisor, clearErrors } from 'redux/actions/Supervisor'
+import { APP_PREFIX_PATH } from 'configs/AppConfig';
+import { CREATE_SUPERVISOR_RESET } from 'redux/constants/Supervisor';
 
 export default function Form() {
+  let history = useHistory();
+  const dispatch = useDispatch();
+
+  const { supervisor, error, loading } = useSelector(state => state.registerSupervisor);
+
   const [formValues, setFormValues] = useState()
-  const [supervisorName, setSupervisorName] = useState('')
-  const [address, setAddress] = useState('')
+  const [fullName, setFullName] = useState('')
+  const [email, setEmail] = useState('')
   const [phonePrefix, setPhonePrefix] = useState('966')
   const [mobNumber, setMobNumber] = useState('')
-  const [email, setEmail] = useState('')
-  const [username, setUserName] = useState('')
 
   const [formErrors, setFormErrors] = useState({})
-  const [isSubmit, setIsSubmit] = useState(false)
+  const [alertError, setAlertError] = useState('')
 
   const prefixSelector = <PrefixSelector setPrefix={setPhonePrefix} />
 
   useEffect(() => {
+    if (supervisor) {
+      setAlertError('')
+      message.success('Record has been created successfully')
+      history.push(`${APP_PREFIX_PATH}/supervisors`)
+      dispatch({ type: CREATE_SUPERVISOR_RESET })
+    }
+    if (error) {
+			setAlertError(error)
+			dispatch(clearErrors())
+		}
+  }, [dispatch, error, supervisor])
+
+  useEffect(() => {
     setFormValues({
-      supervisorName, 
-      address, 
-      phoneNumber: `+${phonePrefix}${mobNumber}`,
-      email,
-      username
+      fullName, 
+      email, 
+      phone: `+${phonePrefix}${mobNumber}`,
     })
-  }, [supervisorName, address, phonePrefix, mobNumber, email, username])
+  }, [fullName, phonePrefix, mobNumber, email])
 
   const handleSubmit = (e) => {
     e.preventDefault()
     setFormErrors(validate(formValues));
-    setIsSubmit(true)
-  }
-
-  useEffect(() => {
-    console.log(formErrors);
-    if(Object.keys(formErrors).length === 0 && isSubmit) {
-      console.log(formValues);
+    if (formValues.fullName !== '' && formValues.email !== '') {
+      dispatch(registerSupervisor(formValues))
     }
-  }, [formErrors, formValues, isSubmit])
+  }
 
   const validate = (values) => {
     const errors = {}
-    if (!values.supervisorName) {
-      errors.supervisorName = "Supervisor name is required!";
+    if (!values.fullName) {
+      errors.fullName = "Supervisor name is required!";
     }
     if (!mobNumber) {
       errors.mobNumber = "Phone number is required!";
     }
-    if (!values.username) {
-      errors.username = "Username is required!";
+    if (!values.email) {
+      errors.email = "Email is required!";
     }
     return errors;
   }
@@ -57,20 +71,20 @@ export default function Form() {
   return (
     <div className='create-form'>
       <Row gutter={16}>
-        <Col span={12}>
-          <div className={`input ${formErrors.supervisorName && 'error'}`}>
-            <label htmlFor="supervisorName">Name</label>
+        <Col span={24}>
+          <div className={`input ${formErrors.fullName && 'error'}`}>
+            <label htmlFor="fullName">Name</label>
             <Input
-              id='supervisorName'
-              name='supervisorName'
-              value={supervisorName}
-              onChange={(e) => setSupervisorName(e.target.value)}
+              id='fullName'
+              name='fullName'
+              value={fullName}
+              onChange={(e) => setFullName(e.target.value)}
             />
             <Error className='error-sign' />
-            <small>{formErrors.supervisorName}</small>
+            <small>{formErrors.fullName}</small>
           </div>
         </Col>
-        <Col span={12}>
+        <Col span={24}>
           <div className={`input ${formErrors.mobNumber && 'error'}`}>
             <label htmlFor="phoneNumber">Phone Number</label>
             <Input
@@ -84,7 +98,7 @@ export default function Form() {
             <small>{formErrors.mobNumber}</small>
           </div>
         </Col>
-        <Col span={12}>
+        <Col span={24}>
           <div className={`input ${formErrors.email && 'error'}`}>
             <label htmlFor="email">Email Address</label>
             <Input
@@ -97,45 +111,19 @@ export default function Form() {
             <small>{formErrors.email}</small>
           </div>
         </Col>
-        <Col span={12}>
-          <div className={`input ${formErrors.username && 'error'}`}>
-            <label htmlFor="username">Username</label>
-            <Input
-              id='username'
-              name='username'
-              value={username}
-              onChange={(e) => setUserName(e.target.value)}
-            />
-            <Error className='error-sign' />
-            <small>{formErrors.username}</small>
-          </div>
+        <Col span={24}>
+          {alertError && <Alert message={`${alertError}`} type="error" showIcon />}
         </Col>
         <Col span={24}>
-          <div className={`input ${formErrors.address && 'error'}`}>
-            <label htmlFor="address">Address</label>
-            <Input
-              id='address'
-              name='address'
-              value={address}
-              onChange={(e) => setAddress(e.target.value)}
-            />
-            <Error className='error-sign' />
-            <small>{formErrors.address}</small>
-          </div>
-        </Col>
-        <Col span={24}>
-          <Row justify="end">
-            <Col span={8}>
-              <Button 
-                className='submit-btn' 
-                type="primary" 
-                htmlType="submit"
-                onClick={handleSubmit}
-              >
-                Add new supervisor
-              </Button>
-            </Col>
-          </Row>
+          <Button 
+            className='submit-btn' 
+            type="primary" 
+            htmlType="submit"
+            onClick={handleSubmit}
+            loading={loading ? true : false}
+          >
+            Add new supervisor
+          </Button>
         </Col>
       </Row>
     </div>

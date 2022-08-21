@@ -21,7 +21,7 @@ const prefixSelector = (
   </Select>
 );
 
-export default function DisplayModal({ visible, onCancel }) {
+export default function DisplayModal({ supervisor, loading, visible, onCancel }) {
   return (
     <>
       <Modal
@@ -33,43 +33,31 @@ export default function DisplayModal({ visible, onCancel }) {
         closable={false}
         centered
       >
-        <h3>Asif Khan</h3>
+        {!loading && (
+          <>
+            <div className="image" style={{ backgroundImage: `url(${supervisor && supervisor.profilePicturePath})` }}></div>
+            <h3 className='mb-4'>{supervisor && supervisor.fullName}</h3>
 
-        <div className='create-form'>
+            <div className='create-form'>
 
-          <Row gutter={16}>
-            <Col span={24}>
-              <div className="input">
-                <label htmlFor="">Address</label>
-                <Input disabled defaultValue='western region, Riyad city, 12 nahda street, 3rd floor'/>
-              </div>
-            </Col>
-            <Col span={12}>
-              <div className="input">
-                <label htmlFor="">Name</label>
-                <Input disabled defaultValue='Mohamed Alaa'/>
-              </div>
-            </Col>
-            <Col span={12}>
-              <div className="input">
-                <label htmlFor="">Phone Number</label>
-                <Input disabled defaultValue='68025731' addonBefore={prefixSelector} />
-              </div>
-            </Col>
-            <Col span={12}>
-              <div className="input">
-                <label htmlFor="">Email Address</label>
-                <Input disabled defaultValue='k.bommini@gmail.com'/>
-              </div>
-            </Col>
-            <Col span={12}>
-              <div className="input">
-                <label htmlFor="">Username</label>
-                <Input disabled defaultValue='k.bommini@gmail.com'/>
-              </div>
-            </Col>
-          </Row>
-        </div>
+              <Row gutter={16}>
+                <Col span={24}>
+                  <div className="input">
+                    <label htmlFor="">Email</label>
+                    <Input disabled value={supervisor && supervisor.email}/>
+                  </div>
+                </Col>
+                <Col span={24}>
+                  <div className="input">
+                    <label htmlFor="">Phone Number</label>
+                    <Input disabled value={supervisor && supervisor.phone}/>
+                  </div>
+                </Col>
+              </Row>
+            </div>
+          
+          </>
+        )}
 
         <CloseOutlined onClick={onCancel} className='close-btn' />
       </Modal>

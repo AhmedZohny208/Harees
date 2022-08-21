@@ -39,7 +39,7 @@ export const querySupervisors = (currentPage) => async (dispatch) => {
   }
 }
 
-export const registerSUPERVISOR = (supervisorData) => async (dispatch) => {
+export const registerSupervisor = (supervisorData) => async (dispatch) => {
   try {
 
     dispatch({ type: CREATE_SUPERVISOR_REQUEST })

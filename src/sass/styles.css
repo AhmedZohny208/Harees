@@ -935,6 +935,15 @@ label.file svg {
   line-height: 29px;
 }
 
+.display-modal .image {
+  background-color: #999;
+  width: 130px;
+  height: 130px;
+  margin: auto;
+  border-radius: 50%;
+  margin-bottom: 16px;
+}
+
 .select-search {
   margin-right: 24px !important;
 }
