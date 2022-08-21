@@ -19,11 +19,11 @@ import {
   CLEAR_ERRORS
 } from '../constants/Teams'
 
-export const queryTeams = (currentPage) => async (dispatch) => {
+export const queryTeams = (currentPage = 1, itemsPerPage = 10) => async (dispatch) => {
   try {
     dispatch({ type: ALL_TEAMS_REQUEST })
 
-    let link = `${HOST}/owner/team?page=${currentPage}&itemsPerPage=10&sortBy=createdAt&ascendingOrder=true`
+    let link = `${HOST}/owner/team?page=${currentPage}&itemsPerPage=${itemsPerPage}&sortBy=createdAt&ascendingOrder=true`
 
     const { data } = await axios.get(link)
 

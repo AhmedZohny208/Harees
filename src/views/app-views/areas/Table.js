@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Table, Card, Avatar, Pagination, Space, message } from 'antd'
+import { Table, Card, Pagination, Space, message } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   EditOutlined,
@@ -7,13 +7,11 @@ import {
   EyeOutlined,
 } from '@ant-design/icons'
 import CreateBtn from 'components/shared-components/buttons/Create'
-import Utils from 'utils'
-import { COLORS } from 'constants/ChartConstant'
 import { useHistory } from 'react-router-dom'
 import { APP_PREFIX_PATH } from 'configs/AppConfig'
-import DisplayModal from 'components/shared-components/modals/DisplayTenants'
 import DeletePopup from 'components/shared-components/modals/DeletePopup'
-import { queryAreas, clearErrors } from 'redux/actions/Areas'
+import { queryAreas, deleteArea, clearErrors } from 'redux/actions/Areas'
+import { DELETE_AREA_RESET } from 'redux/constants/Areas'
 
 export default function TableC() {
   const history = useHistory()
@@ -26,27 +24,34 @@ export default function TableC() {
 
   // QUERY TEAMS
   const { loading, areas, itemsTotalCount, error } = useSelector(state => state.allAreas)
+  // DELETE TENANT
+  const { isDeleted, error: errorDelete } = useSelector(state => state.area)
 
   useEffect(() => {
     dispatch(queryAreas(currentPage))
 
+    if (isDeleted) {
+      message.success('Record has been deleted successfully')
+      dispatch({ type: DELETE_AREA_RESET })
+    }
+
     if (error) {
-      console.log(error);
+      message.error(error);
       dispatch(clearErrors())
     }
-  }, [dispatch, currentPage, error])
-
-  useEffect(() => {
-    console.log(currentId);
-  }, [currentId])
+    if (errorDelete) {
+      message.error(errorDelete);
+      dispatch(clearErrors())
+    }
+  }, [dispatch, currentPage, isDeleted, error, errorDelete])
 
   const showDeleteModal = (id) => {
     setCurrentId(id)
     isDeleteVisible(true)
   }
   const handleOkDeleteModal = () => {
+    dispatch(deleteArea(currentId))
     isDeleteVisible(false)
-    message.success('Record has been deleted successfully')
   }
   const handleCancelDeleteModal = () => {
     isDeleteVisible(false)
@@ -88,7 +93,7 @@ export default function TableC() {
       render: (text, record) => (
         <Space>
           <EyeOutlined className='display-btn' />
-          <EditOutlined className='edit-btn' onClick={() => history.push(`${APP_PREFIX_PATH}/areas/update/${record.id}`)} />
+          <EditOutlined className='edit-btn' onClick={() => history.push(`${APP_PREFIX_PATH}/areas/update/${record._id}`)} />
           <DeleteOutlined className='delete-btn' onClick={() => showDeleteModal(record._id)} />
         </Space>
       )

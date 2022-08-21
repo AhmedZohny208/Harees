@@ -29,7 +29,7 @@ export default function TableC() {
   // QUERY TENANTS
   const { loading, tenants, itemsTotalCount, error } = useSelector(state => state.allTenants)
   // DELETE TENANT
-  const { loading: loadingDelete, isDeleted, error: errorDelete } = useSelector(state => state.tenant)
+  const { isDeleted, error: errorDelete } = useSelector(state => state.tenant)
 
   useEffect(() => {
     dispatch(queryTenants(currentPage))
