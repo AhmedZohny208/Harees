@@ -927,6 +927,14 @@ label.file svg {
   font-weight: 500;
 }
 
+.create-form ul {
+  list-style: inside;
+  padding-left: 0;
+  color: #000;
+  font-weight: 500;
+  line-height: 29px;
+}
+
 .select-search {
   margin-right: 24px !important;
 }

@@ -6,7 +6,6 @@ import {
 import { Col, Row, Input } from 'antd'
 
 export default function DisplayModal({ record, visible, onCancel }) {
-  console.log(record);
   return (
     <>
       <Modal

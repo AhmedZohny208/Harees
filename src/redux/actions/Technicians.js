@@ -19,11 +19,12 @@ import {
   CLEAR_ERRORS
 } from '../constants/Technicians'
 
-export const queryTechnicians = (currentPage) => async (dispatch) => {
+export const queryTechnicians = (currentPage=1, itemsPerPage=10, serviceCategory) => async (dispatch) => {
+  console.log(serviceCategory);
   try {
     dispatch({ type: ALL_TECHNICIANS_REQUEST })
 
-    let link = `${HOST}/owner/technician-users?page=${currentPage}&itemsPerPage=10&sortBy=createdAt&ascendingOrder=true`
+    let link = `${HOST}/owner/technician-users?page=${currentPage}&itemsPerPage=${itemsPerPage}&sortBy=createdAt&ascendingOrder=true${serviceCategory && `&_serviceCategory=${serviceCategory}`}`
 
     const { data } = await axios.get(link)
 

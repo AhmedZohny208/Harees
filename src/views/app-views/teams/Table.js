@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Table, Card, Space, Pagination } from 'antd'
+import { Table, Card, Space, Pagination, message } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   EditOutlined,
@@ -10,7 +10,9 @@ import CreateBtn from 'components/shared-components/buttons/Create'
 import { useHistory } from 'react-router-dom'
 import { APP_PREFIX_PATH } from 'configs/AppConfig'
 import DeletePopup from 'components/shared-components/modals/DeletePopup'
-import { queryTeams, clearErrors } from 'redux/actions/Teams'
+import DisplayModal from 'components/shared-components/modals/DisplayTeam'
+import { queryTeams, getTeamDetails, deleteTeam, clearErrors } from 'redux/actions/Teams'
+import { DELETE_TEAM_RESET } from 'redux/constants/Teams'
 
 export default function TableC() {
   const history = useHistory()
@@ -19,31 +21,56 @@ export default function TableC() {
   const [currentPage, setCurrentPage] = useState(1)
 
   const [currentId, setCurrentId] = useState('')
+  const [displayVisible, isDisplayVisible] = useState(false)
   const [deleteVisible, isDeleteVisible] = useState(false)
 
   // QUERY TEAMS
   const { loading, teams, itemsTotalCount, error } = useSelector(state => state.allTeams)
+  const { loading: loadingDetails, team, error: errorDetails } = useSelector(state => state.teamDetails)
+  const { isDeleted, error: errorDelete } = useSelector(state => state.team)
 
-  useEffect(() => {
-    dispatch(queryTeams(currentPage))
-
-    if (error) {
-      console.log(error);
-      dispatch(clearErrors())
-    }
-  }, [dispatch, currentPage, error])
-
-  useEffect(() => {
-    console.log(currentId);
-  }, [currentId])
+  const showDisplayModal = (id) => {
+    setCurrentId(id)
+    dispatch(getTeamDetails(id))
+    isDisplayVisible(true)
+  }
+  const handleCancelDisplayModal = () => {
+    isDisplayVisible(false)
+  }
 
   const showDeleteModal = (id) => {
     setCurrentId(id)
     isDeleteVisible(true)
   }
+  const handleOkDeleteModal = () => {
+    dispatch(deleteTeam(currentId))
+    isDeleteVisible(false)
+  }
   const handleCancelDeleteModal = () => {
     isDeleteVisible(false)
   }
+
+  useEffect(() => {
+    dispatch(queryTeams(currentPage))
+
+    if (isDeleted) {
+      message.success('Record has been deleted successfully')
+      dispatch({ type: DELETE_TEAM_RESET })
+    }
+
+    if (error) {
+      message.error(error);
+      dispatch(clearErrors())
+    }
+    if (errorDetails) {
+      message.error(errorDetails);
+      dispatch(clearErrors())
+    }
+    if (errorDelete) {
+      message.error(errorDelete);
+      dispatch(clearErrors())
+    }
+  }, [dispatch, currentPage, isDeleted, error, errorDelete])
 
   const columns = [
     {
@@ -73,8 +100,11 @@ export default function TableC() {
       width: '15%',
       render: (text, record) => (
         <Space>
-          <EyeOutlined className='display-btn' />
-          <EditOutlined className='edit-btn' onClick={() => history.push(`${APP_PREFIX_PATH}/teams/update/${record.id}`)} />
+          <EyeOutlined className='display-btn' onClick={() => showDisplayModal(record._id)} />
+          <EditOutlined className='edit-btn' onClick={() => {
+            dispatch(getTeamDetails(record._id))
+            history.push(`${APP_PREFIX_PATH}/teams/update/${record._id}`)
+          }} />
           <DeleteOutlined className='delete-btn' onClick={() => showDeleteModal(record._id)} />
         </Space>
       )
@@ -115,7 +145,8 @@ export default function TableC() {
       </div>
     </Card>
     
-    <DeletePopup visible={deleteVisible} onCancel={handleCancelDeleteModal} />
+    <DeletePopup onConfirm={handleOkDeleteModal} visible={deleteVisible} onCancel={handleCancelDeleteModal} />
+    <DisplayModal loading={loadingDetails} team={team} visible={displayVisible} onCancel={handleCancelDisplayModal} />
     </>
   )
 }

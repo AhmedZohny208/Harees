@@ -27,7 +27,6 @@ export default function Form() {
   const [email, setEmail] = useState('')
 
   const [formErrors, setFormErrors] = useState({})
-
   const [alertError, setAlertError] = useState('')
 
   const prefixSelector = <PrefixSelector setPrefix={setPhonePrefix} />

@@ -272,3 +272,12 @@ label.file svg {
   color: #D0342C;
   font-weight: 500;
 }
+
+// UNORDERED LIST FOR DISPLAY
+.create-form ul {
+  list-style: inside;
+  padding-left: 0;
+  color: #000;
+  font-weight: 500;
+  line-height: 29px;
+}
