@@ -229,6 +229,26 @@ h1, h2, h3, h4, h5, h6, p {
   padding: 20px 20px !important;
 }
 
+.report-card .item-img {
+  background: #F8FBFF;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.report-card .item-img .image {
+  background-color: #216DA4;
+  height: 150px;
+}
+
+.report-card .item-img .info {
+  padding: 16px;
+}
+
+.report-card .item-img .info h4 {
+  font-weight: 600;
+}
+
 .ant-menu-item a, .ant-menu-item > .ant-badge a {
   color: #223E5C;
 }

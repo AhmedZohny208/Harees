@@ -8,7 +8,7 @@ import data from 'configs/servicesData'
 import DeletePopup from 'components/shared-components/modals/DeletePopup'
 import UpdateService from 'components/shared-components/modals/UpdateService'
 
-export default function TableC() {
+export default function TableC({ services }) {
   const [currentId, setCurrentId] = useState('')
   const [deleteVisible, isDeleteVisible] = useState(false)
   const [updateVisible, isUpdateVisible] = useState(false)
@@ -42,13 +42,23 @@ export default function TableC() {
   const columns = [
     {
       title: 'ID',
-      dataIndex: 'id',
+      dataIndex: '_id',
       hidden: true
     },
     {
       title: 'Service Name',
-      dataIndex: 'serviceName',
+      dataIndex: 'name',
       render: text => <span className='fw-600'>{text}</span>
+    },
+    {
+      title: 'Service Description',
+      dataIndex: 'description',
+      render: text => <span>{text}</span>
+    },
+    {
+      title: 'Service Reason',
+      dataIndex: 'reason',
+      render: text => <span>{text}</span>
     },
     {
       title: 'Action',
@@ -72,7 +82,7 @@ export default function TableC() {
     >
       <Table
         columns={columns}
-        dataSource={data}
+        dataSource={services}
         pagination={false}
         rowKey={data => data.id}
       />

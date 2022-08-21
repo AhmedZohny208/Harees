@@ -15,6 +15,7 @@
   font-weight: 600;
 }
 
+// ITEM
 .report-card .item {
   background-color: #FAFAFB;
   color: #216DA4;
@@ -42,4 +43,22 @@
 
 .report-card .ant-card-body {
   padding: 20px 20px !important;
+}
+
+// ITEM-IMG
+.report-card .item-img {
+  background: #F8FBFF;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+.report-card .item-img .image {
+  background-color: #216DA4;
+  height: 150px;
+}
+.report-card .item-img .info {
+  padding: 16px;
+}
+.report-card .item-img .info h4 {
+  font-weight: 600;
 }

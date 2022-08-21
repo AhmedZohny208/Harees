@@ -67,10 +67,26 @@ const dashBoardNavTree = [
   //   submenu: []
   // },
   {
+    key: 'areas',
+    path: `${APP_PREFIX_PATH}/areas`,
+    title: 'Areas',
+    icon: EnvironmentOutlined,
+    breadcrumb: false,
+    submenu: []
+  },
+  {
     key: 'services',
     path: `${APP_PREFIX_PATH}/services`,
     title: 'Services',
     icon: ApiOutlined,
+    breadcrumb: false,
+    submenu: []
+  },
+  {
+    key: 'teams',
+    path: `${APP_PREFIX_PATH}/teams`,
+    title: 'Teams',
+    icon: PartitionOutlined,
     breadcrumb: false,
     submenu: []
   },
@@ -82,14 +98,6 @@ const dashBoardNavTree = [
   //   breadcrumb: false,
   //   submenu: []
   // },
-  {
-    key: 'areas',
-    path: `${APP_PREFIX_PATH}/areas`,
-    title: 'Areas',
-    icon: EnvironmentOutlined,
-    breadcrumb: false,
-    submenu: []
-  },
   {
     key: 'tenants',
     path: `${APP_PREFIX_PATH}/tenants`,
@@ -111,14 +119,6 @@ const dashBoardNavTree = [
     path: `${APP_PREFIX_PATH}/technician`,
     title: 'Technician',
     icon: ToolOutlined,
-    breadcrumb: false,
-    submenu: []
-  },
-  {
-    key: 'teams',
-    path: `${APP_PREFIX_PATH}/teams`,
-    title: 'Teams',
-    icon: PartitionOutlined,
     breadcrumb: false,
     submenu: []
   },
