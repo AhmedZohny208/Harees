@@ -40,7 +40,7 @@ export default function DisplayModal({ teamLead, loading, visible, onCancel }) {
                 <Col span={12}>
                   <div className="input">
                     <label htmlFor="">Leading Team</label>
-                    <Input disabled value={teamLead && teamLead._leadingTeam.title}/>
+                    <Input disabled value={teamLead && (teamLead._leadingTeam && teamLead._leadingTeam.title)}/>
                   </div>
                 </Col>
                 <Col span={12}>

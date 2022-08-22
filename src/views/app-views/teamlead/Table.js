@@ -105,7 +105,7 @@ export default function TableC() {
       render: (text, record) => (
         <Space>
           <EyeOutlined className='display-btn' onClick={() => showDisplayModal(record._id)} />
-          <EditOutlined className='edit-btn' onClick={() => history.push(`${APP_PREFIX_PATH}/teamlead/update/${record.id}`)} />
+          <EditOutlined className='edit-btn' onClick={() => history.push(`${APP_PREFIX_PATH}/teamlead/update/${record._id}`)} />
           <DeleteOutlined className='delete-btn' onClick={() => showDeleteModal(record._id)} />
         </Space>
       )

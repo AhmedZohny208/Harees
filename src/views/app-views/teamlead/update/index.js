@@ -1,7 +1,20 @@
 import React from 'react'
+import { Row, Col, Card } from "antd";
+import BreadcrumbC from './Breadcrumb'
+import UpdateForm from './Form'
 
-export default function UpdateTeamlead() {
+export default function UpdateTeamlead({ match }) {
   return (
-    <div>UpdateTeamlead</div>
+    <div>
+      <BreadcrumbC />
+
+      <Row justify="center" className=''>
+        <Col xs={20} sm={20} md={24} lg={16}>
+        <Card className='form-card' bordered={false}>
+          <UpdateForm id={match.params.id} />
+        </Card>
+        </Col>
+      </Row>
+    </div>
   )
 }
