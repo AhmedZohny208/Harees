@@ -1,11 +1,29 @@
-import React from 'react'
-import { Col, Row } from 'antd';
+import React, { useEffect } from 'react'
+import { Col, Row, message } from 'antd';
 import BreadcrumbC from './Breadcrumb'
 import {ReactComponent as Tickets} from '../../../components/shared-components/svgs/tickets.svg';
 import {ReactComponent as Teams} from '../../../components/shared-components/svgs/teams.svg';
 import TicketsGraph from './TicketsGraph';
+import { useDispatch, useSelector } from 'react-redux'
+import { getStatistics, clearErrors } from 'redux/actions/Statistics'
 
 export default function Statistics() {
+  const dispatch = useDispatch()
+
+  // GET COMPOUND STATISTICS
+  const { loading, statistics, error } = useSelector(state => state.compoundStatistics)
+
+  useEffect(() => {
+    dispatch(getStatistics())
+
+    // console.log(statistics);
+
+    if (error) {
+      message.error(error);
+      dispatch(clearErrors())
+    }
+  }, [dispatch, error])
+
   return (
     <div className='statistics'>
       <BreadcrumbC />
@@ -15,45 +33,50 @@ export default function Statistics() {
           <Tickets />
           <h4>Tickets</h4>
         </div>
-
-        <Row>
-          <Col span={4}>
-            <div className="item">
-              <div className="desc">Total</div>
-              <h6 className="number">2000</h6>
-            </div>
-          </Col>
-          <Col span={4}>
-            <div className="item danger">
-              <div className="desc">Overdue</div>
-              <h6 className="number">80</h6>
-            </div>
-          </Col>
-          <Col span={4}>
-            <div className="item">
-              <div className="desc">Assigned</div>
-              <h6 className="number">80</h6>
-            </div>
-          </Col>
-          <Col span={4}>
-            <div className="item">
-              <div className="desc">In progress</div>
-              <h6 className="number">2000</h6>
-            </div>
-          </Col>
-          <Col span={4}>
-            <div className="item">
-              <div className="desc">Complete</div>
-              <h6 className="number">2000</h6>
-            </div>
-          </Col>
-          <Col span={4}>
-            <div className="item">
-              <div className="desc">Archived</div>
-              <h6 className="number">2000</h6>
-            </div>
-          </Col>
-        </Row>
+        {statistics && (
+          <Row>
+            <Col span={4}>
+              <div className="item">
+                <div className="desc">Total</div>
+                <h6 className="number">{statistics.ticketsPerStatusCount}</h6>
+              </div>
+            </Col>
+            <Col span={4}>
+              <div className="item danger">
+                <div className="desc">Overdue</div>
+                <h6 className="number">{statistics.overdueTicketsCount}</h6>
+              </div>
+            </Col>
+            {statistics.totalTicketsCount && (
+              <>
+                <Col span={4}>
+                  <div className="item">
+                    <div className="desc">Assigned</div>
+                    <h6 className="number">{statistics.totalTicketsCount.assigned}</h6>
+                  </div>
+                </Col>
+                <Col span={4}>
+                  <div className="item">
+                    <div className="desc">In progress</div>
+                    <h6 className="number">{statistics.totalTicketsCount.inprogress}</h6>
+                  </div>
+                </Col>
+                <Col span={4}>
+                  <div className="item">
+                    <div className="desc">Complete</div>
+                    <h6 className="number">{statistics.totalTicketsCount.completed}</h6>
+                  </div>
+                </Col>
+                <Col span={4}>
+                  <div className="item">
+                    <div className="desc">Archived</div>
+                    <h6 className="number">{statistics.totalTicketsCount.archived}</h6>
+                  </div>
+                </Col>
+              </>
+            )}
+          </Row>
+        )}
       </div>
 
       <Row gutter={16} className='mb-3'>
@@ -64,18 +87,22 @@ export default function Statistics() {
               <h4>Teams</h4>
             </div>
             <Row>
-              <Col span={12}>
-                <div className="item">
-                  <div className="desc">Teams</div>
-                  <h6 className="number">12</h6>
-                </div>
-              </Col>
-              <Col span={12}>
-                <div className="item">
-                  <div className="desc">Technicians</div>
-                  <h6 className="number">3,000</h6>
-                </div>
-              </Col>
+              {statistics && (
+                <>
+                  <Col span={12}>
+                    <div className="item">
+                      <div className="desc">Teams</div>
+                      <h6 className="number">{statistics.totalTeamsCount}</h6>
+                    </div>
+                  </Col>
+                  <Col span={12}>
+                    <div className="item">
+                      <div className="desc">Technicians</div>
+                      <h6 className="number">{statistics.totalTechniciansCount}</h6>
+                    </div>
+                  </Col>
+                </>
+              )}
             </Row>
           </div>
         </Col>
@@ -85,18 +112,22 @@ export default function Statistics() {
               <h4>Groups</h4>
             </div>
             <Row>
-              <Col span={12}>
-                <div className="item">
-                  <div className="desc">Areas</div>
-                  <h6 className="number">3</h6>
-                </div>
-              </Col>
-              <Col span={12}>
-                <div className="item">
-                  <div className="desc">Tenants</div>
-                  <h6 className="number">180,000</h6>
-                </div>
-              </Col>
+              {statistics && (
+                <>
+                  <Col span={12}>
+                    <div className="item">
+                      <div className="desc">Areas</div>
+                      <h6 className="number">{statistics.totalAreasCount}</h6>
+                    </div>
+                  </Col>
+                  <Col span={12}>
+                    <div className="item">
+                      <div className="desc">Tenants</div>
+                      <h6 className="number">{statistics.totalTenantsCount}</h6>
+                    </div>
+                  </Col>
+                </>
+              )}
             </Row>
           </div>
         </Col>
@@ -106,18 +137,22 @@ export default function Statistics() {
               <h4>Other</h4>
             </div>
             <Row>
-              <Col span={12}>
-                <div className="item px-0">
-                  <div className="desc">Pushed notifications</div>
-                  <h6 className="number">12</h6>
-                </div>
-              </Col>
-              <Col span={12}>
-                <div className="item">
-                  <div className="desc">Repeated tasks</div>
-                  <h6 className="number">300</h6>
-                </div>
-              </Col>
+              {statistics && (
+                <>
+                  <Col span={12}>
+                    <div className="item px-0">
+                      <div className="desc">Pushed notifications</div>
+                      <h6 className="number">{statistics.totalPushedNotificationsCount}</h6>
+                    </div>
+                  </Col>
+                  <Col span={12}>
+                    <div className="item">
+                      <div className="desc">Repeated tasks</div>
+                      <h6 className="number">{statistics.totalRepeatedTasksCount}</h6>
+                    </div>
+                  </Col>
+                </>
+              )}
             </Row>
           </div>
         </Col>

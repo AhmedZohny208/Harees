@@ -67,6 +67,11 @@ import {
     teamReducer
 } from './Teams'
 
+// STATISTICS
+import {
+    compoundStatisticsReducer
+} from './Statistics'
+
 const reducers = combineReducers({
     theme: Theme,
 
@@ -107,7 +112,9 @@ const reducers = combineReducers({
     allTeams: allTeamsReducer,
     registerTeam: registerTeamReducer,
     teamDetails: teamDetailsReducer,
-    team: teamReducer
+    team: teamReducer,
+
+    compoundStatistics: compoundStatisticsReducer
 });
 
 export default reducers;
