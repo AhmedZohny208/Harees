@@ -3,23 +3,7 @@ import { Modal } from 'antd';
 import {
   CloseOutlined
 } from '@ant-design/icons'
-import { Col, Row, Input, Select } from 'antd'
-
-const { Option } = Select
-
-const prefixSelector = (
-  <Select
-    disabled
-    value='+966'
-    style={{
-      width: 80,
-    }}
-  >
-    <Option value="86">+86</Option>
-    <Option value="966">+966</Option>
-    <Option value="87">+87</Option>
-  </Select>
-);
+import { Col, Row, Input } from 'antd'
 
 export default function DisplayModal({ supervisor, loading, visible, onCancel }) {
   return (
@@ -56,10 +40,10 @@ export default function DisplayModal({ supervisor, loading, visible, onCancel })
               </Row>
             </div>
           
+            <CloseOutlined onClick={onCancel} className='close-btn' />
           </>
         )}
 
-        <CloseOutlined onClick={onCancel} className='close-btn' />
       </Modal>
     </>
   )
