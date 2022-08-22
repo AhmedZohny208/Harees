@@ -283,11 +283,12 @@ label.file svg {
 }
 
 // IMAGE
+.create-form .image,
 .display-modal .image {
   background-color: #999;
   width: 130px;
   height: 130px;
   margin: auto;
   border-radius: 50%;
-  margin-bottom: 16px;
+  margin-bottom: 24px;
 }

@@ -1,67 +1,98 @@
 import React, { useState, useEffect } from 'react'
-import { Col, Row, Input, Button, Select } from 'antd'
+import { Col, Row, Input, Button, Select, message, Alert } from 'antd'
+import { useHistory } from "react-router-dom";
 import {ReactComponent as Error} from '../../../../components/shared-components/svgs/error.svg';
 import PrefixSelector from 'components/shared-components/PrefixSelector';
+import { useDispatch, useSelector } from 'react-redux'
+import { updateTenant, getTenantDetails, clearErrors } from 'redux/actions/Tenants'
+import { queryAreas } from 'redux/actions/Areas'
+import { APP_PREFIX_PATH } from 'configs/AppConfig';
+import { UPDATE_TENANT_RESET } from 'redux/constants/Tenants';
 
 const { Option } = Select
 
-export default function Form() {
+export default function Form({ id }) {
+  let history = useHistory();
+  const dispatch = useDispatch();
+
+  const { areas } = useSelector(state => state.allAreas);
+  const { tenant } = useSelector(state => state.tenantDetails);
+  const { isUpdated, error, loading } = useSelector(state => state.tenant);
+
   const [formValues, setFormValues] = useState()
-  const [tenantName, setTenantName] = useState('Abdulrhman Mohamed')
+  const [tenantName, setTenantName] = useState('')
   const [address, setAddress] = useState('')
-  const [unitID, setUnitID] = useState('A13')
-  const [compoundName, setCompoundName] = useState('Building 71')
-  const [phonePrefix, setPhonePrefix] = useState('966')
-  const [mobNumber, setMobNumber] = useState('68025731')
-  const [email, setEmail] = useState('a.mohamed@gmail.com')
-  const [username, setUserName] = useState('a.mohamed@gmail.com')
+  const [area, setArea] = useState('')
+  const [phone, setPhone] = useState('')
+  const [email, setEmail] = useState('')
 
   const [formErrors, setFormErrors] = useState({})
-  const [isSubmit, setIsSubmit] = useState(false)
+  const [alertError, setAlertError] = useState('')
 
-  const prefixSelector = <PrefixSelector setPrefix={setPhonePrefix} />
+  useEffect(() => {
+    dispatch(getTenantDetails(id))
+  }, [id])
+
+  useEffect(() => {
+    if (tenant) {
+      setTenantName(tenant.fullName)
+      setAddress(tenant.address)
+      setArea(tenant._area._id)
+      setEmail(tenant.email)
+      setPhone(tenant.phone)
+    }
+  }, [tenant])
+
+  useEffect(() => {
+    dispatch(queryAreas(1, 1000))
+
+    if (isUpdated) {
+      setAlertError('')
+      message.success('Record has been created successfully')
+      history.push(`${APP_PREFIX_PATH}/tenants`)
+      dispatch({ type: UPDATE_TENANT_RESET })
+    }
+    if (error) {
+			setAlertError(error)
+			dispatch(clearErrors())
+		}
+  }, [dispatch, error, isUpdated])
 
   useEffect(() => {
     setFormValues({
-      tenantName, 
+      fullName: tenantName, 
       address, 
-      unitID,
-      compoundName,
-      phoneNumber: `+${phonePrefix}${mobNumber}`,
+      _area: area,
+      phone,
       email,
-      username
     })
-  }, [tenantName, address, unitID, compoundName, phonePrefix, mobNumber, email, username])
+  }, [tenantName, address, area, phone, email])
 
   const handleSubmit = (e) => {
     e.preventDefault()
     setFormErrors(validate(formValues));
-    setIsSubmit(true)
-  }
-
-  useEffect(() => {
-    console.log(formErrors);
-    if(Object.keys(formErrors).length === 0 && isSubmit) {
-      console.log(formValues);
+    // REPEAT THE ABOVE VALIDATION
+    if (formValues.fullName !== '' && formValues.address !== '' && formValues._area !== '' && formValues.email !== '') {
+      dispatch(updateTenant(id, formValues))
     }
-  }, [formErrors, formValues, isSubmit])
+  }
 
   const validate = (values) => {
     const errors = {}
-    if (!values.tenantName) {
+    if (!values.fullName) {
       errors.tenantName = "Tenant name is required!";
     }
-    if (!values.unitID) {
-      errors.unitID = "Unit ID is required!";
+    if (!values.address) {
+      errors.address = "Address is required!";
     }
-    if (!values.compoundName) {
-      errors.compoundName = "Compound name is required!";
+    if (!values._area) {
+      errors.area = "Area is required!";
     }
-    if (!mobNumber) {
-      errors.mobNumber = "Phone number is required!";
+    if (!phone) {
+      errors.phone = "Phone number is required!";
     }
-    if (!values.username) {
-      errors.username = "Username is required!";
+    if (!email) {
+      errors.email = "Email is required!";
     }
     return errors;
   }
@@ -97,49 +128,32 @@ export default function Form() {
           </div>
         </Col>
         <Col span={8}>
-          <div className={`input svg-input ${formErrors.unitID && 'error'}`}>
-            <label htmlFor="unitID">Unit ID</label>
+          <div className={`input svg-input ${formErrors.area && 'error'}`}>
+            <label htmlFor="area">Area</label>
             <Select
+              value={area}
               dropdownAlign={{ offset: [0, 8] }}
-              onChange={(val) => setUnitID(val)}
-              value={unitID}
+              onChange={(val) => setArea(val)}
             >
-              <Option value='A13'>A13</Option>
-              <Option value='B1-11'>B1-11</Option>
-              <Option value='B12-12'>B12-12</Option>
+              {areas && areas.map(ele => (
+                <Option key={ele._id} value={ele._id}>{ele.title}</Option>
+              ))}
             </Select>
             <Error className='error-sign' />
-            <small>{formErrors.unitID}</small>
+            <small>{formErrors.area}</small>
           </div>
         </Col>
         <Col span={8}>
-          <div className={`input svg-input ${formErrors.compoundName && 'error'}`}>
-            <label htmlFor="compoundName">Compound</label>
-            <Select
-              dropdownAlign={{ offset: [0, 8] }}
-              onChange={(val) => setCompoundName(val)}
-              value={compoundName}
-            >
-              <Option value='Building 71'>Building 71</Option>
-              <Option value='Building 02'>Building 02</Option>
-              <Option value='Building 01'>Building 01</Option>
-            </Select>
-            <Error className='error-sign' />
-            <small>{formErrors.compoundName}</small>
-          </div>
-        </Col>
-        <Col span={8}>
-          <div className={`input ${formErrors.mobNumber && 'error'}`}>
-            <label htmlFor="phoneNumber">Phone Number</label>
+          <div className={`input ${formErrors.phone && 'error'}`}>
+            <label htmlFor="phone">Phone Number</label>
             <Input
-              id='phoneNumber'
-              name='phoneNumber'
-              value={mobNumber}
-              onChange={(e) => setMobNumber(e.target.value)}
-              addonBefore={prefixSelector} 
+              id='phone'
+              name='phone'
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
             />
             <Error className='error-sign' />
-            <small>{formErrors.mobNumber}</small>
+            <small>{formErrors.phone}</small>
           </div>
         </Col>
         <Col span={8}>
@@ -155,28 +169,19 @@ export default function Form() {
             <small>{formErrors.email}</small>
           </div>
         </Col>
-        <Col span={8}>
-          <div className={`input ${formErrors.username && 'error'}`}>
-            <label htmlFor="username">Username</label>
-            <Input
-              id='username'
-              name='username'
-              value={username}
-              onChange={(e) => setUserName(e.target.value)}
-            />
-            <Error className='error-sign' />
-            <small>{formErrors.username}</small>
-          </div>
-        </Col>
 
         <Col span={24}>
-          <Row justify="end">
+          <Row justify="space-between" align='bottom' gutter={16}>
+            <Col span={18}>
+              {alertError && <Alert className='' message={`${alertError}`} type="error" showIcon />}
+            </Col>
             <Col span={6}>
               <Button 
                 className='submit-btn' 
                 type="primary" 
                 htmlType="submit"
                 onClick={handleSubmit}
+                loading={loading ? true : false}
               >
                 Update tenant
               </Button>

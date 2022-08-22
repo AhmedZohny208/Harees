@@ -4,6 +4,7 @@ import { Col, Row, Input } from 'antd'
 export default function Details({tenant}) {
   return (
     <div className='create-form'>
+      <div className="image" style={{ backgroundImage: `url(${tenant && tenant.profilePicturePath})` }}></div>
       <Row gutter={16}>
         <Col span={8}>
           <div className="input">
