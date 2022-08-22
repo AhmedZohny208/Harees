@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { Col, Row, Input, Button, message, Alert } from 'antd'
 import { useHistory } from "react-router-dom";
 import {ReactComponent as Error} from '../../../../components/shared-components/svgs/error.svg';
-import PrefixSelector from 'components/shared-components/PrefixSelector';
 import { useDispatch, useSelector } from 'react-redux'
 import { updateSupervisor, getSupervisorDetails, clearErrors } from 'redux/actions/Supervisor'
 import { APP_PREFIX_PATH } from 'configs/AppConfig';

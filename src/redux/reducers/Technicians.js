@@ -103,7 +103,8 @@ export const technicianDetailsReducer = (state = {}, action) => {
     case TECHNICIAN_DETAILS_SUCCESS:
       return {
         loading: false,
-        technician: action.payload
+        technician: action.payload,
+        tickets: action.payload.ticketsData
       }
 
     case TECHNICIAN_DETAILS_FAIL:

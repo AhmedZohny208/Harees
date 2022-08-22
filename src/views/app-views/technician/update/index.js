@@ -3,15 +3,15 @@ import { Row, Col, Card } from "antd";
 import BreadcrumbC from './Breadcrumb'
 import UpdateForm from './Form'
 
-export default function UpdateTechnician() {
+export default function UpdateTechnician({ match }) {
   return (
     <div>
       <BreadcrumbC />
 
       <Row justify="center" className=''>
-        <Col xs={20} sm={20} md={24} lg={24}>
+        <Col xs={20} sm={20} md={24} lg={16}>
         <Card className='form-card' bordered={false}>
-          <UpdateForm />
+          <UpdateForm id={match.params.id} />
         </Card>
         </Col>
       </Row>

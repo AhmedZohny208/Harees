@@ -9,7 +9,7 @@ export default function CreateTechnician() {
       <BreadcrumbC />
 
       <Row justify="center" className=''>
-        <Col xs={20} sm={20} md={24} lg={24}>
+        <Col xs={20} sm={20} md={24} lg={16}>
         <Card className='form-card' bordered={false}>
           <CreateForm />
         </Card>

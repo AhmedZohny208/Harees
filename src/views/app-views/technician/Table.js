@@ -11,9 +11,9 @@ import Utils from 'utils'
 import { COLORS } from 'constants/ChartConstant'
 import { useHistory } from 'react-router-dom'
 import { APP_PREFIX_PATH } from 'configs/AppConfig'
-import DisplayModal from 'components/shared-components/modals/DisplayTechnician'
 import DeletePopup from 'components/shared-components/modals/DeletePopup'
-import { queryTechnicians, clearErrors } from 'redux/actions/Technicians'
+import { queryTechnicians, deleteTechnician, clearErrors } from 'redux/actions/Technicians'
+import { DELETE_TECHNICIAN_RESET } from 'redux/constants/Technicians'
 
 export default function TableC() {
   const history = useHistory()
@@ -27,35 +27,34 @@ export default function TableC() {
 
   // QUERY TECHNICIANS
   const { loading, technicians, itemsTotalCount, error } = useSelector(state => state.allTechnicians)
+  // DELETE TECHNICIAN
+  const { isDeleted, error: errorDelete } = useSelector(state => state.technician)
 
   useEffect(() => {
-    dispatch(queryTechnicians(currentPage))
+    dispatch(queryTechnicians(currentPage, 10, ''))
+
+    if (isDeleted) {
+      message.success('Record has been deleted successfully')
+      dispatch({ type: DELETE_TECHNICIAN_RESET })
+    }
 
     if (error) {
       console.log(error);
       dispatch(clearErrors())
     }
-  }, [dispatch, currentPage, error])
-
-  useEffect(() => {
-    console.log(currentId);
-  }, [currentId])
-
-  const showDisplayModal = (id) => {
-    setCurrentId(id)
-    isDisplayVisible(true)
-  }
-  const handleCancelDisplayModal = () => {
-    isDisplayVisible(false)
-  }
+    if (errorDelete) {
+      message.error(errorDelete);
+      dispatch(clearErrors())
+    }
+  }, [dispatch, currentPage, isDeleted, error, errorDelete])
 
   const showDeleteModal = (id) => {
     setCurrentId(id)
     isDeleteVisible(true)
   }
   const handleOkDeleteModal = () => {
+    dispatch(deleteTechnician(currentId))
     isDeleteVisible(false)
-    message.success('Record has been deleted successfully')
   }
   const handleCancelDeleteModal = () => {
     isDeleteVisible(false)
@@ -91,15 +90,15 @@ export default function TableC() {
     {
       title: 'Service Category',
       dataIndex: '_serviceCategory',
-      render: text => <span className='fw-600'>{text}</span>
+      render: text => <span className='fw-600'>{text && text.name}</span>
     },
     {
       title: 'Action',
       key: 'action',
       render: (text, record) => (
         <Space>
-          <EyeOutlined className='display-btn' onClick={() => showDisplayModal(record._id)} />
-          <EditOutlined className='edit-btn' onClick={() => history.push(`${APP_PREFIX_PATH}/technician/update/${record.id}`)} />
+          <EyeOutlined className='display-btn' onClick={() => history.push(`${APP_PREFIX_PATH}/technician/${record._id}`)} />
+          <EditOutlined className='edit-btn' onClick={() => history.push(`${APP_PREFIX_PATH}/technician/update/${record._id}`)} />
           <DeleteOutlined className='delete-btn' onClick={() => showDeleteModal(record._id)} />
         </Space>
       )
@@ -141,8 +140,6 @@ export default function TableC() {
       </Card>
       
       <DeletePopup onConfirm={handleOkDeleteModal} visible={deleteVisible} onCancel={handleCancelDeleteModal} />
-
-      <DisplayModal visible={displayVisible} onCancel={handleCancelDisplayModal} />
     </>
   )
 }

@@ -1,58 +1,83 @@
 import React, { useState, useEffect } from 'react'
-import { Col, Row, Input, Button, Select, Switch } from 'antd'
+import { Col, Row, Input, Button, Select, message, Alert } from 'antd'
+import { useHistory } from "react-router-dom";
 import {ReactComponent as Error} from '../../../../components/shared-components/svgs/error.svg';
 import PrefixSelector from 'components/shared-components/PrefixSelector';
+import { useDispatch, useSelector } from 'react-redux'
+import { queryServices } from 'redux/actions/Services'
+import { registerTechnician, clearErrors } from 'redux/actions/Technicians'
+import { APP_PREFIX_PATH } from 'configs/AppConfig';
+import { CREATE_TECHNICIAN_RESET } from 'redux/constants/Technicians';
 
 const { Option } = Select
+const { TextArea } = Input;
 
 export default function Form() {
+  let history = useHistory();
+  const dispatch = useDispatch();
+
+  const { services } = useSelector(state => state.allServices);
+  const { technician, error, loading } = useSelector(state => state.registerTechnician);
+
   const [formValues, setFormValues] = useState()
-  const [technicianName, setTechnicianName] = useState('')
-  const [address, setAddress] = useState('')
-  const [teamName, setTeamName] = useState('')
-  const [isTeamLead, setIsTeamLead] = useState(false)
+  const [fullName, setFullName] = useState('')
+  const [email, setEmail] = useState('')
   const [phonePrefix, setPhonePrefix] = useState('966')
   const [mobNumber, setMobNumber] = useState('')
-  const [email, setEmail] = useState('')
-  const [username, setUserName] = useState('')
+  const [service, setService] = useState('')
+  const [moreDetails, setMoreDetails] = useState('')
 
   const [formErrors, setFormErrors] = useState({})
-  const [isSubmit, setIsSubmit] = useState(false)
+  const [alertError, setAlertError] = useState('')
 
   const prefixSelector = <PrefixSelector setPrefix={setPhonePrefix} />
 
   useEffect(() => {
+    dispatch(queryServices())
+
+    if (technician) {
+      setAlertError('')
+      message.success('Record has been created successfully')
+      history.push(`${APP_PREFIX_PATH}/technician`)
+      dispatch({ type: CREATE_TECHNICIAN_RESET })
+    }
+    if (error) {
+			setAlertError(error)
+			dispatch(clearErrors())
+		}
+  }, [dispatch, error, technician, service])
+
+  useEffect(() => {
     setFormValues({
-      technicianName, address, teamName, isTeamLead, phonePrefix, mobNumber, email, username
+      fullName, 
+      email, 
+      phone: `+${phonePrefix}${mobNumber}`,
+      _serviceCategory: service,
+      moreDetails
     })
-  }, [technicianName, address, teamName, isTeamLead, phonePrefix, mobNumber, email, username])
+  }, [fullName, phonePrefix, mobNumber, email, service, moreDetails])
 
   const handleSubmit = (e) => {
     e.preventDefault()
     setFormErrors(validate(formValues));
-    setIsSubmit(true)
-  }
-
-  useEffect(() => {
-    console.log(formErrors);
-    if(Object.keys(formErrors).length === 0 && isSubmit) {
-      console.log(formValues);
+    if (formValues.fullName !== '' && formValues.email !== '' && formValues._serviceCategory !== '') {
+      dispatch(registerTechnician(formValues))
     }
-  }, [formErrors, formValues, isSubmit])
+  }
 
   const validate = (values) => {
     const errors = {}
-    if (!values.technicianName) {
-      errors.technicianName = "Technician name is required!";
-    }
-    if (!values.teamName) {
-      errors.teamName = "Team name is required!";
+    if (!values.fullName) {
+      errors.fullName = "Supervisor name is required!";
     }
     if (!mobNumber) {
       errors.mobNumber = "Phone number is required!";
     }
-    if (!values.username) {
-      errors.username = "Username is required!";
+    if (!values.email) {
+      errors.email = "Email is required!";
+    }
+    if (!values._serviceCategory) {
+      errors.service = "Service category is required!";
     }
     return errors;
   }
@@ -61,48 +86,20 @@ export default function Form() {
     <div className='create-form'>
 
       <Row gutter={16}>
-        <Col span={8}>
-          <div className={`input ${formErrors.technicianName && 'error'}`}>
-            <label htmlFor="technicianName">Name</label>
+        <Col span={12}>
+          <div className={`input ${formErrors.fullName && 'error'}`}>
+            <label htmlFor="fullName">Name</label>
             <Input
-              id='technicianName'
-              name='technicianName'
-              value={technicianName}
-              onChange={(e) => setTechnicianName(e.target.value)}
+              id='fullName'
+              name='fullName'
+              value={fullName}
+              onChange={(e) => setFullName(e.target.value)}
             />
             <Error className='error-sign' />
-            <small>{formErrors.technicianName}</small>
+            <small>{formErrors.fullName}</small>
           </div>
         </Col>
-        <Col span={16}>
-          <div className={`input ${formErrors.address && 'error'}`}>
-            <label htmlFor="address">Address</label>
-            <Input
-              id='address'
-              name='address'
-              value={address}
-              onChange={(e) => setAddress(e.target.value)}
-            />
-            <Error className='error-sign' />
-            <small>{formErrors.address}</small>
-          </div>
-        </Col>
-        <Col span={8}>
-          <div className={`input svg-input ${formErrors.teamName && 'error'}`}>
-            <label htmlFor="teamName">Team Name</label>
-            <Select
-              dropdownAlign={{ offset: [0, 8] }}
-              onChange={(val) => setTeamName(val)}
-            >
-              <Option value='Carpentry'>Carpentry</Option>
-              <Option value='Electricity'>Electricity</Option>
-              <Option value='Security'>Security</Option>
-            </Select>
-            <Error className='error-sign' />
-            <small>{formErrors.teamName}</small>
-          </div>
-        </Col>
-        <Col span={8}>
+        <Col span={12}>
           <div className={`input ${formErrors.mobNumber && 'error'}`}>
             <label htmlFor="phoneNumber">Phone Number</label>
             <Input
@@ -116,7 +113,7 @@ export default function Form() {
             <small>{formErrors.mobNumber}</small>
           </div>
         </Col>
-        <Col span={8}>
+        <Col span={12}>
           <div className={`input ${formErrors.email && 'error'}`}>
             <label htmlFor="email">Email Address</label>
             <Input
@@ -130,38 +127,45 @@ export default function Form() {
           </div>
         </Col>
 
+        <Col span={12}>
+          <div className={`input svg-input ${formErrors.service && 'error'}`}>
+            <label htmlFor="description">Choose Service</label>
+            <Select onChange={(val) => setService(val)}>
+              {services && services.map(ele => (
+                <Option key={ele._id} value={ele._id}>{ele.name}</Option>
+              ))}
+            </Select>
+            <Error className='error-sign' />
+            <small>{formErrors.service}</small>
+          </div>
+        </Col>
+
         <Col span={24}>
-          <Row gutter={16} justify="space-between" align="bottom">
-            <Col span={8}>
-              <div className={`input ${formErrors.username && 'error'}`}>
-                <label htmlFor="username">Username</label>
-                <Input
-                  id='username'
-                  name='username'
-                  value={username}
-                  onChange={(e) => setUserName(e.target.value)}
-                />
-                <Error className='error-sign' />
-                <small>{formErrors.username}</small>
-              </div>
-            </Col>
-            <Col span={8}>
-              <div className="input is-active">
-                <label>Team Lead</label>
-                <Switch onChange={(val) => setIsTeamLead(val)} />
-              </div>
-            </Col>
-          </Row>
+          <div className='input'>
+            <label htmlFor="moreDetails">More Details</label>
+            <TextArea
+              allowClear
+              id='moreDetails'
+              name='moreDetails'
+              value={moreDetails}
+              onChange={(e) => setMoreDetails(e.target.value)}
+            />
+          </div>
+        </Col>
+
+        <Col span={24}>
+          {alertError && <Alert message={`${alertError}`} type="error" showIcon />}
         </Col>
 
         <Col span={24}>
           <Row justify="end">
-            <Col span={6}>
+            <Col span={12}>
               <Button 
                 className='submit-btn' 
                 type="primary" 
                 htmlType="submit"
                 onClick={handleSubmit}
+                loading={loading ? true : false}
               >
                 Add new technician
               </Button>
