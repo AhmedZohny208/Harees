@@ -28,7 +28,7 @@ export default function DisplayModal({ loading, team, visible, onCancel }) {
                 <Col span={12}>
                   <div className="input">
                     <label>Service Category</label>
-                    <Input disabled value={team && team._serviceCategory}/>
+                    <Input disabled value={team && team._serviceCategory.name}/>
                   </div>
                 </Col>
                 <Col span={12}>

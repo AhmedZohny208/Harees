@@ -19,49 +19,49 @@ export default function DisplayModal({ record, visible, onCancel }) {
       >
         <div className='create-form'>
 
-          <h3 className='mb-3'>{record.name}</h3>
+          <h3 className='mb-3'>{record && record.name}</h3>
 
           <Row gutter={16}>
             <Col span={12}>
               <div className="input">
                 <label>Service EN Name</label>
-                <Input disabled value={record.name}/>
+                <Input disabled value={record && record.name}/>
               </div>
             </Col>
             <Col span={12}>
               <div className="input">
                 <label>Service AR Name</label>
-                <Input disabled value={record.arabicName}/>
+                <Input disabled value={record && record.arabicName}/>
               </div>
             </Col>
             <Col span={12}>
               <div className="input">
                 <label>Profession EN Title</label>
-                <Input disabled value={record.professionTitle}/>
+                <Input disabled value={record && record.professionTitle}/>
               </div>
             </Col>
             <Col span={12}>
               <div className="input">
                 <label>Profession AR Title</label>
-                <Input disabled value={record.arabicProfessionTitle}/>
+                <Input disabled value={record && record.arabicProfessionTitle}/>
               </div>
             </Col>
             <Col span={24}>
               <div className="input">
                 <label>EN Description</label>
-                <Input disabled value={record.description}/>
+                <Input disabled value={record && record.description}/>
               </div>
             </Col>
             <Col span={24}>
               <div className="input">
                 <label>AR Description</label>
-                <Input disabled value={record.arabicDescription}/>
+                <Input disabled value={record && record.arabicDescription}/>
               </div>
             </Col>
             <Col span={24}>
               <div className="input">
                 <label>Reason</label>
-                <Input disabled value={record.reason}/>
+                <Input disabled value={record && record.reason}/>
               </div>
             </Col>
           </Row>

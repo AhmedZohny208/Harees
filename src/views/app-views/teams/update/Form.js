@@ -39,7 +39,7 @@ export default function Form({ id }) {
     if (team) {
       setTitle(team.title)
       setArea(team._area._id)
-      setService(team._serviceCategory)
+      setService(team._serviceCategory._id)
       setTechnicians(team._technicians.map(ele => ele._id))
     }
   }, [team])

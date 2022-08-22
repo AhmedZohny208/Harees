@@ -101,7 +101,6 @@ export const serviceDetailsReducer = (state = {}, action) => {
       return {
         loading: false,
         service: action.payload,
-        tickets: action.payload.ticketsData
       }
 
     case SERVICE_DETAILS_FAIL:

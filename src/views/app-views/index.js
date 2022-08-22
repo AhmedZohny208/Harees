@@ -46,6 +46,8 @@ export const AppViews = () => {
 
         {/* SERVICES */}
         <Route exact path={`${APP_PREFIX_PATH}/services`} component={lazy(() => import(`./services`))} />
+        <Route path={`${APP_PREFIX_PATH}/services/create`} component={lazy(() => import(`./services/create`))} />
+        <Route path={`${APP_PREFIX_PATH}/services/update/:id`} component={lazy(() => import(`./services/update`))} />
 
         {/* TENANTS */}
         <Route exact path={`${APP_PREFIX_PATH}/tenants`} component={lazy(() => import(`./tenants`))} />

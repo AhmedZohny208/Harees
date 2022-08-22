@@ -46,7 +46,7 @@ export const registerService = (serviceData) => async (dispatch) => {
 
     const config = {
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'multipart/form-data'
       }
     }
 
@@ -72,7 +72,7 @@ export const updateService = (id, serviceData) => async (dispatch) => {
 
     const config = {
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'multipart/form-data'
       }
     }
 
