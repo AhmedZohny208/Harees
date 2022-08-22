@@ -3,7 +3,7 @@ import { Col, Row, Input, Button, Select, message, Alert } from 'antd'
 import { useHistory } from "react-router-dom";
 import {ReactComponent as Error} from '../../../../components/shared-components/svgs/error.svg';
 import { useDispatch, useSelector } from 'react-redux'
-import { updateArea, clearErrors } from 'redux/actions/Areas'
+import { updateArea, getAreaDetails, clearErrors } from 'redux/actions/Areas'
 import { queryTeams } from 'redux/actions/Teams'
 import { APP_PREFIX_PATH } from 'configs/AppConfig';
 import { UPDATE_AREA_RESET } from 'redux/constants/Areas';
@@ -15,6 +15,7 @@ export default function Form({ id }) {
   const dispatch = useDispatch();
 
   const { teams: allTeams } = useSelector(state => state.allTeams);
+  const { area } = useSelector(state => state.areaDetails)
   const { isUpdated, error, loading } = useSelector(state => state.area);
 
   const [formValues, setFormValues] = useState()
@@ -23,6 +24,17 @@ export default function Form({ id }) {
 
   const [formErrors, setFormErrors] = useState({})
   const [alertError, setAlertError] = useState('')
+
+  useEffect(() => {
+    dispatch(getAreaDetails(id))
+  }, [id])
+
+  useEffect(() => {
+    if (area) {
+      setTitle(area.title)
+      setTeams(area._teams.map(ele => ele._id))
+    }
+  }, [area])
 
   useEffect(() => {
     dispatch(queryTeams(1, 1000))
@@ -85,6 +97,7 @@ export default function Form({ id }) {
             <Select
               mode="multiple"
               allowClear
+              value={teams}
               dropdownAlign={{ offset: [0, 8] }}
               onChange={(val) => setTeams(val)}
             >

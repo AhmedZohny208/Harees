@@ -10,7 +10,8 @@ import CreateBtn from 'components/shared-components/buttons/Create'
 import { useHistory } from 'react-router-dom'
 import { APP_PREFIX_PATH } from 'configs/AppConfig'
 import DeletePopup from 'components/shared-components/modals/DeletePopup'
-import { queryAreas, deleteArea, clearErrors } from 'redux/actions/Areas'
+import DisplayModal from 'components/shared-components/modals/DisplayArea'
+import { queryAreas, getAreaDetails, deleteArea, clearErrors } from 'redux/actions/Areas'
 import { DELETE_AREA_RESET } from 'redux/constants/Areas'
 
 export default function TableC() {
@@ -20,10 +21,13 @@ export default function TableC() {
   const [currentPage, setCurrentPage] = useState(1)
 
   const [currentId, setCurrentId] = useState('')
+  const [displayVisible, isDisplayVisible] = useState(false)
   const [deleteVisible, isDeleteVisible] = useState(false)
 
   // QUERY TEAMS
   const { loading, areas, itemsTotalCount, error } = useSelector(state => state.allAreas)
+  // AREA DETAILS
+  const { loading: loadingDetails, area, error: errorDetails } = useSelector(state => state.areaDetails)
   // DELETE TENANT
   const { isDeleted, error: errorDelete } = useSelector(state => state.area)
 
@@ -39,11 +43,24 @@ export default function TableC() {
       message.error(error);
       dispatch(clearErrors())
     }
+    if (errorDetails) {
+      message.error(errorDetails);
+      dispatch(clearErrors())
+    }
     if (errorDelete) {
       message.error(errorDelete);
       dispatch(clearErrors())
     }
-  }, [dispatch, currentPage, isDeleted, error, errorDelete])
+  }, [dispatch, currentPage, isDeleted, error, errorDelete, errorDetails])
+
+  const showDisplayModal = (id) => {
+    setCurrentId(id)
+    dispatch(getAreaDetails(id))
+    isDisplayVisible(true)
+  }
+  const handleCancelDisplayModal = () => {
+    isDisplayVisible(false)
+  }
 
   const showDeleteModal = (id) => {
     setCurrentId(id)
@@ -92,7 +109,7 @@ export default function TableC() {
       width: 165,
       render: (text, record) => (
         <Space>
-          <EyeOutlined className='display-btn' />
+          <EyeOutlined className='display-btn' onClick={() => showDisplayModal(record._id)} />
           <EditOutlined className='edit-btn' onClick={() => history.push(`${APP_PREFIX_PATH}/areas/update/${record._id}`)} />
           <DeleteOutlined className='delete-btn' onClick={() => showDeleteModal(record._id)} />
         </Space>
@@ -135,6 +152,7 @@ export default function TableC() {
       </Card>
       
       <DeletePopup onConfirm={handleOkDeleteModal} visible={deleteVisible} onCancel={handleCancelDeleteModal} />
+      <DisplayModal loading={loadingDetails} area={area} visible={displayVisible} onCancel={handleCancelDisplayModal} />
     </>
   )
 }

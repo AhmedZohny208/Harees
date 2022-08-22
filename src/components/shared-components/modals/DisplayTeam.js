@@ -47,11 +47,11 @@ export default function DisplayModal({ loading, team, visible, onCancel }) {
                   </ul>
                 </Col>
               </Row>
+              <CloseOutlined onClick={onCancel} className='close-btn' />
             </>
           )}
 
         </div>
-        <CloseOutlined onClick={onCancel} className='close-btn' />
       </Modal>
     </>
   )
