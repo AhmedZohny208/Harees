@@ -33,7 +33,7 @@ export default function Statistics() {
       message.error(error);
       dispatch(clearErrors())
     }
-  }, [dispatch, error])
+  }, [dispatch, error, history])
 
   useEffect(() => {
     if (monthDate === '') {

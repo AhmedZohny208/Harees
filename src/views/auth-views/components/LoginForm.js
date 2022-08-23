@@ -22,8 +22,6 @@ export default function LoginForm() {
 	const [password, setPassword] = useState('')
 
 	const [formErrors, setFormErrors] = useState({})
-  const [isSubmit, setIsSubmit] = useState(false)
-
 	const [alertError, setAlertError] = useState('')
 
 	const validate = (values) => {
@@ -49,13 +47,10 @@ export default function LoginForm() {
 	const handleSubmit = (e) => {
     e.preventDefault()
 		setFormErrors(validate(formValues));
-    setIsSubmit(true)
-  }
-	useEffect(() => {
-    if(Object.keys(formErrors).length === 0 && isSubmit) {
+    if (formValues.email !== '' && formValues.password !== '') {
 			dispatch(login(formValues))
-    }
-  }, [formErrors, formValues, isSubmit, dispatch])
+		}
+  }
 
 	useEffect(() => {
 		if (isAuthenticated) {
@@ -86,7 +81,7 @@ export default function LoginForm() {
 					<small>{formErrors.email}</small>
 				</div>
 
-				<div className={`input ${formErrors.password && 'error'}`}>
+				<div className={`input svg-input ${formErrors.password && 'error'}`}>
 					<label htmlFor="name">Password</label>
 					<Input.Password
 						id='password'
