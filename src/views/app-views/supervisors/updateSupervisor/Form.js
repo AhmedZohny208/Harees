@@ -24,7 +24,7 @@ export default function Form({id}) {
 
   useEffect(() => {
     dispatch(getSupervisorDetails(id))
-  }, [id])
+  }, [id, dispatch])
 
   useEffect(() => {
     if (supervisor) {
@@ -45,7 +45,7 @@ export default function Form({id}) {
 			setAlertError(error)
 			dispatch(clearErrors())
 		}
-  }, [dispatch, error, isUpdated])
+  }, [dispatch, error, isUpdated, history])
 
   useEffect(() => {
     setFormValues({

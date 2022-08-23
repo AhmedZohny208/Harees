@@ -31,7 +31,7 @@ export default function Form({ id }) {
 
   useEffect(() => {
     dispatch(getTeamLeadDataDetails(id))
-  }, [id])
+  }, [id, dispatch])
 
   useEffect(() => {
     if (teamLead) {
@@ -56,7 +56,7 @@ export default function Form({ id }) {
 			setAlertError(error)
 			dispatch(clearErrors())
 		}
-  }, [dispatch, error, isUpdated, service])
+  }, [dispatch, error, isUpdated, service, history])
 
   useEffect(() => {
     setFormValues({

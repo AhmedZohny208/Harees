@@ -1,12 +1,9 @@
 import React, { useEffect } from "react";
 import { Menu, Dropdown, Avatar } from "antd";
 import { useDispatch, useSelector } from 'react-redux'
-import { useHistory } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
 import { 
-  EditOutlined, 
-  SettingOutlined, 
-  ShopOutlined, 
-  QuestionCircleOutlined, 
+  // EditOutlined, 
   LogoutOutlined 
 } from '@ant-design/icons';
 import Icon from 'components/util-components/Icon';
@@ -15,31 +12,15 @@ import { getProfileData } from "redux/actions/Profile";
 import { AUTH_PREFIX_PATH } from 'configs/AppConfig';
 
 const menuItem = [
-	{
-		title: "Edit Profile",
-		icon: EditOutlined ,
-		path: "/"
-    },
-    
-    {
-		title: "Account Setting",
-		icon: SettingOutlined,
-		path: "/"
-    },
-    {
-		title: "Billing",
-		icon: ShopOutlined ,
-		path: "/"
-	},
-    {
-		title: "Help Center",
-		icon: QuestionCircleOutlined,
-		path: "/"
-	}
+	// {
+  //   title: "Edit Profile",
+  //   icon: EditOutlined ,
+  //   path: "/"
+  // }
 ]
 
 export default function NavProfile() {
-  let history = useHistory();
+  // let history = useHistory();
   const dispatch = useDispatch()
 
   const { user } = useSelector(state => state.profileData)
@@ -53,13 +34,12 @@ export default function NavProfile() {
     dispatch(getProfileData())
   }, [dispatch])
 
-  const profileImg = "/img/avatars/thumb-1.jpg";
   const profileMenu = (
     <div className="nav-profile nav-dropdown">
       {user && (
         <div className="nav-profile-header">
           <div className="d-flex">
-            <Avatar size={45} src={profileImg} />
+            <Avatar size={45} src={user.profilePicturePath} />
             <div className="pl-3">
               <h4 className="mb-0">{user.fullName}</h4>
               <span className="text-muted">{user.userTitle}</span>
@@ -93,7 +73,7 @@ export default function NavProfile() {
     <Dropdown placement="bottomRight" overlay={profileMenu} trigger={["click"]}>
       <Menu className="d-flex align-item-center" mode="horizontal">
         <Menu.Item key="profile">
-          <Avatar src={profileImg} />
+          {user && <Avatar src={user.profilePicturePath} />}
         </Menu.Item>
       </Menu>
     </Dropdown>

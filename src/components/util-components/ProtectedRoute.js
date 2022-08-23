@@ -11,9 +11,7 @@ export default function ProtectedRoute({ component: Component, ...rest }) {
 
   useEffect(() => {
     dispatch(getProfileData())
-  }, [])
-
-  console.log(isAuthenticated);
+  }, [dispatch])
 
   return (
     <>

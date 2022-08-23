@@ -1,24 +1,11 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Card, Col, Row } from 'antd'
 import { useHistory } from 'react-router-dom'
 import CreateBtn from 'components/shared-components/buttons/Create'
-import CreateService from 'components/shared-components/modals/CreateService'
 import { APP_PREFIX_PATH } from 'configs/AppConfig';
 
 export default function MainCard({ services }) {
   const history = useHistory()
-  
-  const [createVisible, isCreateVisible] = useState(false)
-
-  const showCreateModal = () => {
-    isCreateVisible(true)
-  }
-  const handleOkCreateModal = () => {
-    isCreateVisible(false)
-  }
-  const handleCancelCreateModal = () => {
-    isCreateVisible(false)
-  }
 
   return (
     <>
@@ -42,8 +29,6 @@ export default function MainCard({ services }) {
           ))}
         </Row>
       </Card>
-
-      <CreateService visible={createVisible} onCancel={handleCancelCreateModal} onConfirm={handleOkCreateModal} />
     </>
   )
 }

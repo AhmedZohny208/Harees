@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -12,22 +12,6 @@ import { Line } from 'react-chartjs-2';
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Filler);
 
 export default function TicketsGraph({ domData, horizontalAxis, verticalAxis }) {
-
-  // const [minXAxis, setMinXAxis] = useState(0)
-  // const [maxXAxis, setMaxXAxis] = useState(30)
-  // const [minYAxis, setMinYAxis] = useState(0)
-  // const [maxYAxis, setMaxYAxis] = useState(50)
-
-  // if (domData) {
-  //   if (domData.histogramData) {
-  //     if (domData.histogramData.horizontalAxis) {
-  //       setMinXAxis(domData.histogramData.horizontalAxis.min)
-  //       setMaxXAxis(domData.histogramData.horizontalAxis.max)
-  //     }
-  //   }
-  //   // setMinYAxis()
-  //   // setMaxYAxis()
-  // }
 
   const options = {
     responsive: true,

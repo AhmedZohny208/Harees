@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { Col, Row, Input, Button, Select, message, Alert } from 'antd'
 import { useHistory } from "react-router-dom";
 import {ReactComponent as Error} from '../../../../components/shared-components/svgs/error.svg';
-import PrefixSelector from 'components/shared-components/PrefixSelector';
 import { useDispatch, useSelector } from 'react-redux'
 import { updateTenant, getTenantDetails, clearErrors } from 'redux/actions/Tenants'
 import { queryAreas } from 'redux/actions/Areas'
@@ -31,7 +30,7 @@ export default function Form({ id }) {
 
   useEffect(() => {
     dispatch(getTenantDetails(id))
-  }, [id])
+  }, [dispatch, id])
 
   useEffect(() => {
     if (tenant) {
@@ -56,7 +55,7 @@ export default function Form({ id }) {
 			setAlertError(error)
 			dispatch(clearErrors())
 		}
-  }, [dispatch, error, isUpdated])
+  }, [dispatch, error, isUpdated, history])
 
   useEffect(() => {
     setFormValues({

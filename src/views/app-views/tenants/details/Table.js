@@ -8,7 +8,7 @@ export default function TableC({tickets, currentPage, setCurrentPage}) {
     if (tickets) {
       setItems(tickets.items)
     }
-  }, [])
+  }, [tickets])
 
   const columns = [
     {

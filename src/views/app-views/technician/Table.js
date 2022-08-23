@@ -22,7 +22,6 @@ export default function TableC() {
   const [currentPage, setCurrentPage] = useState(1)
 
   const [currentId, setCurrentId] = useState('')
-  const [displayVisible, isDisplayVisible] = useState(false)
   const [deleteVisible, isDeleteVisible] = useState(false)
 
   // QUERY TECHNICIANS

@@ -11,7 +11,6 @@ import Utils from 'utils'
 import { COLORS } from 'constants/ChartConstant'
 import { useHistory } from 'react-router-dom'
 import { APP_PREFIX_PATH } from 'configs/AppConfig'
-import DisplayModal from 'components/shared-components/modals/DisplayTenants'
 import DeletePopup from 'components/shared-components/modals/DeletePopup'
 import { queryTenants, deleteTenant, clearErrors } from 'redux/actions/Tenants'
 import { DELETE_TENANT_RESET } from 'redux/constants/Tenants'
@@ -23,7 +22,6 @@ export default function TableC() {
   const [currentPage, setCurrentPage] = useState(1)
 
   const [currentId, setCurrentId] = useState('')
-  const [displayVisible, isDisplayVisible] = useState(false)
   const [deleteVisible, isDeleteVisible] = useState(false)
 
   // QUERY TENANTS
@@ -48,14 +46,6 @@ export default function TableC() {
       dispatch(clearErrors())
     }
   }, [dispatch, currentPage, isDeleted, error, errorDelete])
-
-  const showDisplayModal = (id) => {
-    setCurrentId(id)
-    isDisplayVisible(true)
-  }
-  const handleCancelDisplayModal = () => {
-    isDisplayVisible(false)
-  }
 
   const showDeleteModal = (id) => {
     setCurrentId(id)
@@ -145,8 +135,6 @@ export default function TableC() {
       </Card>
       
       <DeletePopup onConfirm={handleOkDeleteModal} visible={deleteVisible} onCancel={handleCancelDeleteModal} />
-
-      <DisplayModal visible={displayVisible} onCancel={handleCancelDisplayModal} />
     </>
   )
 }

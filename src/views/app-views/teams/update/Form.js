@@ -33,7 +33,7 @@ export default function Form({ id }) {
 
   useEffect(() => {
     dispatch(getTeamDetails(id))
-  }, [id])
+  }, [id, dispatch])
 
   useEffect(() => {
     if (team) {
@@ -45,7 +45,6 @@ export default function Form({ id }) {
   }, [team])
 
   useEffect(() => {
-    // dispatch(getTeamDetails(id))
     dispatch(queryAreas())
     dispatch(queryServices())
     dispatch(queryTechnicians(1, 1000, service))
@@ -60,7 +59,7 @@ export default function Form({ id }) {
 			setAlertError(error)
 			dispatch(clearErrors())
 		}
-  }, [dispatch, error, team, service, isUpdated])
+  }, [dispatch, error, team, service, isUpdated, history])
 
   useEffect(() => {
     setFormValues({

@@ -31,7 +31,7 @@ export default function Form({ id }) {
 
   useEffect(() => {
     dispatch(getServiceDetails(id))
-  }, [id])
+  }, [id, dispatch])
 
   useEffect(() => {
     if (service) {
@@ -61,7 +61,7 @@ export default function Form({ id }) {
 			setAlertError(error)
 			dispatch(clearErrors())
 		}
-  }, [dispatch, error, isUpdated])
+  }, [dispatch, error, isUpdated, history])
 
   useEffect(() => {
     setFormValues({

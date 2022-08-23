@@ -20,7 +20,7 @@ export default function TenantDetails({ match }) {
       message.error(error);
       dispatch(clearErrors())
     }
-  }, [dispatch, currentPage, error])
+  }, [dispatch, currentPage, error, match.params.id])
 
   return (
     <div>
@@ -35,9 +35,7 @@ export default function TenantDetails({ match }) {
               <Details tenant={tenant} />
             )}
           </Card>
-          {loading ? (
-            <h4 className='text-center mt-5'></h4>
-          ) : (
+          {!loading && (
             <Table tickets={tickets} currentPage={currentPage} setCurrentPage={setCurrentPage} />
           )}
         </Col>

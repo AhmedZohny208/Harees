@@ -37,7 +37,7 @@ export default function Form() {
 			setAlertError(error)
 			dispatch(clearErrors())
 		}
-  }, [dispatch, error, area])
+  }, [dispatch, error, area, history])
 
   useEffect(() => {
     setFormValues({

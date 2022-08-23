@@ -70,7 +70,7 @@ export default function TableC() {
       message.error(errorDelete);
       dispatch(clearErrors())
     }
-  }, [dispatch, currentPage, isDeleted, error, errorDelete])
+  }, [dispatch, currentPage, isDeleted, error, errorDetails, errorDelete])
 
   const columns = [
     {

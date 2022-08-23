@@ -45,7 +45,7 @@ export default function Form() {
 			setAlertError(error)
 			dispatch(clearErrors())
 		}
-  }, [dispatch, error, technician, service])
+  }, [dispatch, error, technician, service, history])
 
   useEffect(() => {
     setFormValues({

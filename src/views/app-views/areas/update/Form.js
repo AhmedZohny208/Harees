@@ -27,7 +27,7 @@ export default function Form({ id }) {
 
   useEffect(() => {
     dispatch(getAreaDetails(id))
-  }, [id])
+  }, [id, dispatch])
 
   useEffect(() => {
     if (area) {
@@ -49,7 +49,7 @@ export default function Form({ id }) {
 			setAlertError(error)
 			dispatch(clearErrors())
 		}
-  }, [dispatch, error, isUpdated])
+  }, [dispatch, error, isUpdated, history])
 
   useEffect(() => {
     setFormValues({
