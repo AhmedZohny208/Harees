@@ -13,7 +13,14 @@ export const getProfileData = () => async (dispatch) => {
 
 		dispatch({ type: PROFILE_DATA_REQUEST })
 
-		const data = await axios.get(`${HOST}/owner/me`)
+		const storedToken = localStorage.getItem("HaressOwnerjwtToken")
+		const config = {
+      headers: {
+        'X-Auth-Token': storedToken
+      }
+    }
+
+		const data = await axios.get(`${HOST}/owner/me`, config)
 
 		dispatch({
 			type: PROFILE_DATA_SUCCESS,
