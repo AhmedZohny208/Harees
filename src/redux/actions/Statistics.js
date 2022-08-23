@@ -24,7 +24,7 @@ export const getStatistics = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: COMPOUND_STATISTICS_FAIL,
-      payload: error.response.data,
+      payload: error.response.data
     })
   }
 }

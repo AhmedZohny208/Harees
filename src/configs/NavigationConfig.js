@@ -138,14 +138,14 @@ const dashBoardNavTree = [
   //   breadcrumb: false,
   //   submenu: []
   // },
-  {
-    key: 'stats',
-    path: `${APP_PREFIX_PATH}/home/statistics`,
-    title: 'Statisitics',
-    icon: DotChartOutlined,
-    breadcrumb: false,
-    submenu: []
-  },
+  // {
+  //   key: 'stats',
+  //   path: `${APP_PREFIX_PATH}/home/statistics`,
+  //   title: 'Statisitics',
+  //   icon: DotChartOutlined,
+  //   breadcrumb: false,
+  //   submenu: []
+  // },
 ]
 
 const navigationConfig = [

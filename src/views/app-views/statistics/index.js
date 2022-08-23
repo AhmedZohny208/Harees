@@ -1,22 +1,21 @@
 import React, { useState, useEffect } from 'react'
 import { Col, Row, message, DatePicker } from 'antd';
+import { useHistory } from 'react-router-dom';
 import BreadcrumbC from './Breadcrumb'
 import {ReactComponent as Tickets} from '../../../components/shared-components/svgs/tickets.svg';
 import {ReactComponent as Teams} from '../../../components/shared-components/svgs/teams.svg';
 import TicketsGraph from './TicketsGraph';
 import { useDispatch, useSelector } from 'react-redux'
 import { getStatistics, getDomHistogramData, clearErrors } from 'redux/actions/Statistics'
+import { AUTH_PREFIX_PATH } from 'configs/AppConfig';
 
 const dateFormat = 'YYYY/MM/DD'
 
 export default function Statistics() {
+  const history = useHistory()
   const dispatch = useDispatch()
 
   const [monthDate, setMonthDate] = useState(new Date().toISOString().slice(0, 10))
-
-  // useEffect(() => {
-  //   console.log(monthDate);
-  // }, [monthDate])
 
   // GET COMPOUND STATISTICS
   const { statistics, error } = useSelector(state => state.compoundStatistics)
@@ -27,6 +26,10 @@ export default function Statistics() {
     dispatch(getStatistics())
 
     if (error) {
+      if (error === 'Session Error, try to login again') {
+        localStorage.removeItem("HaressOwnerjwtToken");
+        history.push(`${AUTH_PREFIX_PATH}/login`)
+      }
       message.error(error);
       dispatch(clearErrors())
     }

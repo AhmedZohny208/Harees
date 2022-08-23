@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Menu, Dropdown, Avatar } from "antd";
+import { Menu, Dropdown, Avatar, message } from "antd";
 import { useDispatch, useSelector } from 'react-redux'
 // import { useHistory } from "react-router-dom";
 import { 
@@ -28,7 +28,7 @@ export default function NavProfile() {
   const logoutHandler = () => {
     dispatch(logout())
     localStorage.removeItem("HaressOwnerjwtToken");
-    console.log('Logged out successfully.');
+    message.success('Logged out successfully.');
   }
   useEffect(() => {
     dispatch(getProfileData())
