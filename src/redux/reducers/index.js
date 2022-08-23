@@ -8,7 +8,8 @@ import {
 
 // PROFILE
 import {
-    profileDataReducer
+    profileDataReducer,
+    updateMeReducer
 } from './Profile'
 
 // AREAS
@@ -79,6 +80,7 @@ const reducers = combineReducers({
     ownerAuth: ownerAuthReducer,
 
     profileData: profileDataReducer,
+    updateMe: updateMeReducer,
 
     allAreas: allAreasReducer,
     registerArea: registerAreaReducer,

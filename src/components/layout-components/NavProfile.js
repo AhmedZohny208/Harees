@@ -1,22 +1,23 @@
 import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
 import { Menu, Dropdown, Avatar, message } from "antd";
 import { useDispatch, useSelector } from 'react-redux'
 // import { useHistory } from "react-router-dom";
 import { 
-  // EditOutlined, 
+  EditOutlined, 
   LogoutOutlined 
 } from '@ant-design/icons';
 import Icon from 'components/util-components/Icon';
 import { logout } from '../../redux/actions/Auth';
 import { getProfileData } from "redux/actions/Profile";
-import { AUTH_PREFIX_PATH } from 'configs/AppConfig';
+import { APP_PREFIX_PATH, AUTH_PREFIX_PATH } from 'configs/AppConfig';
 
 const menuItem = [
-	// {
-  //   title: "Edit Profile",
-  //   icon: EditOutlined ,
-  //   path: "/"
-  // }
+	{
+    title: "Edit Profile",
+    icon: EditOutlined ,
+    path: `${APP_PREFIX_PATH}/me/update`
+  }
 ]
 
 export default function NavProfile() {
@@ -52,10 +53,10 @@ export default function NavProfile() {
           {menuItem.map((el, i) => {
             return (
               <Menu.Item key={i}>
-                <a href={el.path}>
+                <Link to={el.path}>
                   <Icon type={el.icon} />
                   <span className="font-weight-normal">{el.title}</span>
-                </a>
+                </Link>
               </Menu.Item>
             );
           })}

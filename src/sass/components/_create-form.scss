@@ -286,9 +286,19 @@ label.file svg {
 .create-form .image,
 .display-modal .image {
   background-color: #999;
+  background-size: cover;
+  background-position: center;
   width: 130px;
   height: 130px;
   margin: auto;
   border-radius: 50%;
   margin-bottom: 24px;
+}
+
+// UPDATE PROFILE
+.create-form.update-profile .ant-upload {
+  display: block;
+}
+.create-form.update-profile .ant-upload button {
+  justify-content: center;
 }

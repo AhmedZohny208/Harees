@@ -11,6 +11,9 @@ export const AppViews = () => {
         {/* HOME */}
         <ProtectedRoute exact path={`${APP_PREFIX_PATH}/home`} component={lazy(() => import(`./home`))} />
 
+        {/* EDIT PROFILE */}
+        <ProtectedRoute exact path={`${APP_PREFIX_PATH}/me/update`} component={lazy(() => import(`./editProfile`))} />
+
         {/* COMPOUNDS */}
         <Route exact path={`${APP_PREFIX_PATH}/compounds`} component={lazy(() => import(`./compounds`))} />
         <Route path={`${APP_PREFIX_PATH}/compounds/create`} component={lazy(() => import(`./compounds/createCompound`))} />
