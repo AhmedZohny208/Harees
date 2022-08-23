@@ -5,17 +5,23 @@ import {ReactComponent as Tickets} from '../../../components/shared-components/s
 import {ReactComponent as Teams} from '../../../components/shared-components/svgs/teams.svg';
 import TicketsGraph from './TicketsGraph';
 import { useDispatch, useSelector } from 'react-redux'
-import { getStatistics, clearErrors } from 'redux/actions/Statistics'
+import { getStatistics, getDomHistogramData, clearErrors } from 'redux/actions/Statistics'
 
 const dateFormat = 'YYYY/MM/DD'
 
 export default function Statistics() {
   const dispatch = useDispatch()
 
-  const [monthDate, setMonthDate] = useState('')
+  const [monthDate, setMonthDate] = useState(new Date().toISOString().slice(0, 10))
+
+  // useEffect(() => {
+  //   console.log(monthDate);
+  // }, [monthDate])
 
   // GET COMPOUND STATISTICS
-  const { loading, statistics, error } = useSelector(state => state.compoundStatistics)
+  const { statistics, error } = useSelector(state => state.compoundStatistics)
+  // Get DOM Histogram data
+  const { domData, horizontalAxis, verticalAxis, error: errorDom } = useSelector(state => state.getDomHistogramData)
 
   useEffect(() => {
     dispatch(getStatistics())
@@ -25,6 +31,18 @@ export default function Statistics() {
       dispatch(clearErrors())
     }
   }, [dispatch, error])
+
+  useEffect(() => {
+    if (monthDate === '') {
+      dispatch(getDomHistogramData(new Date().toISOString().slice(0, 10)))
+    } else {
+      dispatch(getDomHistogramData(monthDate))
+    }
+    if (errorDom) {
+      message.error(errorDom);
+      dispatch(clearErrors())
+    }
+  }, [dispatch, monthDate, errorDom])
 
   return (
     <div className='statistics'>
@@ -175,12 +193,16 @@ export default function Statistics() {
             />
           </div>
         </div>
-        <div className="graph-info">
-          <span className="month">July</span>
-          <span className="num">4000</span>
-          <span> TICKETS</span>
-        </div>
-        <TicketsGraph />
+        {domData && (
+          <div className="graph-info">
+            <span className="month">{domData.monthName}</span>
+            <span className="num">{domData.totalMonthTicketsCount}</span>
+            <span> TICKETS</span>
+          </div>
+        )}
+        {(domData && horizontalAxis && verticalAxis) && (
+          <TicketsGraph domData={domData} horizontalAxis={horizontalAxis} verticalAxis={verticalAxis} />
+        )}
       </div>
 
     </div>

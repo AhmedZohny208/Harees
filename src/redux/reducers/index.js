@@ -69,7 +69,8 @@ import {
 
 // STATISTICS
 import {
-    compoundStatisticsReducer
+    compoundStatisticsReducer,
+    getDomHistogramDataReducer
 } from './Statistics'
 
 const reducers = combineReducers({
@@ -114,7 +115,8 @@ const reducers = combineReducers({
     teamDetails: teamDetailsReducer,
     team: teamReducer,
 
-    compoundStatistics: compoundStatisticsReducer
+    compoundStatistics: compoundStatisticsReducer,
+    getDomHistogramData: getDomHistogramDataReducer
 });
 
 export default reducers;
