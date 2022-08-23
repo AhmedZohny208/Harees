@@ -156,6 +156,24 @@ h1, h2, h3, h4, h5, h6, p {
   margin-right: 20px;
 }
 
+.statistics .card-lg .header.tickets-header {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify !important;
+      -ms-flex-pack: justify !important;
+          justify-content: space-between !important;
+}
+
+.statistics .card-lg .date-picker .ant-picker {
+  padding: 2px 10px !important;
+}
+
+.statistics .card-lg .date-picker .ant-picker svg {
+  width: 18px;
+}
+
 .login {
   background: #223e5c;
   background: linear-gradient(128deg, rgba(34, 62, 92, 0.78195) 60%, #28a5dd 95%);

@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react'
-import { Col, Row, message } from 'antd';
+import React, { useState, useEffect } from 'react'
+import { Col, Row, message, DatePicker } from 'antd';
 import BreadcrumbC from './Breadcrumb'
 import {ReactComponent as Tickets} from '../../../components/shared-components/svgs/tickets.svg';
 import {ReactComponent as Teams} from '../../../components/shared-components/svgs/teams.svg';
@@ -7,16 +7,18 @@ import TicketsGraph from './TicketsGraph';
 import { useDispatch, useSelector } from 'react-redux'
 import { getStatistics, clearErrors } from 'redux/actions/Statistics'
 
+const dateFormat = 'YYYY/MM/DD'
+
 export default function Statistics() {
   const dispatch = useDispatch()
+
+  const [monthDate, setMonthDate] = useState('')
 
   // GET COMPOUND STATISTICS
   const { loading, statistics, error } = useSelector(state => state.compoundStatistics)
 
   useEffect(() => {
     dispatch(getStatistics())
-
-    // console.log(statistics);
 
     if (error) {
       message.error(error);
@@ -159,8 +161,19 @@ export default function Statistics() {
       </Row>
 
       <div className="card-lg">
-        <div className="header">
+        <div className="header tickets-header">
           <h4>Tickets</h4>
+          <div className="date-picker">
+            <DatePicker
+              placeholder=''
+              format={dateFormat}
+              className='small w-100 mx-0'
+              id='contractStartDate'
+              onChange={(date, dateString) => {
+                setMonthDate(dateString)
+              }}
+            />
+          </div>
         </div>
         <div className="graph-info">
           <span className="month">July</span>
