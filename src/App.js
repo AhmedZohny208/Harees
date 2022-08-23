@@ -9,6 +9,7 @@ import { Route, Switch } from 'react-router-dom';
 import { ThemeSwitcherProvider } from "react-css-theme-switcher";
 import { THEME_CONFIG } from './configs/AppConfig';
 import axios from 'axios';
+import { HOST } from 'constants/ApiConstant';
 
 const themes = {
   dark: `${process.env.PUBLIC_URL}/css/dark-theme.css`,
@@ -16,12 +17,18 @@ const themes = {
 };
 
 function App() {
-
-  // SEND STORED TOKEN WITH EVERY REQUEST
   useEffect(() => {
     const storedToken = localStorage.getItem("HaressOwnerjwtToken");
-    if (storedToken){
-      axios.defaults.headers.common['X-Auth-Token'] = storedToken
+    const storedRefreshToken = localStorage.getItem("HaressOwnerjwtRefreshToken")
+    
+    if (storedToken && storedRefreshToken) {
+      axios.defaults.headers.common['X-Auth-Token'] = storedToken;
+      axios.defaults.headers.common['X-Auth-Refresh-Token'] = storedRefreshToken;
+
+      axios.get(`${HOST}/owner/signing/token`).then(res => {
+        localStorage.setItem("HaressOwnerjwtToken", res.headers['x-auth-token'])
+        localStorage.setItem("HaressOwnerjwtRefreshToken", res.headers['x-auth-refresh-token'])
+      }).catch(err => console.log(err))
     }
   })
 

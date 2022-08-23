@@ -9,6 +9,7 @@ import {
 } from '../constants/Auth'
 import { HOST } from "constants/ApiConstant";
 
+// login
 export const login = ({ email, password, fireBaseId, language }) => async (dispatch) => {
   try {
     dispatch({ type: LOGIN_REQUEST })

@@ -10,6 +10,7 @@ import {
 export const ownerAuthReducer = (state = { user: {} }, action) => {
   switch (action.type) {
 
+
     case LOGIN_REQUEST:
       return {
         loading: true,
@@ -22,7 +23,8 @@ export const ownerAuthReducer = (state = { user: {} }, action) => {
         loading: false,
 				isAuthenticated: true,
 				user: action.payload.data,
-        token: action.payload.headers['x-auth-token']
+        token: action.payload.headers['x-auth-token'],
+        refreshToken: action.payload.headers['x-auth-refresh-token']
       }
 
     case LOGOUT_SUCCESS:

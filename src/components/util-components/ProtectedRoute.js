@@ -6,18 +6,18 @@ import { AUTH_PREFIX_PATH } from 'configs/AppConfig'
 import { getProfileData } from "redux/actions/Profile";
 
 export default function ProtectedRoute({ component: Component, ...rest }) {
-
   const dispatch = useDispatch()
   const { isAuthenticated, loading } = useSelector(state => state.profileData)
+
+  const storedToken = localStorage.getItem("HaressOwnerjwtToken")
 
   useEffect(() => {
     dispatch(getProfileData())
   }, [dispatch])
 
   function isAuth() {
-    const token = localStorage.getItem('HaressOwnerjwtToken');
     try {
-      const { exp } = jwtDecode(token);
+      const { exp } = jwtDecode(storedToken);
       if (Date.now() >= exp * 1000) {
         return false;
       }
@@ -41,7 +41,7 @@ export default function ProtectedRoute({ component: Component, ...rest }) {
               return <Redirect to={`${AUTH_PREFIX_PATH}/login`} />
             }
 
-            if (!isAuthValid && isAuthenticated === false) {
+            if (isAuthenticated === false) {
               return <Redirect to={`${AUTH_PREFIX_PATH}/login`} />
             }
 

@@ -15,7 +15,7 @@ export default function LoginForm() {
 	let fireBaseId = "idddddd05127004107";
 	let language = "ar";
 
-	const { isAuthenticated, token, error, loading } = useSelector(state => state.ownerAuth)
+	const { isAuthenticated, token, refreshToken, error, loading } = useSelector(state => state.ownerAuth)
 
 	const [formValues, setFormValues] = useState({})
 	const [email, setEmail] = useState('')
@@ -56,7 +56,9 @@ export default function LoginForm() {
 		if (isAuthenticated) {
 			message.success('Logged in successfully')
 			axios.defaults.headers.common['X-Auth-Token'] = token
+			axios.defaults.headers.common['X-Auth-Refresh-Token'] = refreshToken;
 			localStorage.setItem('HaressOwnerjwtToken', token)
+			localStorage.setItem('HaressOwnerjwtRefreshToken', refreshToken)
 			dispatch(getProfileData())
 			history.push(`${APP_PREFIX_PATH}/app/home`)
 		}
@@ -64,7 +66,7 @@ export default function LoginForm() {
 			setAlertError(error)
 			dispatch(clearErrors())
 		}
-	}, [dispatch, isAuthenticated, error, history, token])
+	}, [dispatch, isAuthenticated, error, history, token, refreshToken])
 
 	return (
 		<>
