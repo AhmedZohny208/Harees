@@ -18,7 +18,7 @@ export default function MainCard({ services }) {
       > 
         <Row gutter={16}>
           {services && services.map(service => (
-            <Col span={6}>
+            <Col key={service._id} span={6}>
               <div className="item-img" style={{ backgroundColor: service.color }}>
                 <div className="image" style={{ backgroundImage: `url(${service.iconPicturePath})` }}></div>
                 <div className="info">

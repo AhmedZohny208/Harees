@@ -76,6 +76,7 @@ export default function Services() {
               services={services} 
               showDeleteModal={showDeleteModal} 
               showDisplayModal={showDisplayModal}
+              rowKey={services => services._id}
             />
           </>
         )}

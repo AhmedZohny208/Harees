@@ -116,7 +116,7 @@ export default function TableC() {
               columns={columns}
               dataSource={tenants}
               pagination={false}
-              rowKey={data => data._id}
+              rowKey={tenants => tenants._id}
             />
           ) : (
             <h4 className='text-center mt-5'>NO TENANTS FOUND</h4>
